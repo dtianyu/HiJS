@@ -17,7 +17,7 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
-public class StoreSessionBean extends SuperEJB<Store>{
+public class StoreBean extends SuperEJB<Store>{
 
     @Override
     public List<Store> getByPId(String value) {

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view contentType="text/html">
+        <h:head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" ></meta>
+            <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+            <link href="resources/css/master.css" rel="stylesheet"/>
+            <script src="resources/js/master.js"></script>
+            <title>金山生活.管理平台</title>
+        </h:head>
+        <h:body>
+            <div id="top">
+                <div id="topInfo">
+                    <ui:insert name="topInfo">
+                        <div class="ui-grid ui-grid-responsive">
+                            <h:form id="formSignInfo">
+                                <p:menubar id="signMenu">    
+                                    <p:submenu label="金山生活"/>
+                                    <p:submenu label="#{userManagedBean.currentUser.username}" rendered="#{userManagedBean.status}" style="float:right;padding-right: 20px">
+                                        <p:menuitem id="logout" value="注销" action="#{userManagedBean.logout()}" update="@form" />
+                                    </p:submenu>  
+                                </p:menubar>
+                            </h:form>
+                        </div>
+                    </ui:insert>
+                </div>
+                <div id="topNav">
+                    <ui:insert name="topNav">
+                    </ui:insert>
+                </div>
+                <div id="topAdv">
+                    <ui:insert name="topAdv">
+                    </ui:insert>
+                </div>
+            </div>           
+            <div id="container">
+                <div class="ui-grid ui-grid-responsive">
+                    <div class="ui-grid-row">
+                        <div id="leftSlide" class="ui-grid-col-2">  
+                            <ui:insert name="left">
+                                <ui:include src="leftMenu.xhtml"/>
+                            </ui:insert>
+                        </div>
+                        <div id="rightContent" class="ui-grid-col-10">
+                            <ui:insert name="right">
+
+                            </ui:insert>
+                        </div>
+                    </div>
+                </div>
+                <div id="center" class="ui-grid ui-grid-responsive">
+                    <div class="ui-grid-row">
+                        <ui:insert name="center">
+                        </ui:insert>
+                    </div>
+                </div>
+            </div>
+            <div id="bottom" class="navbar-fixed-bottom">
+                <div id="copyright" style="padding-top: 10px;text-align: center;">
+                    <span style="color: black">© 2014 </span>
+                </div>
+            </div>
+        </h:body>
+    </f:view>
+</html>

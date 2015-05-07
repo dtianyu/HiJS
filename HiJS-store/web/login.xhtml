@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+        <ui:composition template="./template/master.xhtml">
+            <ui:define name="topNav">
+            </ui:define>
+            <ui:define name="left"></ui:define>
+            <ui:define name="right"></ui:define>
+            <ui:define name="center">  
+                <div id="loginDailog">
+                    <h:form id="loginForm" >
+                        <p:growl id="growl" showSummary="false" showDetail="true" autoUpdate="true" sticky="true"/> 
+                        <p:inputText id="userid"  value="#{userManagedBean.userid}" label="账户" required="true" placeholder="账户" /> 
+                        <p:password id="pwd"  value="#{userManagedBean.pwd}"  label="密码"  required="true" placeholder="密码"/>                        
+                        <p:commandButton id="btnLogin" value="登录" action ="#{userManagedBean.login()}" 
+                                         styleClass="button primary" /> 
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

@@ -45,15 +45,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Store.findByHot", query = "SELECT s FROM Store s WHERE s.hot = :hot"),
     @NamedQuery(name = "Store.findByIdx", query = "SELECT s FROM Store s WHERE s.idx = :idx"),
     @NamedQuery(name = "Store.findByStatus", query = "SELECT s FROM Store s WHERE s.status = :status")})
-public class Store implements Serializable {
+public class Store extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
-     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
     @Column(name = "kind")
@@ -355,5 +349,4 @@ public class Store implements Serializable {
         return "com.jinshanlife.entity.Store[ id=" + id + " ]";
     }
 
-    
 }

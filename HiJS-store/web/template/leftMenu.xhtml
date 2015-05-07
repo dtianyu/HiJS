@@ -1,50 +1,19 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 
 
     <ui:composition>
 
-        <h:form id="formleft">   
-            <p:panelMenu rendered="${userManagedBean.status}">  
+        <h:form id="leftForm">   
+            <p:panelMenu rendered="true">  
                 <p:submenu label="系统设置">  
-                    <p:menuitem value="公司信息"  url="storeList.xhtml" />  
-                    <p:menuitem value="系统用户"  url="sysuserList.xhtml" /> 
-                    <p:menuitem value="权限管理"  url="privgrpList.xhtml" /> 
-                    <p:menuitem value="修改密码"  url="/faces/sysuserPwd.xhtml" /> 
-                </p:submenu>
-                <p:submenu label="意见反馈"> 
-                    <p:menuitem value="模块配置"  url="syshrList.xhtml" /> 
-                    <p:menuitem value="部门信息"  outcome="department"/>  
-                </p:submenu>
-                <p:submenu label="物料管理">  
-                    <p:menuitem value="物料大类"  url="itemClassList.xhtml" />  
-                    <p:menuitem value="物料信息"  url="itemMaster.xhtml" />  
-                </p:submenu>
-                <p:submenu label="客户服务">  
-                    <p:submenu label="基础资料">
-                        <p:menuitem value="模块配置" url="syscsList.xhtml"/>
-                        <p:menuitem value="客户信息" url="/faces/sd/customerList.xhtml"/>
-                        <p:menuitem value="客户维护" outcome="customer"/>
-                        <p:menuitem value="请求类别" outcome="complaintClass"/>  
-                        <p:menuitem value="请求代码" url="complaintCodeList.xhtml"/>                          
-                    </p:submenu>
-                    <p:submenu label="日常作业">
-                        <p:menuitem value="请求维护" outcome="complaint"/>
-                        <p:menuitem value="服务工单" outcome="service"/>              
-                    </p:submenu>
-                    <p:submenu label="客服分析">
-
-                    </p:submenu>
-                </p:submenu>                        
-                <p:submenu label="经销管理" >  
-                    <p:menuitem value="客户信息" url="customerList.xhtml"/>
-                    <p:menuitem value="订单查询" url="salesOrderList.xhtml"/>
-                    <p:menuitem value="订单明细" url="salesDetailList.xhtml"/>
-                </p:submenu>  
+                    <p:menuitem value="商家信息"  outcome="store" />  
+                    <p:menuitem value="系统用户"  url="index.xhtml" /> 
+                </p:submenu> 
             </p:panelMenu> 
         </h:form>  
 
