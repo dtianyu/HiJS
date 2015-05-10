@@ -10,10 +10,13 @@
 
         <h:form id="leftForm">   
             <p:panelMenu rendered="true">  
-                <p:submenu label="系统设置">  
-                    <p:menuitem value="商家信息"  outcome="store" />  
+                <p:submenu label="系统设置"> 
                     <p:menuitem value="系统用户"  url="index.xhtml" /> 
-                </p:submenu> 
+                </p:submenu>
+                <p:submenu label="系统维护"> 
+                    <p:menuitem value="Web链接"  outcome="weblink" /> 
+                    <p:menuitem value="商家信息"  outcome="store" />  
+                </p:submenu>
             </p:panelMenu> 
         </h:form>  
 

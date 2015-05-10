@@ -3,18 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jinshanlife.lazy;
+package com.jinshanlife.ejb;
 
 import com.jinshanlife.comm.SuperEJB;
 import com.jinshanlife.entity.Weblink;
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.ejb.LocalBean;
 
 /**
  *
  * @author kevindong
  */
-public class WeblinkModel extends BaseModel<Weblink> {
+@Stateless
+@LocalBean
+public class WeblinkBean extends SuperEJB<Weblink> {
 
-    public WeblinkModel(SuperEJB sessionBean) {
-        this.superEJB = sessionBean;
+    public WeblinkBean() {
+        this.className = "Weblink";
     }
 }

@@ -24,8 +24,6 @@ public abstract class SuperEJB<T> implements Serializable {
 
     protected String className;
 
-    public abstract List<T> getByPId(String value);
-
     public void delete(T entity) {
         try {
             if (em.contains(entity)) {
@@ -43,8 +41,15 @@ public abstract class SuperEJB<T> implements Serializable {
     }
 
     public int getRowCount() {
-        Query query = em.createNamedQuery(getClassName() + ".getRowCount");
-        return Integer.parseInt(query.getSingleResult().toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT COUNT(*) FROM ");
+        sb.append(this.className);
+        Query query = em.createNativeQuery(sb.toString());
+        if (query.getSingleResult() == null) {
+            return 0;
+        } else {
+            return Integer.parseInt(query.getSingleResult().toString());
+        }
     }
 
     public int getRowCount(Map<String, Object> filters) {
@@ -55,7 +60,7 @@ public abstract class SuperEJB<T> implements Serializable {
         if (filters != null) {
             for (Map.Entry<String, Object> e : filters.entrySet()) {
                 if (e.getValue().getClass() == String.class) {
-                    sb.append(" and e.").append(e.getKey()).append(" like :").append(e.getKey());                  
+                    sb.append(" and e.").append(e.getKey()).append(" like :").append(e.getKey());
                 } else {
                     sb.append(" and e.").append(e.getKey()).append(" = :").append(e.getKey());
                 }
@@ -65,7 +70,7 @@ public abstract class SuperEJB<T> implements Serializable {
         if (filters != null) {
             for (Map.Entry<String, Object> e : filters.entrySet()) {
                 if (e.getValue().getClass() == String.class) {
-                    query.setParameter(e.getKey(), "%" + e.getValue() + "%");                 
+                    query.setParameter(e.getKey(), "%" + e.getValue() + "%");
                 } else {
                     query.setParameter(e.getKey(), e.getValue());
                 }
@@ -80,7 +85,11 @@ public abstract class SuperEJB<T> implements Serializable {
     }
 
     public List<T> findAll(int first, int pageSize) {
-        Query query = em.createNamedQuery(getClassName() + ".findAll").setFirstResult(first).setMaxResults(first + pageSize);
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT e.* FROM ");
+        sb.append(this.className);
+        sb.append(" e ");
+        Query query = em.createNativeQuery(sb.toString()).setFirstResult(first).setMaxResults(first + pageSize);
         return query.getResultList();
     }
 

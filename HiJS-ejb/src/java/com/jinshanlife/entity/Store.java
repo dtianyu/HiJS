@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "store")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Store.getRowCount", query = "SELECT count(s) FROM Store s"),
     @NamedQuery(name = "Store.findAll", query = "SELECT s FROM Store s"),
     @NamedQuery(name = "Store.findById", query = "SELECT s FROM Store s WHERE s.id = :id"),
     @NamedQuery(name = "Store.findByName", query = "SELECT s FROM Store s WHERE s.name = :name"),
@@ -45,7 +46,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Store.findByHot", query = "SELECT s FROM Store s WHERE s.hot = :hot"),
     @NamedQuery(name = "Store.findByIdx", query = "SELECT s FROM Store s WHERE s.idx = :idx"),
     @NamedQuery(name = "Store.findByStatus", query = "SELECT s FROM Store s WHERE s.status = :status")})
-public class Store extends BaseEntity {
+public class Store extends BaseOperateEntity {
 
     @Basic(optional = false)
     @NotNull
@@ -104,29 +105,6 @@ public class Store extends BaseEntity {
     @Size(max = 45)
     @Column(name = "logo2")
     private String logo2;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2)
-    @Column(name = "status")
-    private String status;
-    @Size(max = 45)
-    @Column(name = "creator")
-    private String creator;
-    @Column(name = "credate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date credate;
-    @Size(max = 45)
-    @Column(name = "optuser")
-    private String optuser;
-    @Column(name = "optdate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date optdate;
-    @Size(max = 45)
-    @Column(name = "cfmuser")
-    private String cfmuser;
-    @Column(name = "cfmdate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date cfmdate;
 
     public Store() {
     }
@@ -146,14 +124,6 @@ public class Store extends BaseEntity {
         this.hot = hot;
         this.idx = idx;
         this.status = status;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getKind() {
@@ -266,62 +236,6 @@ public class Store extends BaseEntity {
 
     public void setLogo2(String logo2) {
         this.logo2 = logo2;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator;
-    }
-
-    public Date getCredate() {
-        return credate;
-    }
-
-    public void setCredate(Date credate) {
-        this.credate = credate;
-    }
-
-    public String getOptuser() {
-        return optuser;
-    }
-
-    public void setOptuser(String optuser) {
-        this.optuser = optuser;
-    }
-
-    public Date getOptdate() {
-        return optdate;
-    }
-
-    public void setOptdate(Date optdate) {
-        this.optdate = optdate;
-    }
-
-    public String getCfmuser() {
-        return cfmuser;
-    }
-
-    public void setCfmuser(String cfmuser) {
-        this.cfmuser = cfmuser;
-    }
-
-    public Date getCfmdate() {
-        return cfmdate;
-    }
-
-    public void setCfmdate(Date cfmdate) {
-        this.cfmdate = cfmdate;
     }
 
     @Override

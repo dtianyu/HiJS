@@ -15,11 +15,12 @@ import org.primefaces.model.SortOrder;
 /**
  *
  * @author kevindong Ï
+ * @param <T>
  */
-public abstract class BaseModel extends LazyDataModel<BaseEntity> {
+public abstract class BaseModel<T extends BaseEntity> extends LazyDataModel<T> {
 
-    protected SuperEJB sessionBean;
-    private List<BaseEntity> dataList;
+    protected SuperEJB superEJB;
+    protected List<T> dataList;
 
     @Override
     public void setRowIndex(int rowIndex) {
@@ -35,8 +36,8 @@ public abstract class BaseModel extends LazyDataModel<BaseEntity> {
     }
 
     @Override
-    public BaseEntity getRowData(String rowKey) {
-        for (BaseEntity entity : dataList) {
+    public T getRowData(String rowKey) {
+        for (T entity : dataList) {
             if (entity.getId().toString().equals(rowKey)) {
                 return entity;
             }
@@ -45,28 +46,28 @@ public abstract class BaseModel extends LazyDataModel<BaseEntity> {
     }
 
     @Override
-    public Object getRowKey(BaseEntity entity) {
-        return entity.getId();
+    public Object getRowKey(T t) {
+        return t.getId();
     }
 
     @Override
-    public List<BaseEntity> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        setDataList(sessionBean.findAll(first, pageSize));
-        setRowCount(sessionBean.getRowCount());
+    public List<T> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+        setDataList(superEJB.findAll(first, pageSize));
+        setRowCount(superEJB.getRowCount());
         return this.dataList;
     }
 
     /**
      * @return the dataList
      */
-    public List<BaseEntity> getDataList() {
+    public List<T> getDataList() {
         return dataList;
     }
 
     /**
      * @param dataList the dataList to set
      */
-    public void setDataList(List<BaseEntity> dataList) {
+    public void setDataList(List<T> dataList) {
         this.dataList = dataList;
     }
 

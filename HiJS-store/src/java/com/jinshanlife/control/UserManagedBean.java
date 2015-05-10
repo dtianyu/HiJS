@@ -5,7 +5,6 @@
 package com.jinshanlife.control;
 
 import com.jinshanlife.comm.Lib;
-import com.jinshanlife.ejb.StoreBean;
 import com.jinshanlife.ejb.SystemUserBean;
 import com.jinshanlife.entity.SystemUser;
 

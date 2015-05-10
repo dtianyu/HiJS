@@ -17,13 +17,9 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
-public class StoreBean extends SuperEJB<Store>{
+public class StoreBean extends SuperEJB<Store> {
 
-    @Override
-    public List<Store> getByPId(String value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public StoreBean() {
+        this.className = "Store";
     }
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 }

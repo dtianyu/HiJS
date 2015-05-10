@@ -20,11 +20,8 @@ import javax.persistence.Query;
 @LocalBean
 public class SystemUserBean extends SuperEJB<SystemUser> {
 
-    @Override
-    public List<SystemUser> getByPId(String value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    // Add business logic below. (Right-click in editor and choose
+    // "Insert Code > Add Business Method 
     public SystemUser getByIdAndPwd(String id, String pwd) {
         Query query = em.createNamedQuery("SystemUser.findByIdAndPwd");
         query.setParameter("id", id);
@@ -35,7 +32,5 @@ public class SystemUserBean extends SuperEJB<SystemUser> {
             throw new NullPointerException();
         }
     }
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+      
 }

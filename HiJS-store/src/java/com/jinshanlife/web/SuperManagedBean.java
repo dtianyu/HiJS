@@ -3,14 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jinshanlife.comm;
+package com.jinshanlife.web;
 
 import com.jinshanlife.comm.SuperEJB;
+import com.jinshanlife.control.UserManagedBean;
+import com.jinshanlife.entity.BaseEntity;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import org.primefaces.model.LazyDataModel;
 
@@ -19,15 +24,22 @@ import org.primefaces.model.LazyDataModel;
  * @author C0160
  * @param <T>
  */
-public abstract class SuperManagedBean<T> implements Serializable {
+public abstract class SuperManagedBean<T extends BaseEntity> implements Serializable {
 
-    private Class<T> entityClass;
-    protected SuperEJB sessionBean;
+    protected Class<T> entityClass;
+    protected SuperEJB superEJB;
+
+    @ManagedProperty(value = "#{userManagedBean}")
+    protected UserManagedBean userManagedBean;
 
     protected T currentEntity;
     protected T newEntity;
     protected List<T> entityList;
     protected LazyDataModel model;
+
+    public SuperManagedBean() {
+
+    }
 
     public SuperManagedBean(Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -50,25 +62,23 @@ public abstract class SuperManagedBean<T> implements Serializable {
         setNewEntity(null);
     }
 
-    public abstract void create();
-
-    public abstract void verify();
-
-    public abstract void unverify();
-
     public abstract String viewDetail(T entity);
 
-    public void init() {
-        setEntityList(retrieve());
-        if (!getEntityList().isEmpty()) {
-            setCurrentEntity(getEntityList().get(0));
+    public void create() {
+        if (getNewEntity() == null) {
+            try {
+                T entity = entityClass.newInstance();
+                setNewEntity(entity);
+            } catch (InstantiationException | IllegalAccessException ex) {
+                Logger.getLogger(SuperManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     public void delete(T entity) {
         if (entity != null) {
             try {
-                getSessionBean().delete(entity);
+                getSuperEJB().delete(entity);
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
@@ -83,22 +93,29 @@ public abstract class SuperManagedBean<T> implements Serializable {
         }
     }
 
+    public void init() {
+        setEntityList(retrieve());
+        if (!getEntityList().isEmpty()) {
+            setCurrentEntity(getEntityList().get(0));
+        }
+    }
+
     public void persist() {
         if (getNewEntity() != null) {
             try {
-                getSessionBean().persist(getNewEntity());
+                getSuperEJB().persist(getNewEntity());
+                setNewEntity(null);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "更新成功！"));
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
-            setNewEntity(null);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "更新成功！"));
         }
     }
 
     public void save() {
         if (currentEntity != null) {
             try {
-                getSessionBean().update(currentEntity);
+                getSuperEJB().update(currentEntity);
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.toString()));
             }
@@ -117,7 +134,7 @@ public abstract class SuperManagedBean<T> implements Serializable {
     }
 
     public List<T> retrieve() {
-        return getSessionBean().findAll();
+        return getSuperEJB().findAll();
     }
 
     /**
@@ -163,17 +180,17 @@ public abstract class SuperManagedBean<T> implements Serializable {
     }
 
     /**
-     * @return the sessionBean
+     * @return the superEJB
      */
-    public SuperEJB getSessionBean() {
-        return sessionBean;
+    public SuperEJB getSuperEJB() {
+        return superEJB;
     }
 
     /**
-     * @param sessionBean the sessionBean to set
+     * @param superEJB the superEJB to set
      */
-    public void setSessionBean(SuperEJB sessionBean) {
-        this.sessionBean = sessionBean;
+    public void setSuperEJB(SuperEJB superEJB) {
+        this.superEJB = superEJB;
     }
 
     /**
@@ -188,6 +205,20 @@ public abstract class SuperManagedBean<T> implements Serializable {
      */
     public void setModel(LazyDataModel model) {
         this.model = model;
+    }
+
+    /**
+     * @return the userManagedBean
+     */
+    public UserManagedBean getUserManagedBean() {
+        return userManagedBean;
+    }
+
+    /**
+     * @param userManagedBean the userManagedBean to set
+     */
+    public void setUserManagedBean(UserManagedBean userManagedBean) {
+        this.userManagedBean = userManagedBean;
     }
 
 }
