@@ -26,58 +26,58 @@
                                                  oncomplete="PF('newDialog').show();" update=":formNew:dlgNew"/>
                                 <p:outputLabel>资料维护</p:outputLabel>
                             </f:facet>
-                            <p:column>
+                            <p:column styleClass="w060">
                                 <f:facet name="header">
-                                    <h:outputText value="Id"/>
+                                    <h:outputText value="序号"/>
                                 </f:facet>
                                 <h:outputText value="#{item.id}"/>
                             </p:column>
-                            <p:column>
+                            <p:column styleClass="w160">
                                 <f:facet name="header">
-                                    <h:outputText value="Name"/>
+                                    <h:outputText value="名称"/>
                                 </f:facet>
                                 <h:outputText value="#{item.name}"/>
                             </p:column>
-                            <p:column>
+                            <p:column  styleClass="w300">
                                 <f:facet name="header">
-                                    <h:outputText value="Url"/>
+                                    <h:outputText value="Url地址"/>
                                 </f:facet>
                                 <h:outputText value="#{item.url}"/>
                             </p:column>
-                            <p:column>
+                            <p:column  styleClass="w160">
                                 <f:facet name="header">
                                     <h:outputText value="Logo1"/>
                                 </f:facet>
                                 <h:outputText value="#{item.logo1}"/>
                             </p:column>
-                            <p:column>
+                            <p:column  styleClass="w160">
                                 <f:facet name="header">
                                     <h:outputText value="Logo2"/>
                                 </f:facet>
                                 <h:outputText value="#{item.logo2}"/>
                             </p:column>
-                            <p:column>
+                            <p:column  styleClass="w060">
                                 <f:facet name="header">
-                                    <h:outputText value="Idx"/>
+                                    <h:outputText value="排序"/>
                                 </f:facet>
                                 <h:outputText value="#{item.idx}"/>
                             </p:column>
-                            <p:column>
+                            <p:column  styleClass="w060">
                                 <f:facet name="header">
-                                    <h:outputText value="Status"/>
+                                    <h:outputText value="状态"/>
                                 </f:facet>
                                 <h:outputText value="#{item.status}"/>
                             </p:column> 
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="设置"/>
+                                    <h:outputText value="菜单"/>
                                 </f:facet>
                                 <p:menuButton value="操作" style="float: right">  
-                                    <p:menuitem id="btnView" actionListener="#{weblinkManagedBean.view(item)}" icon="ui-icon-document" value="#{i18n.btnView}" 
-                                                oncomplete="viewDialog.show()" update=":formView:dlgView"/>                                 
-                                    <p:menuitem id="btnEdit" actionListener="#{weblinkManagedBean.edit(item)}" icon="ui-icon-pencil" value="#{i18n.btnEdit}" 
-                                                rendered="#{item.status!='V'}" oncomplete="editDialog.show()" update=":formEdit:dlgEdit"/>                                                     
-                                    <p:menuitem id="btnDelete" actionListener="#{weblinkManagedBean.delete(item)}" icon="ui-icon-close" value="#{i18n.btnDelete}" 
+                                    <p:menuitem id="btnView" actionListener="#{weblinkManagedBean.view(item)}" icon="ui-icon-document" value="查看" 
+                                                oncomplete="PF('viewDialog').show()" update=":formView:dlgView"/>                                 
+                                    <p:menuitem id="btnEdit" actionListener="#{weblinkManagedBean.edit(item)}" icon="ui-icon-pencil" value="编辑" 
+                                                rendered="#{item.status!='V'}" oncomplete="PF('editDialog').show()" update=":formEdit:dlgEdit"/>                                                     
+                                    <p:menuitem id="btnDelete" actionListener="#{weblinkManagedBean.delete(item)}" icon="ui-icon-close" value="删除" 
                                                 rendered="#{item.status!='V' }" update=":formList"/>                  
                                 </p:menuButton>
                             </p:column>
@@ -89,17 +89,17 @@
                     </h:form>
                     <h:form id="formNew">
                         <p:dialog id="dlgNew" header="ItemMaster Info" widgetVar="newDialog" modal="true"   >
-                            <p:panelGrid id="plgNew" columns="6" columnClasses="plgLable,plgInput,plgLabel,plgInput,plgLabel,plgInput">
+                            <p:panelGrid id="plgNew" columns="2" columnClasses="w120,w400">
                                 <p:outputLabel value="Name:" for="name" />
-                                <p:inputText id="name" value="#{weblinkManagedBean.newEntity.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
+                                <p:inputText id="name" value="#{weblinkManagedBean.newEntity.name}" title="网站" required="true" requiredMessage="The Name field is required."/>
                                 <p:outputLabel value="Url:" for="url" />
-                                <p:inputText id="url" value="#{weblinkManagedBean.newEntity.url}" title="Url" required="true" requiredMessage="The Url field is required."/>
+                                <p:inputText id="url" value="#{weblinkManagedBean.newEntity.url}" title="Url地址" required="true" requiredMessage="The Url field is required."/>
                                 <p:outputLabel value="Logo1:" for="logo1" />
                                 <p:inputText id="logo1" value="#{weblinkManagedBean.newEntity.logo1}" title="Logo1" />
                                 <p:outputLabel value="Logo2:" for="logo2" />
                                 <p:inputText id="logo2" value="#{weblinkManagedBean.newEntity.logo2}" title="Logo2" />
                                 <p:outputLabel value="Idx:" for="idx" />
-                                <p:inputText id="idx" value="#{weblinkManagedBean.newEntity.idx}" title="Idx" required="true" requiredMessage="The Idx field is required."/>
+                                <p:inputText id="idx" value="#{weblinkManagedBean.newEntity.idx}" title="排序" required="true" requiredMessage="The Idx field is required."/>
                                 <f:facet name="footer">
                                     <p:commandButton id="btnPersist" actionListener="#{weblinkManagedBean.persist()}" icon="ui-icon-disk" value="保存" style="float: right"
                                                      oncomplete="PF('newDialog').hide();" update=":formList"/>
@@ -108,16 +108,33 @@
                         </p:dialog>
                     </h:form>
                     <h:form id="formEdit">
-                        <p:dialog id="dlgEdit" header="ItemMaster Info" widgetVar="editDialog" modal="true"  >
+                        <p:dialog id="dlgEdit" header="站点链接" widgetVar="editDialog" modal="true"  >
                             <p:panelGrid columns="6" columnClasses="plgLable,plgInput,plgLabel,plgInput,plgLabel,plgInput">
 
                             </p:panelGrid>
                         </p:dialog>
                     </h:form>
                     <h:form id="formView">
-                        <p:dialog id="dlgView" header="ItemMaster Info" widgetVar="viewDialog" modal="true"  >
-                            <p:panelGrid columns="6" columnClasses="plgLable,plgInput,plgLabel,plgInput,plgLabel,plgInput">
-
+                        <p:dialog id="dlgView" header="站点链接" widgetVar="viewDialog" modal="true"  >
+                            <p:panelGrid id="plgNew" columns="2" columnClasses="w120,w400">
+                                <h:outputText value="Name:"/>
+                                <h:outputText value="#{weblinkManagedBean.currentEntity.name}" title="Name"/>
+                                <h:outputText value="Url:"/>
+                                <h:outputText value="#{weblinkManagedBean.currentEntity.url}" title="Url"/>
+                                <h:outputText value="Logo1:"/>
+                                <h:outputText value="#{weblinkManagedBean.currentEntity.logo1}" title="Logo1"/>
+                                <h:outputText value="Logo2:"/>
+                                <h:outputText value="#{weblinkManagedBean.currentEntity.logo2}" title="Logo2"/>
+                                <h:outputText value="Idx:"/>
+                                <h:outputText value="#{weblinkManagedBean.currentEntity.idx}" title="Idx"/>
+                                <h:outputText value="Status:"/>
+                                <h:outputText value="#{weblinkManagedBean.currentEntity.status}" title="Status"/>
+                                <f:facet name="footer">
+                                    <p:commandButton id="btnVerify" actionListener="#{weblinkManagedBean.verify()}" icon="ui-icon-locked" value="复核" style="float: right"
+                                                     rendered="#{weblinkManagedBean.currentEntity.status!='V'}"    oncomplete="PF('viewDialog').hide()" update=":formList"/>
+                                    <p:commandButton id="btnUnverify" actionListener="#{weblinkManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" style="float: right"
+                                                     rendered="#{weblinkManagedBean.currentEntity.status=='V'}"    oncomplete="PF('viewDialog').hide()" update=":formList"/>
+                                </f:facet>
                             </p:panelGrid>
                         </p:dialog>
                     </h:form>

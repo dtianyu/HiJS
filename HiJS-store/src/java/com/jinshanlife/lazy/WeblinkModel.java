@@ -10,11 +10,13 @@ import com.jinshanlife.entity.Weblink;
 
 /**
  *
- * @author kevindong
+ * @author C0160
  */
 public class WeblinkModel extends BaseModel<Weblink> {
 
     public WeblinkModel(SuperEJB sessionBean) {
         this.superEJB = sessionBean;
     }
+
+
 }

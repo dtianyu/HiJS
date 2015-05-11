@@ -13,8 +13,59 @@ li{
 .left{
     float: left;
 }
+.w040,.w040 input,.w040 label,.w040 span{
+    width: 40px;
+}
 
-/*-------------------------------网站整体布局*/
+.w060,.w060 input,.w060 label,.w060 span{
+    width: 60px;
+}
+
+.w080,.w080 input,.w080 label,.w080 span{
+    width: 80px;
+}
+
+.w100,.w100 input,.w100 label,.w100 span{
+    width: 100px;
+}
+
+.w120,.w120 input,.w120 label,.w120 span{
+    width: 120px;
+}
+
+.w140,.w140 input,.w140 label,.w140 span{
+    width: 140px;
+}
+
+.w160,.w160 input,.w160 label,.w160 span{
+    width: 160px;
+}
+
+.w180,.w180 input,.w180 label,.w180 span{
+    width: 180px;
+}
+
+.w200,.w200 input,.w200 label,.w200 span{
+    width: 200px;
+}
+
+.w250,.w250 input,.w250 label,.w250 span{
+    width: 250px;
+}
+
+.w300,.w300 input,.w300 label,.w300 span{
+    width: 300px;
+}
+
+.w350,.w350 input,.w350 label,.w350 span{
+    width: 350px;
+}
+
+.w400,.w400 input,.w400 label,.w400 span{
+    width: 400px;
+}
+
+/*-------------------------------整体风格*/
 #top{
   margin-bottom: 10px;
 }
@@ -46,9 +97,7 @@ li{
     border-top:  #1995dc solid 5px;
     text-align: center;
 }
-
-/*-------------------------------网站整体布局*/
-
+/*-------------------------------整体风格*/
 
 #loginDailog{
     position: relative;
@@ -68,6 +117,6 @@ li{
     width: 321px; 
 }
 
-.formSignInfo-signMenu-signOut{
-    width: 100px;
+.ui-datatable-header,.ui-datatable-footer{
+    height: 34px;
 }

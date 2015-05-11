@@ -41,10 +41,7 @@ public abstract class SuperEJB<T> implements Serializable {
     }
 
     public int getRowCount() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("SELECT COUNT(*) FROM ");
-        sb.append(this.className);
-        Query query = em.createNativeQuery(sb.toString());
+        Query query = em.createNamedQuery(getClassName() + ".getRowCount");
         if (query.getSingleResult() == null) {
             return 0;
         } else {
@@ -85,11 +82,7 @@ public abstract class SuperEJB<T> implements Serializable {
     }
 
     public List<T> findAll(int first, int pageSize) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("SELECT e.* FROM ");
-        sb.append(this.className);
-        sb.append(" e ");
-        Query query = em.createNativeQuery(sb.toString()).setFirstResult(first).setMaxResults(first + pageSize);
+        Query query = em.createNamedQuery(getClassName() + ".findAll").setFirstResult(first).setMaxResults(first + pageSize);
         return query.getResultList();
     }
 
