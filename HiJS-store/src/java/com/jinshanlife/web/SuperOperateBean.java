@@ -53,7 +53,7 @@ public abstract class SuperOperateBean<T extends BaseOperateEntity> extends Supe
                 currentEntity.setStatus("V");
                 currentEntity.setCfmuser(getUserManagedBean().getCurrentUser().getUserid());
                 currentEntity.setCfmdate(getUserManagedBean().getDate());
-                superEJB.update(currentEntity);
+                save();
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
@@ -68,7 +68,7 @@ public abstract class SuperOperateBean<T extends BaseOperateEntity> extends Supe
                 currentEntity.setOptdate(getUserManagedBean().getDate());
                 currentEntity.setCfmuser(null);
                 currentEntity.setCfmdate(null);
-                superEJB.update(currentEntity);
+                save();
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }

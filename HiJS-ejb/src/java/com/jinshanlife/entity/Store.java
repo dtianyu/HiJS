@@ -50,9 +50,8 @@ public class Store extends BaseOperateEntity {
 
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2)
     @Column(name = "kind")
-    private String kind;
+    private Integer kind;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
@@ -113,7 +112,7 @@ public class Store extends BaseOperateEntity {
         this.id = id;
     }
 
-    public Store(Integer id, String kind, String name, String address, String contactor, String mobile, String category, int hot, int idx, String status) {
+    public Store(Integer id, Integer kind, String name, String address, String contactor, String mobile, String category, int hot, int idx, String status) {
         this.id = id;
         this.kind = kind;
         this.name = name;
@@ -126,11 +125,11 @@ public class Store extends BaseOperateEntity {
         this.status = status;
     }
 
-    public String getKind() {
+    public Integer getKind() {
         return kind;
     }
 
-    public void setKind(String kind) {
+    public void setKind(Integer kind) {
         this.kind = kind;
     }
 

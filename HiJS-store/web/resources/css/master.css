@@ -13,6 +13,7 @@ li{
 .left{
     float: left;
 }
+
 .w040,.w040 input,.w040 label,.w040 span{
     width: 40px;
 }
@@ -65,7 +66,7 @@ li{
     width: 400px;
 }
 
-/*-------------------------------整体风格*/
+/*-------------------------------MainFrameStyle*/
 #top{
   margin-bottom: 10px;
 }
@@ -97,7 +98,7 @@ li{
     border-top:  #1995dc solid 5px;
     text-align: center;
 }
-/*-------------------------------整体风格*/
+/*-------------------------------MainFrameStyle*/
 
 #loginDailog{
     position: relative;
@@ -118,5 +119,9 @@ li{
 }
 
 .ui-datatable-header,.ui-datatable-footer{
-    height: 34px;
+    height: 32px;
+}
+
+.tableList td{
+     height: 26px; 
 }

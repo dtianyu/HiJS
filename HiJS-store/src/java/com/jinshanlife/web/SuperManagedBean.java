@@ -48,6 +48,7 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
     @PostConstruct
     public void construct() {
         if (!FacesContext.getCurrentInstance().isPostback()) {
+            create();
             init();
         }
     }
@@ -74,7 +75,16 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
             }
         }
     }
-
+  
+    public String create(String path) {
+        try {
+            create();
+            return path;
+        } catch (Exception e) {
+            return "404";
+        }
+    }
+  
     public void delete(T entity) {
         if (entity != null) {
             try {
@@ -97,6 +107,8 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
         setEntityList(retrieve());
         if (!getEntityList().isEmpty()) {
             setCurrentEntity(getEntityList().get(0));
+        } else {
+            setCurrentEntity(getNewEntity());
         }
     }
 
@@ -105,6 +117,7 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
             try {
                 getSuperEJB().persist(getNewEntity());
                 setNewEntity(null);
+                create();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "更新成功！"));
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
@@ -116,10 +129,10 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
         if (currentEntity != null) {
             try {
                 getSuperEJB().update(currentEntity);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "更新成功！"));
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.toString()));
             }
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "更新成功！"));
         }
     }
 
