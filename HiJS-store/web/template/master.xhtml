@@ -22,6 +22,7 @@
                             <h:form id="formSignInfo">
                                 <p:menubar id="signMenu">    
                                     <p:submenu label="金山生活"/>
+                                    <p:menuitem value="首页"  outcome="index"/>
                                     <p:submenu label="#{userManagedBean.currentUser.username}" rendered="#{userManagedBean.status}" style="float:right;padding-right: 20px">
                                         <p:menuitem id="logout" value="注销" action="#{userManagedBean.logout()}" update="@form" />
                                     </p:submenu>  

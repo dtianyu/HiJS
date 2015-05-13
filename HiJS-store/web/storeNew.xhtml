@@ -13,44 +13,66 @@
             <ui:define name="right">
                 <h:form id="formNew">
                     <p:growl id="growl" autoUpdate="true"  showSummary="false" showDetail="true" sticky="true" />
-                    <p:panelGrid id="plgNew" columns="2" columnClasses="w160,w400">
-                        <p:outputLabel value="板块" for="kind" />
-                        <p:selectOneMenu id="kind" value="#{storeManagedBean.newEntity.kind}" title="Kind" required="true" requiredMessage="The Kind field is required.">
-                            <!-- TODO: update below reference to list of available items-->
-                            <f:selectItem itemLabel="Select One" itemValue="" />  
-                            <f:selectItems value="#{storeKindQueryBean.dataList}"  var="e"  itemLabel="#{e.name}" itemValue="#{e.id}" />
-                        </p:selectOneMenu>  
-                        <p:outputLabel value="商家名称" for="name" />
-                        <p:inputText id="name" value="#{storeManagedBean.newEntity.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
-                        <p:outputLabel value="地址" for="address" />
-                        <p:inputText id="address" value="#{storeManagedBean.newEntity.address}" title="Address" required="true" requiredMessage="The Address field is required."/>
-                        <p:outputLabel value="联系人" for="contactor" />
-                        <p:inputText id="contactor" value="#{storeManagedBean.newEntity.contactor}" title="Contactor" required="true" requiredMessage="The Contactor field is required."/>
-                        <p:outputLabel value="手机" for="mobile" />
-                        <p:inputText id="mobile" value="#{storeManagedBean.newEntity.mobile}" title="Mobile" required="true" requiredMessage="The Mobile field is required."/>
-                        <p:outputLabel value="电话" for="phone" />
-                        <p:inputText id="phone" value="#{storeManagedBean.newEntity.phone}" title="Phone" />
-                        <p:outputLabel value="分类" for="category" />
-                        <p:inputText id="category" value="#{storeManagedBean.newEntity.category}" title="Category" required="true" requiredMessage="The Category field is required."/>
-                        <p:outputLabel value="专长" for="feature" />
-                        <p:inputText id="feature" value="#{storeManagedBean.newEntity.feature}" title="Feature" />
-                        <p:outputLabel value="活动" for="action" />
-                        <p:inputText id="action" value="#{storeManagedBean.newEntity.action}" title="Action" />
-                        <p:outputLabel value="消费" for="pcc" />
-                        <p:inputText id="pcc" value="#{storeManagedBean.newEntity.pcc}" title="Pcc" />
-                        <p:outputLabel value="好评" for="hot" />
-                        <p:inputText id="hot" value="#{storeManagedBean.newEntity.hot}" title="Hot" required="true" requiredMessage="The Hot field is required."/>
-                        <p:outputLabel value="排序" for="idx" />
-                        <p:inputText id="idx" value="#{storeManagedBean.newEntity.idx}" title="Idx" required="true" requiredMessage="The Idx field is required."/>
-                        <p:outputLabel value="小Logo" for="logo1" />
-                        <p:inputText id="logo1" value="#{storeManagedBean.newEntity.logo1}" title="Logo1" />
-                        <p:outputLabel value="大Logo" for="logo2" />
-                        <p:inputText id="logo2" value="#{storeManagedBean.newEntity.logo2}" title="Logo2" />
-                        <f:facet name="footer">   
-                            <p:commandButton id="btnPersist" actionListener="#{storeManagedBean.persist()}" icon="ui-icon-disk" value="保存" style="float: right"
-                                             update=":formNew:plgNew"  />
-                        </f:facet>      
-                    </p:panelGrid>
+                    <p:panel header="商家信息－新增">
+                        <h:panelGrid id="plgNew" columns="3" columnClasses="w120,w300" styleClass="plgNew">
+                            <p:outputLabel value="板块" for="kind" />
+                            <p:selectOneMenu id="kind" value="#{storeManagedBean.newEntity.kind}" title="Kind" required="true" requiredMessage="The Kind field is required.">
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItem itemLabel="Select One" itemValue="" />  
+                                <f:selectItems value="#{storeKindQueryBean.dataList}"  var="e"  itemLabel="#{e.name}" itemValue="#{e.id}" />
+                            </p:selectOneMenu>  
+                            <h:outputText value=""/>
+                            <p:outputLabel value="商家名称" for="name" />
+                            <p:inputText id="name" value="#{storeManagedBean.newEntity.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
+                            <h:outputText value=""/>
+                            <p:outputLabel value="地址" for="address" />
+                            <p:inputText id="address" value="#{storeManagedBean.newEntity.address}" title="Address" required="true" requiredMessage="The Address field is required."/>
+                            <h:outputText value=""/>
+                            <p:outputLabel value="联系人" for="contactor" />
+                            <p:inputText id="contactor" value="#{storeManagedBean.newEntity.contactor}" title="Contactor" required="true" requiredMessage="The Contactor field is required."/>
+                            <h:outputText value=""/>
+                            <p:outputLabel value="手机" for="mobile" />
+                            <p:inputText id="mobile" value="#{storeManagedBean.newEntity.mobile}" title="Mobile" required="true" requiredMessage="The Mobile field is required."/>
+                            <h:outputText value=""/>
+                            <p:outputLabel value="电话" for="phone" />
+                            <p:inputText id="phone" value="#{storeManagedBean.newEntity.phone}" title="Phone" />
+                            <h:outputText value=""/>
+                            <p:outputLabel value="分类" for="category" />
+                            <p:inputText id="category" value="#{storeManagedBean.newEntity.category}" title="Category" required="true" requiredMessage="The Category field is required."/>
+                            <h:outputText value=""/>
+                            <p:outputLabel value="专长" for="feature" />
+                            <p:inputText id="feature" value="#{storeManagedBean.newEntity.feature}" title="Feature" />
+                            <h:outputText value=""/>
+                            <p:outputLabel value="活动" for="action" />
+                            <p:inputText id="action" value="#{storeManagedBean.newEntity.action}" title="Action" />
+                            <h:outputText value=""/>
+                            <p:outputLabel value="消费" for="pcc" />
+                            <p:inputText id="pcc" value="#{storeManagedBean.newEntity.pcc}" title="Pcc" />
+                            <h:outputText value=""/>
+                            <p:outputLabel value="好评" for="hot" />
+                            <p:rating id="hot" value="#{storeManagedBean.newEntity.hot}" stars="5"/>
+                            <h:outputText value=""/>
+                            <p:outputLabel value="排序" for="idx" />
+                            <p:inputText id="idx" value="#{storeManagedBean.newEntity.idx}" title="Idx" required="true" requiredMessage="The Idx field is required."/>
+                            <h:outputText value=""/>
+                            <p:outputLabel value="小Logo" for="logo1" />
+                            <p:inputText id="logo1" value="#{storeManagedBean.newEntity.logo1}" title="Logo1" />
+                            <h:outputText value=""/>
+                            <p:outputLabel value="大Logo" for="logo2" />
+                            <p:inputText id="logo2" value="#{storeManagedBean.newEntity.logo2}" title="Logo2" />
+                            <h:outputText value=""/>
+                            <f:facet name="footer">   
+                                <p:commandButton id="btnPersist" actionListener="#{storeManagedBean.persist()}" icon="ui-icon-disk" value="保存" style="float: right"
+                                                 update=":formNew:plgNew"  />
+                            </f:facet>      
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+                <h:form id="formUpload">
+                    <p:fileUpload id="fileUpload"  fileUploadListener="#{fileUploadBean.handleFileUpload}" sizeLimit="5000000" styleClass="fileUpload"
+                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" update=":formUpload"/>
+                    <h:outputLabel value="文件名：" for="fileName" />
+                    <h:outputText id="fileName"  value="#{fileUploadBean.filename}"/>
                 </h:form>
             </ui:define>
 

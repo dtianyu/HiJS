@@ -12,17 +12,27 @@
         <from-view-id>*</from-view-id>
         <navigation-case>
             <from-outcome>weblink</from-outcome>
-            <to-view-id>/weblinkList.xhtml</to-view-id>
+            <to-view-id>/weblink.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>store</from-outcome>
-            <to-view-id>/storeList.xhtml</to-view-id>
+            <to-view-id>/store.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>storeNew</from-outcome>
             <to-view-id>/storeNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>storeEdit</from-outcome>
+            <to-view-id>/storeEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+                <navigation-case>
+            <from-outcome>storekind</from-outcome>
+            <to-view-id>/storekind.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

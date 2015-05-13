@@ -32,7 +32,7 @@
                                 <p:selectOneMenu id="kind" value="#{item.kind}" title="Kind" required="false" disabled="true">
                                     <!-- TODO: update below reference to list of available items-->
                                     <f:selectItem itemLabel="Select One" itemValue="" />  
-                                    <f:selectItems value="#{storeKindQueryBean.dataList}"  var="e"  itemLabel="#{e.name}" itemValue="#{e.id}" />
+                                    <f:selectItems value="#{storeKindQueryBean.entityList}"  var="e"  itemLabel="#{e.name}" itemValue="#{e.id}" />
                                 </p:selectOneMenu> 
                             </p:column>
                             <p:column styleClass="w350">
@@ -66,8 +66,8 @@
                                 <p:menuButton value="操作" style="float: right">  
                                     <p:menuitem id="btnView" actionListener="#{storeManagedBean.view(item)}" icon="ui-icon-document" value="查看" 
                                                 oncomplete="PF('viewDialog').show()" update=":formView:dlgView"/>                                 
-                                    <p:menuitem id="btnEdit" actionListener="#{storeManagedBean.edit(item)}" icon="ui-icon-pencil" value="编辑" 
-                                                rendered="#{item.status!='V'}" oncomplete="PF('editDialog').show()" update=":formEdit:dlgEdit"/>                                                     
+                                    <p:menuitem id="btnEdit" action="#{storeManagedBean.edit(item,'storeEdit')}" icon="ui-icon-pencil" value="编辑" 
+                                                rendered="#{item.status!='V'}" />                                                     
                                     <p:menuitem id="btnDelete" actionListener="#{storeManagedBean.delete(item)}" icon="ui-icon-close" value="删除" 
                                                 rendered="#{item.status!='V' }" update=":formList"/>                  
                                 </p:menuButton>
@@ -78,49 +78,7 @@
                                                  icon="ui-icon-search"    update=":formList"/>
                             </f:facet>
                         </p:dataTable>
-                    </h:form>
-                    <h:form id="formEdit">
-                        <p:dialog id="dlgEdit" header="商家信息－修改" widgetVar="editDialog" modal="true"  >
-                            <p:panelGrid columns="4" columnClasses="w120,w400,w120,w400">
-                                <p:outputLabel value="板块" for="kind" />
-                                <p:selectOneMenu id="kind" value="#{storeManagedBean.currentEntity.kind}" title="Kind" required="true" requiredMessage="The Kind field is required.">
-                                    <!-- TODO: update below reference to list of available items-->
-                                    <f:selectItem itemLabel="Select One" itemValue="" />  
-                                    <f:selectItems value="#{storeKindQueryBean.dataList}"  var="e"  itemLabel="#{e.name}" itemValue="#{e.id}" />
-                                </p:selectOneMenu> 
-                                <p:outputLabel value="商家名称" for="name" />
-                                <p:inputText id="name" value="#{storeManagedBean.currentEntity.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
-                                <p:outputLabel value="地址" for="address" />
-                                <p:inputText id="address" value="#{storeManagedBean.currentEntity.address}" title="Address" required="true" requiredMessage="The Address field is required."/>
-                                <p:outputLabel value="联系人" for="contactor" />
-                                <p:inputText id="contactor" value="#{storeManagedBean.currentEntity.contactor}" title="Contactor" required="true" requiredMessage="The Contactor field is required."/>
-                                <p:outputLabel value="手机" for="mobile" />
-                                <p:inputText id="mobile" value="#{storeManagedBean.currentEntity.mobile}" title="Mobile" required="true" requiredMessage="The Mobile field is required."/>
-                                <p:outputLabel value="电话" for="phone" />
-                                <p:inputText id="phone" value="#{storeManagedBean.currentEntity.phone}" title="Phone" />
-                                <p:outputLabel value="分类" for="category" />
-                                <p:inputText id="category" value="#{storeManagedBean.currentEntity.category}" title="Category" required="true" requiredMessage="The Category field is required."/>
-                                <p:outputLabel value="专长" for="feature" />
-                                <p:inputText id="feature" value="#{storeManagedBean.currentEntity.feature}" title="Feature" />
-                                <p:outputLabel value="活动" for="action" />
-                                <p:inputText id="action" value="#{storeManagedBean.currentEntity.action}" title="Action" />
-                                <p:outputLabel value="消费" for="pcc" />
-                                <p:inputText id="pcc" value="#{storeManagedBean.currentEntity.pcc}" title="Pcc" />
-                                <p:outputLabel value="好评" for="hot" />
-                                <p:inputText id="hot" value="#{storeManagedBean.currentEntity.hot}" title="Hot" required="true" requiredMessage="The Hot field is required."/>
-                                <p:outputLabel value="排序" for="idx" />
-                                <p:inputText id="idx" value="#{storeManagedBean.currentEntity.idx}" title="Idx" required="true" requiredMessage="The Idx field is required."/>
-                                <p:outputLabel value="小Logo" for="logo1" />
-                                <p:inputText id="logo1" value="#{storeManagedBean.currentEntity.logo1}" title="Logo1" />
-                                <p:outputLabel value="大Logo" for="logo2" />
-                                <p:inputText id="logo2" value="#{storeManagedBean.currentEntity.logo2}" title="Logo2" />                                
-                                <f:facet name="footer">   
-                                    <p:commandButton id="btnSave" actionListener="#{storeManagedBean.save()}" icon="ui-icon-disk" value="保存" style="float: right"
-                                                     oncomplete="PF('editDialog').hide();" update=":formList"/>
-                                </f:facet>  
-                            </p:panelGrid>
-                        </p:dialog>
-                    </h:form>
+                    </h:form>                 
                     <h:form id="formView">
                         <p:dialog id="dlgView" header="商家信息－查看" widgetVar="viewDialog" modal="true"  >
                             <p:panelGrid id="plgNew" columns="4" columnClasses="w120,w400,w120,w400">

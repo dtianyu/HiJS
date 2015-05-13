@@ -6,6 +6,7 @@
 package com.jinshanlife.query;
 
 import com.jinshanlife.entity.StoreKind;
+import com.jinshanlife.web.SuperQueryBean;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -17,34 +18,10 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class StoreKindQueryBean {
+public class StoreKindQueryBean extends SuperQueryBean<StoreKind>{
 
-    private List<StoreKind> dataList;
-
-    /**
-     * Creates a new instance of StoreKindQueryBean
-     */
     public StoreKindQueryBean() {
-        dataList = new ArrayList<>();
-        dataList.add(new StoreKind(10,"美食"));
-        dataList.add(new StoreKind(20,"求帮"));
-        dataList.add(new StoreKind(30,"爱教"));
-        dataList.add(new StoreKind(50,"修车"));
+        super(StoreKind.class);
     }
-
-    /**
-     * @return the dataList
-     */
-    public List<StoreKind> getDataList() {
-        return dataList;
-    }
-
-    /**
-     * @param dataList the dataList to set
-     */
-    public void setDataList(List<StoreKind> dataList) {
-        this.dataList = dataList;
-    }
-
 
 }

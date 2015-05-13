@@ -5,6 +5,7 @@
  */
 package com.jinshanlife.web;
 
+import com.jinshanlife.entity.BaseEntity;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,30 +35,36 @@ public class FileUploadBean {
      * Creates a new instance of FileUploadBean
      */
     public FileUploadBean() {
-        destination = FacesContext.getCurrentInstance().getExternalContext().getRealPath("//resources//upload");
+
     }
 
     public void handleFileUpload(FileUploadEvent event) {
         file = event.getFile();
         if (file != null) {
             try {
-                save();
+                upload();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded."));
             } catch (Exception e) {
                 FacesMessage msg = new FacesMessage("Failure", e.toString());
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
             setFilename(file.getFileName());
-            FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-
     }
 
-    private void save() {
+    private void upload() throws IOException {
         try {
+
             InputStream in = file.getInputstream();
             HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             request.setCharacterEncoding("UTF-8");
+
+            destination = FacesContext.getCurrentInstance().getExternalContext().getRealPath("//resources//upload");
+            File dir = new File(getDestination());
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+
             OutputStream out = new FileOutputStream(new File(getDestination() + "\\" + file.getFileName()));
             int read = 0;;
             byte[] bytes = new byte[1024];
@@ -72,8 +79,7 @@ public class FileUploadBean {
             out.flush();
             out.close();
         } catch (IOException e) {
-            FacesMessage msg = new FacesMessage("Failure", e.toString());
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+
         }
     }
 
@@ -99,6 +105,13 @@ public class FileUploadBean {
      */
     public String getDestination() {
         return destination;
+    }
+
+    /**
+     * @param destination the destination to set
+     */
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
     /**

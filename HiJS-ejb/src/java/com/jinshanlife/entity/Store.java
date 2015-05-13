@@ -5,20 +5,13 @@
  */
 package com.jinshanlife.entity;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -47,11 +40,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Store.findByIdx", query = "SELECT s FROM Store s WHERE s.idx = :idx"),
     @NamedQuery(name = "Store.findByStatus", query = "SELECT s FROM Store s WHERE s.status = :status")})
 public class Store extends BaseOperateEntity {
-
+  
     @Basic(optional = false)
     @NotNull
     @Column(name = "kind")
-    private Integer kind;
+    private int kind;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
@@ -125,11 +118,11 @@ public class Store extends BaseOperateEntity {
         this.status = status;
     }
 
-    public Integer getKind() {
+    public int getKind() {
         return kind;
     }
 
-    public void setKind(Integer kind) {
+    public void setKind(int kind) {
         this.kind = kind;
     }
 

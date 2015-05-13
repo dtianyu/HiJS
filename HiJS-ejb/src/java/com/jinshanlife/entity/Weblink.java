@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Weblink.findByIdx", query = "SELECT w FROM Weblink w WHERE w.idx = :idx"),
     @NamedQuery(name = "Weblink.findByStatus", query = "SELECT w FROM Weblink w WHERE w.status = :status")})
 public class Weblink extends BaseOperateEntity {
-
+   
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)

@@ -18,6 +18,8 @@ li{
     width: 40px;
 }
 
+
+
 .w060,.w060 input,.w060 label,.w060 span{
     width: 60px;
 }
@@ -68,7 +70,7 @@ li{
 
 /*-------------------------------MainFrameStyle*/
 #top{
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 #topInfo{
@@ -98,6 +100,10 @@ li{
     border-top:  #1995dc solid 5px;
     text-align: center;
 }
+
+.fileUpload{
+    margin-top: 20px;
+}
 /*-------------------------------MainFrameStyle*/
 
 #loginDailog{
@@ -118,10 +124,18 @@ li{
     width: 321px; 
 }
 
-.ui-datatable-header,.ui-datatable-footer{
-    height: 32px;
+.ui-widget{
+    font-size: 1em; 
 }
 
-.tableList td{
-     height: 26px; 
+.ui-widget-header .ui-button,.ui-widget-content .ui-button,.ui-widget-footer .ui-button{
+    font-size: 0.8em;
+}
+
+.ui-widget-header,.ui-widget-footer{
+    min-height: 32px;
+}
+
+.plgNew td,.plgEdit td,.plgView td{
+    height: 30px;
 }

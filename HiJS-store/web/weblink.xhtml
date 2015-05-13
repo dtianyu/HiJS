@@ -60,7 +60,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="菜单"/>
                                 </f:facet>
-                                <p:menuButton value="操作" style="float: right">  
+                                <p:menuButton value="操作" >  
                                     <p:menuitem id="btnView" actionListener="#{weblinkManagedBean.view(item)}" icon="ui-icon-document" value="查看" 
                                                 oncomplete="PF('viewDialog').show()" update=":formView:dlgView"/>                                 
                                     <p:menuitem id="btnEdit" actionListener="#{weblinkManagedBean.edit(item)}" icon="ui-icon-pencil" value="编辑" 
@@ -109,8 +109,8 @@
                                 <p:inputText id="logo2" value="#{weblinkManagedBean.currentEntity.logo2}" title="Logo2" />
                                 <p:outputLabel value="排序" for="idx" />
                                 <p:inputText id="idx" value="#{weblinkManagedBean.currentEntity.idx}" title="Idx" required="true" requiredMessage="The Idx field is required."/>
-                                 <f:facet name="footer">   
-                                     <p:commandButton id="btnPersist" actionListener="#{weblinkManagedBean.save()}" icon="ui-icon-disk" value="保存" styleClass="right"
+                                <f:facet name="footer">   
+                                    <p:commandButton id="btnPersist" actionListener="#{weblinkManagedBean.save()}" icon="ui-icon-disk" value="保存" styleClass="right"
                                                      oncomplete="PF('editDialog').hide();" update=":formList"/>
                                 </f:facet> 
                             </p:panelGrid>
@@ -119,25 +119,25 @@
                     <h:form id="formView">
                         <p:dialog id="dlgView" header="网站信息－查看" widgetVar="viewDialog" modal="true"  >
                             <p:panelGrid id="plgNew" columns="2" columnClasses="w120,w400">
-                                <h:outputText value="Name:"/>
+                                <h:outputText value="网站"/>
                                 <h:outputText value="#{weblinkManagedBean.currentEntity.name}" title="Name"/>
-                                <h:outputText value="Url:"/>
+                                <h:outputText value="Url地址"/>
                                 <h:outputText value="#{weblinkManagedBean.currentEntity.url}" title="Url"/>
-                                <h:outputText value="Logo1:"/>
+                                <h:outputText value="小Logo"/>
                                 <h:outputText value="#{weblinkManagedBean.currentEntity.logo1}" title="Logo1"/>
-                                <h:outputText value="Logo2:"/>
+                                <h:outputText value="大Logo"/>
                                 <h:outputText value="#{weblinkManagedBean.currentEntity.logo2}" title="Logo2"/>
-                                <h:outputText value="Idx:"/>
+                                <h:outputText value="排序"/>
                                 <h:outputText value="#{weblinkManagedBean.currentEntity.idx}" title="Idx"/>
-                                <h:outputText value="Status:"/>
+                                <h:outputText value="状态"/>
                                 <h:outputText value="#{weblinkManagedBean.currentEntity.status}" title="Status"/>
-                                <f:facet name="footer">
-                                    <p:commandButton id="btnVerify" actionListener="#{weblinkManagedBean.verify()}" icon="ui-icon-locked" value="复核" style="float: right"
-                                                     rendered="#{weblinkManagedBean.currentEntity.status!='V'}"    oncomplete="PF('viewDialog').hide()" update=":formList"/>
-                                    <p:commandButton id="btnUnverify" actionListener="#{weblinkManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" style="float: right"
-                                                     rendered="#{weblinkManagedBean.currentEntity.status=='V'}"    oncomplete="PF('viewDialog').hide()" update=":formList"/>
-                                </f:facet>
                             </p:panelGrid>
+                            <f:facet name="footer">
+                                <p:commandButton id="btnVerify" actionListener="#{weblinkManagedBean.verify()}" icon="ui-icon-locked" value="复核" style="float: right"
+                                                 rendered="#{weblinkManagedBean.currentEntity.status!='V'}"    oncomplete="PF('viewDialog').hide()" update=":formList"/>
+                                <p:commandButton id="btnUnverify" actionListener="#{weblinkManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" style="float: right"
+                                                 rendered="#{weblinkManagedBean.currentEntity.status=='V'}"    oncomplete="PF('viewDialog').hide()" update=":formList"/>
+                            </f:facet>
                         </p:dialog>
                     </h:form>
                 </f:view>

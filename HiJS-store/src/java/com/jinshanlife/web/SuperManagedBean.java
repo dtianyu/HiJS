@@ -102,7 +102,12 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
             setCurrentEntity(entity);
         }
     }
-
+    
+    public String edit(T entity,String path){
+        edit(entity);
+        return path;
+    }
+    
     public void init() {
         setEntityList(retrieve());
         if (!getEntityList().isEmpty()) {
