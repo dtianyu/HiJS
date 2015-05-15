@@ -19,7 +19,7 @@
                             <p:selectOneMenu id="kind" value="#{storeManagedBean.newEntity.kind}" title="Kind" required="true" requiredMessage="The Kind field is required.">
                                 <!-- TODO: update below reference to list of available items-->
                                 <f:selectItem itemLabel="Select One" itemValue="" />  
-                                <f:selectItems value="#{storeKindQueryBean.dataList}"  var="e"  itemLabel="#{e.name}" itemValue="#{e.id}" />
+                                <f:selectItems value="#{storeKindQueryBean.entityList}"  var="e"  itemLabel="#{e.name}" itemValue="#{e.id}" />
                             </p:selectOneMenu>  
                             <h:outputText value=""/>
                             <p:outputLabel value="商家名称" for="name" />

@@ -45,18 +45,4 @@ public class StoreKindManagedBean extends SuperOperateBean<StoreKind> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     * @return the sessionBean
-     */
-    public StoreKindBean getSessionBean() {
-        return sessionBean;
-    }
-
-    /**
-     * @param sessionBean the sessionBean to set
-     */
-    public void setSessionBean(StoreKindBean sessionBean) {
-        this.sessionBean = sessionBean;
-    }
-
 }

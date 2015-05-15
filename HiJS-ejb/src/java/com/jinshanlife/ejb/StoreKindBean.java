@@ -21,4 +21,6 @@ public class StoreKindBean extends SuperEJB<StoreKind> {
     public StoreKindBean() {
         this.className = "StoreKind";
     }
+    
+    
 }

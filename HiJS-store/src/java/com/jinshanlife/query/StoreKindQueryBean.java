@@ -5,10 +5,11 @@
  */
 package com.jinshanlife.query;
 
+import com.jinshanlife.ejb.StoreKindBean;
 import com.jinshanlife.entity.StoreKind;
+import com.jinshanlife.lazy.StoreKindModel;
 import com.jinshanlife.web.SuperQueryBean;
-import java.util.ArrayList;
-import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -18,10 +19,20 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class StoreKindQueryBean extends SuperQueryBean<StoreKind>{
+public class StoreKindQueryBean extends SuperQueryBean<StoreKind> {
+
+    @EJB
+    private StoreKindBean sessionBean;
 
     public StoreKindQueryBean() {
         super(StoreKind.class);
+    }
+
+    @Override
+    public void init() {
+        setSuperEJB(sessionBean);
+        setModel(new StoreKindModel(sessionBean));
+        super.init();
     }
 
 }

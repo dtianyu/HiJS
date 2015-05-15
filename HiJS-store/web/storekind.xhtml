@@ -31,7 +31,7 @@
                             </p:column>
                             <p:column styleClass="w160">
                                 <f:facet name="header">
-                                    <h:outputText value="网站"/>
+                                    <h:outputText value="板块"/>
                                 </f:facet>
                                 <h:outputText value="#{item.name}"/>
                             </p:column>
@@ -45,14 +45,12 @@
                                 <f:facet name="header">
                                     <h:outputText value="菜单"/>
                                 </f:facet>
-                                <p:menuButton value="操作" >  
-                                    <p:menuitem id="btnView" actionListener="#{storeKindManagedBean.view(item)}" icon="ui-icon-document" value="查看" 
-                                                oncomplete="PF('viewDialog').show()" update=":formView:dlgView"/>                                 
-                                    <p:menuitem id="btnEdit" actionListener="#{storeKindManagedBean.edit(item)}" icon="ui-icon-pencil" value="编辑" 
-                                                rendered="#{item.status!='V'}" oncomplete="PF('editDialog').show()" update=":formEdit:dlgEdit"/>                                                     
-                                    <p:menuitem id="btnDelete" actionListener="#{storeKindManagedBean.delete(item)}" icon="ui-icon-close" value="删除" 
-                                                rendered="#{item.status!='V' }" update=":formList"/>                  
-                                </p:menuButton>
+                                <p:commandButton id="btnView" actionListener="#{storeKindManagedBean.view(item)}" icon="ui-icon-document" value="查看" style="float: right"
+                                                 oncomplete="PF('viewDialog').show()" update=":formView:dlgView"/>                                 
+                                <p:commandButton id="btnEdit" actionListener="#{storeKindManagedBean.edit(item)}" icon="ui-icon-pencil" value="编辑" style="float: right"
+                                                 rendered="#{item.status!='V'}" oncomplete="PF('editDialog').show()" update=":formEdit:dlgEdit"/>                                                     
+                                <p:commandButton id="btnDelete" actionListener="#{storeKindManagedBean.delete(item)}" icon="ui-icon-close" value="删除" style="float: right"
+                                                 rendered="#{item.status!='V' }" update=":formList"/>                  
                             </p:column>
                             <f:facet name="footer">
                                 <p:outputLabel>小Logo高度等于20px宽度小于40px</p:outputLabel>
@@ -62,11 +60,11 @@
                         </p:dataTable>
                     </h:form>
                     <h:form id="formNew">
-                        <p:dialog id="dlgNew" header="网站信息－新增" widgetVar="newDialog" modal="true"   >
+                        <p:dialog id="dlgNew" header="板块信息－新增" widgetVar="newDialog" modal="true"   >
                             <p:panelGrid id="plgNew" columns="2" columnClasses="w120,w350">
                                 <p:outputLabel value="Id" for="id" />
                                 <p:inputText id="id" value="#{storeKindManagedBean.newEntity.id}" title="Id" required="true" requiredMessage="The Id field is required."/>
-                                <p:outputLabel value="网站" for="name" />
+                                <p:outputLabel value="板块" for="name" />
                                 <p:inputText id="name" value="#{storeKindManagedBean.newEntity.name}" title="网站" required="true" requiredMessage="The Name field is required."/>
                                 <f:facet name="footer">   
                                     <p:commandButton id="btnPersist" actionListener="#{storeKindManagedBean.persist()}" icon="ui-icon-disk" value="保存" style="float: right"
@@ -76,9 +74,9 @@
                         </p:dialog>
                     </h:form>
                     <h:form id="formEdit">
-                        <p:dialog id="dlgEdit" header="网站信息－修改" widgetVar="editDialog" modal="true"  >
-                            <p:panelGrid columns="2" columnClasses="w120,w400">
-                                <p:outputLabel value="网站" for="name" />
+                        <p:dialog id="dlgEdit" header="板块信息－修改" widgetVar="editDialog" modal="true"  >
+                            <p:panelGrid columns="2" columnClasses="w120,w200">
+                                <p:outputLabel value="板块" for="name" />
                                 <p:inputText id="name" value="#{storeKindManagedBean.currentEntity.name}" title="Name" required="true" requiredMessage="The Name field is required."/>                     
                                 <f:facet name="footer">   
                                     <p:commandButton id="btnPersist" actionListener="#{storeKindManagedBean.save()}" icon="ui-icon-disk" value="保存" styleClass="right"
@@ -88,19 +86,19 @@
                         </p:dialog>
                     </h:form>
                     <h:form id="formView">
-                        <p:dialog id="dlgView" header="网站信息－查看" widgetVar="viewDialog" modal="true"  >
-                            <p:panelGrid id="plgNew" columns="2" columnClasses="w120,w400">
-                                <h:outputText value="网站"/>
+                        <p:dialog id="dlgView" header="板块信息－查看" widgetVar="viewDialog" modal="true"  >
+                            <p:panelGrid id="plgNew" columns="2" columnClasses="w120,w200">
+                                <h:outputText value="板块"/>
                                 <h:outputText value="#{storeKindManagedBean.currentEntity.name}" title="Name"/>
                                 <h:outputText value="状态"/>
                                 <h:outputText value="#{storeKindManagedBean.currentEntity.status}" title="Status"/>
+                                <f:facet name="footer">
+                                    <p:commandButton id="btnVerify" actionListener="#{storeKindManagedBean.verify()}" icon="ui-icon-locked" value="复核" style="float: right"
+                                                     rendered="#{storeKindManagedBean.currentEntity.status!='V'}"    oncomplete="PF('viewDialog').hide()" update=":formList"/>
+                                    <p:commandButton id="btnUnverify" actionListener="#{storeKindManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" style="float: right"
+                                                     rendered="#{storeKindManagedBean.currentEntity.status=='V'}"    oncomplete="PF('viewDialog').hide()" update=":formList"/>
+                                </f:facet>
                             </p:panelGrid>
-                            <f:facet name="footer">
-                                <p:commandButton id="btnVerify" actionListener="#{storeKindManagedBean.verify()}" icon="ui-icon-locked" value="复核" style="float: right"
-                                                 rendered="#{storeKindManagedBean.currentEntity.status!='V'}"    oncomplete="PF('viewDialog').hide()" update=":formList"/>
-                                <p:commandButton id="btnUnverify" actionListener="#{storeKindManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" style="float: right"
-                                                 rendered="#{storeKindManagedBean.currentEntity.status=='V'}"    oncomplete="PF('viewDialog').hide()" update=":formList"/>
-                            </f:facet>
                         </p:dialog>
                     </h:form>
                 </f:view>
