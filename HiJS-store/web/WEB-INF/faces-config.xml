@@ -16,6 +16,21 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>weblinkNew</from-outcome>
+            <to-view-id>/weblinkNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>weblinkEdit</from-outcome>
+            <to-view-id>/weblinkEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>weblinkView</from-outcome>
+            <to-view-id>/weblinkView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>store</from-outcome>
             <to-view-id>/store.xhtml</to-view-id>
             <redirect/>
@@ -30,7 +45,12 @@
             <to-view-id>/storeEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-                <navigation-case>
+        <navigation-case>
+            <from-outcome>storeView</from-outcome>
+            <to-view-id>/storeView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>storekind</from-outcome>
             <to-view-id>/storekind.xhtml</to-view-id>
             <redirect/>

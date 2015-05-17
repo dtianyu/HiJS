@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/master.xhtml">
+
+            <ui:define name="right">
+                <h:form id="formEdit">
+                    <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
+                    <p:toolbar id="toolbar" styleClass="topToolbar">
+                        <f:facet name="left">
+                            <p:button id="btnReturn" value="返回" outcome="weblink" icon="ui-icon-arrowreturn-1-w"  />                          
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:commandButton id="btnSave" actionListener="#{weblinkManagedBean.save()}" icon="ui-icon-disk" value="保存" update=":formEdit"/>                                
+                        </f:facet>
+                    </p:toolbar>
+                    <p:panel id="panelEdit" header="网站信息－修改" >
+                        <h:panelGrid id="plgEdit" columns="2" columnClasses="w120,w300" styleClass="plgEdit">
+                            <p:outputLabel value="网站" for="name" />
+                            <p:inputText id="name" value="#{weblinkManagedBean.currentEntity.name}" title="Name" required="true" requiredMessage="The Name field is required."/>
+                            <p:outputLabel value="Url地址" for="url" />
+                            <p:inputText id="url" value="#{weblinkManagedBean.currentEntity.url}" title="Url" required="true" requiredMessage="The Url field is required."/>
+                            <p:outputLabel value="小Logo" for="logo1" />
+                            <p:inputText id="logo1" value="#{weblinkManagedBean.currentEntity.logo1}" title="Logo1" />
+                            <p:outputLabel value="大Logo" for="logo2" />
+                            <p:inputText id="logo2" value="#{weblinkManagedBean.currentEntity.logo2}" title="Logo2" />
+                            <p:outputLabel value="排序" for="idx" />
+                            <p:inputText id="idx" value="#{weblinkManagedBean.currentEntity.idx}" title="Idx" required="true" requiredMessage="The Idx field is required."/>
+                            <f:facet name="footer">   
+
+                            </f:facet> 
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+                <h:form id="formUpload">
+                    <p:fileUpload id="fileUpload"  fileUploadListener="#{weblinkManagedBean.handleFileUpload}" sizeLimit="5000000" styleClass="fileUpload"
+                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" update=":formUpload"/>
+                    <p:panelGrid id="plgUpload" columns="2" columnClasses="w120,w300">
+                        <h:outputLabel value="文件名：" for="fileName" />
+                        <h:outputText id="fileName"  value="#{weblinkManagedBean.fileName}"/>
+                    </p:panelGrid> 
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

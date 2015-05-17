@@ -36,8 +36,8 @@ public class Lib {
         ResourceBundle bundle = context.getApplication().getResourceBundle(context, "i18n");
         return bundle.getString(value);
     }
-    
-        public static String securityMD5(String str) throws UnsupportedEncodingException {
+
+    public static String securityMD5(String str) throws UnsupportedEncodingException {
         MessageDigest messageDigest = null;
         byte[] byteArray = null;
         try {
@@ -58,6 +58,7 @@ public class Lib {
             }
         }
         return md5Buff.toString();
-        
+
     }
+    
 }

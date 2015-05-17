@@ -6,9 +6,12 @@
 package com.jinshanlife.control;
 
 import com.jinshanlife.ejb.StoreBean;
+import com.jinshanlife.ejb.StoreKindBean;
 import com.jinshanlife.entity.Store;
+import com.jinshanlife.entity.StoreKind;
 import com.jinshanlife.lazy.StoreModel;
 import com.jinshanlife.web.SuperOperateBean;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -22,23 +25,26 @@ import javax.faces.bean.SessionScoped;
 public class StoreManagedBean extends SuperOperateBean<Store> {
 
     @EJB
+    private StoreKindBean storeKindBean;
+
+    @EJB
     private StoreBean sessionBean;
+
+    private List<StoreKind> storeKindList;
 
     /**
      * Creates a new instance of StoreManagedBean
      */
     public StoreManagedBean() {
         super(Store.class);
-        this.superEJB =sessionBean;
+        this.superEJB = sessionBean;
     }
 
     @Override
     public void init() {
         setSuperEJB(sessionBean);
         setModel(new StoreModel(sessionBean));
-        if (currentEntity==null){
-            setCurrentEntity(getNewEntity());
-        }
+        setStoreKindList(storeKindBean.findAll());
     }
 
     @Override
@@ -58,6 +64,34 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
      */
     public void setSessionBean(StoreBean sessionBean) {
         this.sessionBean = sessionBean;
+    }
+
+    /**
+     * @return the storeKindBean
+     */
+    public StoreKindBean getStoreKindBean() {
+        return storeKindBean;
+    }
+
+    /**
+     * @param storeKindBean the storeKindBean to set
+     */
+    public void setStoreKindBean(StoreKindBean storeKindBean) {
+        this.storeKindBean = storeKindBean;
+    }
+
+    /**
+     * @return the storeKindList
+     */
+    public List<StoreKind> getStoreKindList() {
+        return storeKindList;
+    }
+
+    /**
+     * @param storeKindList the storeKindList to set
+     */
+    public void setStoreKindList(List<StoreKind> storeKindList) {
+        this.storeKindList = storeKindList;
     }
 
 }

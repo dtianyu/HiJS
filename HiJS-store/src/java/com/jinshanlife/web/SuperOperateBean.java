@@ -12,10 +12,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 
 /**
  *
- * @author kevindong
+ * @author KevinDong
  * @param <T>
  */
 @ManagedBean
@@ -46,6 +48,20 @@ public abstract class SuperOperateBean<T extends BaseOperateEntity> extends Supe
             }
         }
     }
+    
+    public String edit(String path) {
+        if (currentEntity != null) {
+            return path;
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "没有选择编辑数据！"));
+            return "";
+        }
+    }
+
+    public String edit(T entity, String path) {
+        edit(entity);
+        return edit(path);
+    }
 
     public void verify() {
         if (null != getCurrentEntity()) {
@@ -74,4 +90,27 @@ public abstract class SuperOperateBean<T extends BaseOperateEntity> extends Supe
             }
         }
     }
+ 
+    public String view(String path) {
+        if (currentEntity != null) {
+            return path;
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "没有选择查看数据！"));
+            return "";
+        }
+    }
+
+    public String view(T entity, String path) {
+        view(entity);
+        return view(path);
+    }   
+    
+    public void onRowSelect(SelectEvent event) {
+        setCurrentEntity((T) event.getObject());
+    }
+
+    public void onRowUnselect(UnselectEvent event) {
+        setCurrentEntity(null);
+    }
+
 }

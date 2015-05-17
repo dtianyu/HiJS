@@ -8,7 +8,14 @@ package com.jinshanlife.web;
 import com.jinshanlife.comm.SuperEJB;
 import com.jinshanlife.control.UserManagedBean;
 import com.jinshanlife.entity.BaseEntity;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,11 +24,14 @@ import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
- * @author C0160
+ * @author KevinDong
  * @param <T>
  */
 public abstract class SuperManagedBean<T extends BaseEntity> implements Serializable {
@@ -75,7 +85,7 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
             }
         }
     }
-  
+
     public String create(String path) {
         try {
             create();
@@ -84,16 +94,24 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
             return "404";
         }
     }
-  
+
+    public void delete() {
+        if (currentEntity != null) {
+            delete(currentEntity);
+        } else {
+            FacesContext.getCurrentInstance().addMessage("growl", new FacesMessage("消息", "没有选择删除数据！"));
+        }
+    }
+
     public void delete(T entity) {
         if (entity != null) {
             try {
                 getSuperEJB().delete(entity);
+                init();
+                FacesContext.getCurrentInstance().addMessage("growl", new FacesMessage("消息", "删除成功！"));
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
-            init();
-            FacesContext.getCurrentInstance().addMessage("growl", new FacesMessage("消息", "删除成功！"));
         }
     }
 
@@ -102,12 +120,7 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
             setCurrentEntity(entity);
         }
     }
-    
-    public String edit(T entity,String path){
-        edit(entity);
-        return path;
-    }
-    
+
     public void init() {
         setEntityList(retrieve());
         if (!getEntityList().isEmpty()) {
@@ -138,6 +151,8 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.toString()));
             }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "没有选择更新数据！"));
         }
     }
 
@@ -237,6 +252,90 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
      */
     public void setUserManagedBean(UserManagedBean userManagedBean) {
         this.userManagedBean = userManagedBean;
+    }
+
+    protected String destination;
+    protected String fileName;
+    protected UploadedFile file;
+
+    public void handleFileUpload(FileUploadEvent event) {
+        file = event.getFile();
+        if (file != null && getCurrentEntity()!=null) {
+            try {
+                setFileName(file.getFileName());
+                upload();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("消息", getFileName() + " is uploaded."));
+            } catch (Exception e) {
+                FacesMessage msg = new FacesMessage("Failure", e.toString());
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+            }
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("错误","文件或实体对象不存在"));
+        }
+    }
+
+    protected void upload() throws IOException {
+        try {
+
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            request.setCharacterEncoding("UTF-8");
+            InputStream in = file.getInputstream();
+
+            //destination = FacesContext.getCurrentInstance().getExternalContext().getRealPath("//resources//upload");
+            setDestination("//Users//kevindong//GitHub//HiJSWeb//web//app//img//"+currentEntity.getId().toString());
+            File dir = new File(getDestination());
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+
+            OutputStream out = new FileOutputStream(new File(getDestination() + "//" + getFileName()));
+            int read = 0;
+            byte[] bytes = new byte[1024];
+            while (true) {
+                read = in.read(bytes);
+                if (read < 0) {
+                    break;
+                }
+                out.write(bytes, 0, read);
+            }
+            in.close();
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+
+        }
+    }
+      
+    public Date getDate() {
+        return Calendar.getInstance().getTime();
+    }
+
+    /**
+     * @return the destination
+     */
+    public String getDestination() {
+        return destination;
+    }
+
+    /**
+     * @param destination the destination to set
+     */
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    /**
+     * @return the fileName
+     */
+    public String getFileName() {
+        return fileName;
+    }
+
+    /**
+     * @param fileName the fileName to set
+     */
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
 }

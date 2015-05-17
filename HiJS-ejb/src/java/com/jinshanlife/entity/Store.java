@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Store.findByIdx", query = "SELECT s FROM Store s WHERE s.idx = :idx"),
     @NamedQuery(name = "Store.findByStatus", query = "SELECT s FROM Store s WHERE s.status = :status")})
 public class Store extends BaseOperateEntity {
-  
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "kind")
@@ -50,6 +50,18 @@ public class Store extends BaseOperateEntity {
     @Size(min = 1, max = 60)
     @Column(name = "name")
     private String name;
+    @Size(max = 20)
+    @Column(name = "country")
+    private String country;
+    @Size(max = 20)
+    @Column(name = "city")
+    private String city;
+    @Size(max = 20)
+    @Column(name = "district")
+    private String district;
+    @Size(max = 20)
+    @Column(name = "town")
+    private String town;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
@@ -58,8 +70,8 @@ public class Store extends BaseOperateEntity {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "contactor")
-    private String contactor;
+    @Column(name = "contacter")
+    private String contacter;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -110,20 +122,12 @@ public class Store extends BaseOperateEntity {
         this.kind = kind;
         this.name = name;
         this.address = address;
-        this.contactor = contactor;
+        this.contacter = contactor;
         this.mobile = mobile;
         this.category = category;
         this.hot = hot;
         this.idx = idx;
         this.status = status;
-    }
-
-    public int getKind() {
-        return kind;
-    }
-
-    public void setKind(int kind) {
-        this.kind = kind;
     }
 
     public String getName() {
@@ -142,12 +146,12 @@ public class Store extends BaseOperateEntity {
         this.address = address;
     }
 
-    public String getContactor() {
-        return contactor;
+    public String getContacter() {
+        return contacter;
     }
 
-    public void setContactor(String contactor) {
-        this.contactor = contactor;
+    public void setContacter(String contacter) {
+        this.contacter = contacter;
     }
 
     public String getMobile() {
@@ -254,5 +258,46 @@ public class Store extends BaseOperateEntity {
     public String toString() {
         return "com.jinshanlife.entity.Store[ id=" + id + " ]";
     }
+
+    public int getKind() {
+        return kind;
+    }
+
+    public void setKind(int kind) {
+        this.kind = kind;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getTown() {
+        return town;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
+    }
+
 
 }

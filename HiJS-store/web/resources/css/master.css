@@ -14,11 +14,13 @@ li{
     float: left;
 }
 
+.w020,.w020 input,.w020 label,.w020 span{
+    width: 20px;
+}
+
 .w040,.w040 input,.w040 label,.w040 span{
     width: 40px;
 }
-
-
 
 .w060,.w060 input,.w060 label,.w060 span{
     width: 60px;
@@ -101,8 +103,13 @@ li{
     text-align: center;
 }
 
+.topToolbar{
+    margin-bottom: 10px;
+}
+
 .fileUpload{
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 /*-------------------------------MainFrameStyle*/
 
@@ -133,9 +140,13 @@ li{
 }
 
 .ui-widget-header,.ui-widget-footer{
-    min-height: 32px;
+    height: 26px;
 }
 
 .plgNew td,.plgEdit td,.plgView td{
-    height: 30px;
+    height: 28px;
+}
+
+.tableList .ui-selectonemenu-label{
+    height: 12px;
 }

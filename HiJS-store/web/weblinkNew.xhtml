@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template/master.xhtml">
+
+            <ui:define name="right">
+                <h:form id="formNew">
+                    <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
+                    <p:toolbar id="toolbar" styleClass="topToolbar">
+                        <f:facet name="left">
+                            <p:button id="btnReturn" value="返回" outcome="weblink" icon="ui-icon-arrowreturn-1-w"  /> 
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:commandButton id="btnPersist" actionListener="#{weblinkManagedBean.persist()}" icon="ui-icon-disk" value="保存" style="float: right"
+                                             update=":formNew:plgNew"  />
+                        </f:facet>
+                    </p:toolbar>
+                    <p:panel id="panelNew" header="网站信息－新增"    >
+                        <p:panelGrid id="plgNew" columns="2" columnClasses="w120,w300" styleClass="plgNew">
+                            <p:outputLabel value="网站" for="name" />
+                            <p:inputText id="name" value="#{weblinkManagedBean.newEntity.name}" title="网站" required="true" requiredMessage="The Name field is required."/>
+                            <p:outputLabel value="Url地址" for="url" />
+                            <p:inputText id="url" value="#{weblinkManagedBean.newEntity.url}" title="Url地址" required="true" requiredMessage="The Url field is required."/>
+                            <p:outputLabel value="小Logo" for="logo1" />
+                            <p:inputText id="logo1" value="#{weblinkManagedBean.newEntity.logo1}" title="小Logo" />
+                            <p:outputLabel value="大Logo" for="logo2" />
+                            <p:inputText id="logo2" value="#{weblinkManagedBean.newEntity.logo2}" title="大Logo" />
+                            <p:outputLabel value="排序" for="idx" />
+                            <p:inputText id="idx" value="#{weblinkManagedBean.newEntity.idx}" title="排序" required="true" requiredMessage="The Idx field is required."/>
+                            <f:facet name="footer">   
+
+                            </f:facet>      
+                        </p:panelGrid>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
