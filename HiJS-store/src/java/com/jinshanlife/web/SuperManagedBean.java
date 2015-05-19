@@ -22,7 +22,9 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.event.FileUploadEvent;
@@ -34,6 +36,8 @@ import org.primefaces.model.UploadedFile;
  * @author KevinDong
  * @param <T>
  */
+@ManagedBean
+@SessionScoped
 public abstract class SuperManagedBean<T extends BaseEntity> implements Serializable {
 
     protected Class<T> entityClass;
@@ -260,7 +264,7 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
 
     public void handleFileUpload(FileUploadEvent event) {
         file = event.getFile();
-        if (file != null && getCurrentEntity()!=null) {
+        if (file != null && getCurrentEntity() != null) {
             try {
                 setFileName(file.getFileName());
                 upload();
@@ -269,8 +273,8 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
                 FacesMessage msg = new FacesMessage("Failure", e.toString());
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
-        }else{
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("错误","文件或实体对象不存在"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("错误", "文件或实体对象不存在"));
         }
     }
 
@@ -281,8 +285,10 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
             request.setCharacterEncoding("UTF-8");
             InputStream in = file.getInputstream();
 
-            //destination = FacesContext.getCurrentInstance().getExternalContext().getRealPath("//resources//upload");
-            setDestination("//Users//kevindong//GitHub//HiJSWeb//web//app//img//"+currentEntity.getId().toString());
+            if (userManagedBean.getSetting() != null) {
+                setDestination(userManagedBean.getSetting().getWebpath() + "//app//img//" + currentEntity.getId().toString());
+            }
+
             File dir = new File(getDestination());
             if (!dir.exists()) {
                 dir.mkdir();
@@ -302,10 +308,11 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
             out.flush();
             out.close();
         } catch (IOException e) {
-
+            FacesMessage msg = new FacesMessage(null, e.toString());
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-      
+
     public Date getDate() {
         return Calendar.getInstance().getTime();
     }

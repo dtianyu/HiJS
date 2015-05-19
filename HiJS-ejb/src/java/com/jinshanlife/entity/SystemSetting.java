@@ -5,7 +5,7 @@
  */
 package com.jinshanlife.entity;
 
-import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -32,11 +34,17 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SystemSetting.findById", query = "SELECT s FROM SystemSetting s WHERE s.id = :id")})
 public class SystemSetting extends BaseOperateEntity {
 
+    @Size(min = 1, max = 50)
+    @Column(name = "website")
+    private String website;
+    @Size(min = 1, max = 50)
+    @Column(name = "weburl")
+    private String weburl;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 500)
-    @Column(name = "webapppath")
-    private String webapppath;
+    @Size(min = 1, max = 300)
+    @Column(name = "webpath")
+    private String webpath;
 
     public SystemSetting() {
     }
@@ -47,15 +55,15 @@ public class SystemSetting extends BaseOperateEntity {
 
     public SystemSetting(Integer id, String webapppath) {
         this.id = id;
-        this.webapppath = webapppath;
+        this.webpath = webapppath;
     }
 
-    public String getWebapppath() {
-        return webapppath;
+    public String getWebpath() {
+        return webpath;
     }
 
-    public void setWebapppath(String webapppath) {
-        this.webapppath = webapppath;
+    public void setWebpath(String webpath) {
+        this.webpath = webpath;
     }
 
     @Override
@@ -82,5 +90,33 @@ public class SystemSetting extends BaseOperateEntity {
     public String toString() {
         return "com.jinshanlife.entity.SystemSetting[ id=" + id + " ]";
     }
-    
+
+    /**
+     * @return the website
+     */
+    public String getWebsite() {
+        return website;
+    }
+
+    /**
+     * @param website the website to set
+     */
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    /**
+     * @return the weburl
+     */
+    public String getWeburl() {
+        return weburl;
+    }
+
+    /**
+     * @param weburl the weburl to set
+     */
+    public void setWeburl(String weburl) {
+        this.weburl = weburl;
+    }
+
 }

@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Store.findById", query = "SELECT s FROM Store s WHERE s.id = :id"),
     @NamedQuery(name = "Store.findByName", query = "SELECT s FROM Store s WHERE s.name = :name"),
     @NamedQuery(name = "Store.findByAddress", query = "SELECT s FROM Store s WHERE s.address = :address"),
-    @NamedQuery(name = "Store.findByContactor", query = "SELECT s FROM Store s WHERE s.contactor = :contactor"),
+    @NamedQuery(name = "Store.findByContactor", query = "SELECT s FROM Store s WHERE s.contacter = :contacter"),
     @NamedQuery(name = "Store.findByMobile", query = "SELECT s FROM Store s WHERE s.mobile = :mobile"),
     @NamedQuery(name = "Store.findByPhone", query = "SELECT s FROM Store s WHERE s.phone = :phone"),
     @NamedQuery(name = "Store.findByCategory", query = "SELECT s FROM Store s WHERE s.category = :category"),

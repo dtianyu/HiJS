@@ -11,6 +11,26 @@
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
+            <from-outcome>setting</from-outcome>
+            <to-view-id>/setting.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>settingNew</from-outcome>
+            <to-view-id>/settingNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>settingEdit</from-outcome>
+            <to-view-id>/settingEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>settingView</from-outcome>
+            <to-view-id>/settingView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>weblink</from-outcome>
             <to-view-id>/weblink.xhtml</to-view-id>
             <redirect/>

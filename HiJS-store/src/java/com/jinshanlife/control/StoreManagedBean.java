@@ -37,7 +37,6 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
      */
     public StoreManagedBean() {
         super(Store.class);
-        this.superEJB = sessionBean;
     }
 
     @Override
