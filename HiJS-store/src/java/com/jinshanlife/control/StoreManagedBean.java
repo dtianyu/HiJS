@@ -46,39 +46,6 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
         setStoreKindList(storeKindBean.findAll());
     }
 
-    @Override
-    public String viewDetail(Store entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     * @return the sessionBean
-     */
-    public StoreBean getSessionBean() {
-        return sessionBean;
-    }
-
-    /**
-     * @param sessionBean the sessionBean to set
-     */
-    public void setSessionBean(StoreBean sessionBean) {
-        this.sessionBean = sessionBean;
-    }
-
-    /**
-     * @return the storeKindBean
-     */
-    public StoreKindBean getStoreKindBean() {
-        return storeKindBean;
-    }
-
-    /**
-     * @param storeKindBean the storeKindBean to set
-     */
-    public void setStoreKindBean(StoreKindBean storeKindBean) {
-        this.storeKindBean = storeKindBean;
-    }
-
     /**
      * @return the storeKindList
      */

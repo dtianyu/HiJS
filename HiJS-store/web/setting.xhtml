@@ -30,7 +30,7 @@
                                 <p:commandButton id="btnUnverify" actionListener="#{systemSettingManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
                                                  rendered="#{systemSettingManagedBean.currentEntity.status=='V'}"  update=":formList"/>
                                 <p:commandButton id="btnView" icon="ui-icon-document" value="查看" 
-                                                 oncomplete="PF('viewDialog').show()" update=":formView:dlgView"/>
+                                                 action="#{systemSettingManagedBean.view('settingView')}"/>
                                 <p:commandButton id="btnCreate"  icon="ui-icon-plus"  value="新增" 
                                                  action="#{systemSettingManagedBean.create('settingNew')}" />
                             </f:facet>
@@ -71,24 +71,6 @@
                         </p:dataTable>
                     </h:form>
 
-
-
-                    <h:form id="formView">
-                        <p:dialog id="dlgView" header="Web站点信息－查看" widgetVar="viewDialog" modal="true"  >
-                            <p:panelGrid id="plgNew" columns="2" columnClasses="w120,w300">
-                                <h:outputText value="Web站点"/>
-                                <h:outputText value="#{systemSettingManagedBean.currentEntity.webpath}" title="Name"/>
-                                <h:outputText value="状态"/>
-                                <h:outputText value="#{systemSettingManagedBean.currentEntity.status}" title="Status"/>
-                                <f:facet name="footer">
-                                    <p:commandButton id="btnVerify" actionListener="#{systemSettingManagedBean.verify()}" icon="ui-icon-locked" value="复核" style="float: right"
-                                                     rendered="#{systemSettingManagedBean.currentEntity.status!='V'}"    oncomplete="PF('viewDialog').hide()" update=":formList"/>
-                                    <p:commandButton id="btnUnverify" actionListener="#{systemSettingManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" style="float: right"
-                                                     rendered="#{systemSettingManagedBean.currentEntity.status=='V'}"    oncomplete="PF('viewDialog').hide()" update=":formList"/>
-                                </f:facet>
-                            </p:panelGrid>
-                        </p:dialog>
-                    </h:form>
                 </f:view>
 
             </ui:define>

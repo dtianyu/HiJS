@@ -37,9 +37,4 @@ public class SystemSettingManagedBean extends SuperOperateBean<SystemSetting> {
         setModel(new SystemSettingModel(sessionBean));
     }
 
-    @Override
-    public String viewDetail(SystemSetting entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

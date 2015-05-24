@@ -1,0 +1,27 @@
+
+[
+    {
+        "id":999,
+        "name":"新浪",
+        "url":"http://www.sina.com.cn",
+        "logo1":"",
+        "logo2":"",
+        "idx":100
+    },
+    {
+        "id":1000,
+        "name":"QQ",
+        "url":"http://www.qq.com",
+        "logo1":"",
+        "logo2":"",
+        "idx":0
+    },
+    {
+        "id":1003,
+        "name":"Taobao",
+        "url":"http://www.taobao.com",
+        "logo1":"",
+        "logo2":"",
+        "idx":0
+    }
+]

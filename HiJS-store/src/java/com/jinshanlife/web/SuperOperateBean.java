@@ -20,8 +20,6 @@ import org.primefaces.event.UnselectEvent;
  * @author KevinDong
  * @param <T>
  */
-@ManagedBean
-@SessionScoped
 public abstract class SuperOperateBean<T extends BaseOperateEntity> extends SuperManagedBean<T> {
 
     /**

@@ -12,6 +12,9 @@ import com.jinshanlife.web.SuperOperateBean;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 
 /**
  *
@@ -38,22 +41,24 @@ public class WeblinkManagedBean extends SuperOperateBean<Weblink> {
     }
 
     @Override
-    public String viewDetail(Weblink entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     * @return the sessionBean
-     */
-    public WeblinkBean getWeblinkBean() {
-        return sessionBean;
-    }
-
-    /**
-     * @param storeBean the sessionBean to set
-     */
-    public void setWeblinkBean(WeblinkBean storeBean) {
-        this.sessionBean = storeBean;
+    protected void buildJsonArray() {
+        retrieve();
+        if (!entityList.isEmpty()) {
+            JsonArrayBuilder jab = Json.createArrayBuilder();
+            for (Weblink entity : entityList) {
+                jab.add(Json.createObjectBuilder()
+                        .add("id", entity.getId())
+                        .add("name", entity.getName())
+                        .add("url", entity.getUrl())
+                        .add("logo1", entity.getLogo1())
+                        .add("logo2", entity.getLogo2())
+                        .add("idx", entity.getIdx())
+                );
+            }
+            String path = userManagedBean.getSetting().getWebpath()+"/app/data";
+            String name = path +"//" + entityClass.getSimpleName() + ".json";
+            buildJsonFile(jab.build(), path, name);
+        }
     }
 
 }

@@ -65,7 +65,7 @@
                 </h:form>
                 <h:form id="formUpload">
                     <p:fileUpload id="fileUpload"  fileUploadListener="#{storeManagedBean.handleFileUpload}" sizeLimit="5000000" styleClass="fileUpload"
-                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" update=":formUpload"/>
+                                  update=":formUpload"/>
                     <p:panelGrid id="plgUpload" columns="2" columnClasses="w120,w300">
                         <h:outputLabel value="文件名：" for="fileName" />
                         <h:outputText id="fileName"  value="#{storeManagedBean.fileName}"/>

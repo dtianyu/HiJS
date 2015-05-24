@@ -4,14 +4,26 @@
  */
 package com.jinshanlife.comm;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.context.FacesContext;
+import javax.json.Json;
+import javax.json.JsonStructure;
+import javax.json.JsonWriter;
+import javax.json.JsonWriterFactory;
+import javax.json.stream.JsonGenerator;
 
 /**
  *
@@ -60,5 +72,31 @@ public class Lib {
         return md5Buff.toString();
 
     }
-    
+
+    public static void buildJson(JsonStructure value, String fileFullName) throws IOException {
+
+        /* Write formatted JSON Output */
+        Map<String, String> config = new HashMap<>();
+        config.put(JsonGenerator.PRETTY_PRINTING, "");
+        JsonWriterFactory factory = Json.createWriterFactory(config);
+
+        StringWriter stringWriter = new StringWriter();
+        try (JsonWriter jsonWriter = factory.createWriter(stringWriter)) {
+            jsonWriter.write(value);
+            jsonWriter.close();
+        }
+        //建立文件
+        File jsonFile = new File(fileFullName);
+        if (!jsonFile.exists()) {
+            jsonFile.createNewFile();
+        }
+        //保存内容
+        OutputStream outputStream;
+        outputStream = new FileOutputStream(jsonFile);
+        outputStream.write(stringWriter.toString().getBytes());
+        outputStream.flush();
+        outputStream.close();
+
+    }
+
 }
