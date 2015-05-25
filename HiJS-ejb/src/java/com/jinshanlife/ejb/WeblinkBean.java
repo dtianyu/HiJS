@@ -10,6 +10,7 @@ import com.jinshanlife.entity.Weblink;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
@@ -21,5 +22,17 @@ public class WeblinkBean extends SuperEJB<Weblink> {
 
     public WeblinkBean() {
         this.className = "Weblink";
+    }
+
+    public List<Weblink> findByLogo2() {
+        Query query;
+        query = em.createNamedQuery("Weblink.findByLogo2");
+        return query.getResultList();
+    }
+
+    public List<Weblink> findByLogo2(int first, int pageSize) {
+        Query query;
+        query = em.createNamedQuery("Weblink.findByLogo2").setFirstResult(first).setMaxResults(pageSize);
+        return query.getResultList();
     }
 }

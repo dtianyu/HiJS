@@ -7,8 +7,10 @@ package com.jinshanlife.ejb;
 
 import com.jinshanlife.comm.SuperEJB;
 import com.jinshanlife.entity.Store;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
 
 /**
  *
@@ -21,4 +23,19 @@ public class StoreBean extends SuperEJB<Store> {
     public StoreBean() {
         this.className = "Store";
     }
+
+    public List<Store> findByKind(int id) {
+        Query query;
+        query = em.createNamedQuery("Store.findByKind");
+        query.setParameter("kind", id);
+        return query.getResultList();
+    }
+
+    public List<Store> findByKind(int id, int first, int pageSize) {
+        Query query;
+        query = em.createNamedQuery("Store.findByKind").setFirstResult(first).setMaxResults(pageSize);
+        query.setParameter("kind", id);
+        return query.getResultList();
+    }
+
 }

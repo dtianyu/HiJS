@@ -5,12 +5,18 @@
  */
 package com.jinshanlife.entity;
 
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -41,7 +47,10 @@ public class StoreKind extends BaseOperateEntity {
     @Size(min = 1, max = 10)
     @Column(name = "name")
     private String name;
-
+    @Size(max = 20)
+    @Column(name = "classname")
+    private String classname;
+    
     public StoreKind() {
     }
 
@@ -61,6 +70,14 @@ public class StoreKind extends BaseOperateEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getClassname() {
+        return classname;
+    }
+
+    public void setClassname(String classname) {
+        this.classname = classname;
     }
 
     @Override

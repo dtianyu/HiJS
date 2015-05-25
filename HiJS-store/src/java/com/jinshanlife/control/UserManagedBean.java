@@ -32,9 +32,6 @@ import javax.servlet.http.HttpSession;
 public class UserManagedBean implements Serializable {
 
     @EJB
-    private SystemSettingBean systemSettingBean;
-
-    @EJB
     private SystemUserBean systemUserBean;
 
     private SystemUser currentUser;
@@ -42,7 +39,6 @@ public class UserManagedBean implements Serializable {
     private String pwd;
     private String secpwd;
     private boolean status;
-    private SystemSetting setting;
 
     public UserManagedBean() {
         status = false;
@@ -66,11 +62,6 @@ public class UserManagedBean implements Serializable {
             if (u != null) {
                 setCurrentUser(u);
                 setStatus(true);
-
-                if (systemSettingBean.findAll().size() > 0){
-                   setting =  systemSettingBean.findAll().get(0);
-                }
-
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("消息", "用户名或密码错误"));
             }
@@ -168,20 +159,6 @@ public class UserManagedBean implements Serializable {
      */
     public String getSecpwd() {
         return secpwd;
-    }
-
-    /**
-     * @return the setting
-     */
-    public SystemSetting getSetting() {
-        return setting;
-    }
-
-    /**
-     * @param setting the setting to set
-     */
-    public void setSetting(SystemSetting setting) {
-        this.setting = setting;
     }
 
 }

@@ -15,6 +15,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
+import javax.json.JsonObjectBuilder;
 
 /**
  *
@@ -44,21 +45,39 @@ public class WeblinkManagedBean extends SuperOperateBean<Weblink> {
     protected void buildJsonArray() {
         retrieve();
         if (!entityList.isEmpty()) {
-            JsonArrayBuilder jab = Json.createArrayBuilder();
-            for (Weblink entity : entityList) {
-                jab.add(Json.createObjectBuilder()
-                        .add("id", entity.getId())
-                        .add("name", entity.getName())
-                        .add("url", entity.getUrl())
-                        .add("logo1", entity.getLogo1())
-                        .add("logo2", entity.getLogo2())
-                        .add("idx", entity.getIdx())
-                );
-            }
-            String path = userManagedBean.getSetting().getWebpath()+"/app/data";
-            String name = path +"//" + entityClass.getSimpleName() + ".json";
-            buildJsonFile(jab.build(), path, name);
+            createJson(entityClass.getSimpleName() + ".json");
+        }
+        setEntityList(null);
+        setEntityList(sessionBean.findByLogo2(0, getAppTopList()));
+        if (!entityList.isEmpty()) {
+            createJson("Weblink2.json");
         }
     }
 
+    private void createJson(String fileName) {
+        JsonArrayBuilder jab = Json.createArrayBuilder();
+        JsonObjectBuilder job;
+        for (Weblink entity : entityList) {
+            job = Json.createObjectBuilder();
+            job.add("id", entity.getId())
+                    .add("name", entity.getName())
+                    .add("url", entity.getUrl());
+            if (entity.getLogo1() != null) {
+                job.add("logo1", entity.getLogo1());
+            } else {
+                job.addNull("logo1");
+            }
+            if (entity.getLogo2() != null) {
+                job.add("logo2", entity.getLogo2());
+            } else {
+                job.addNull("logo2");
+            }
+            job.add("idx", entity.getIdx());
+            jab.add(job);
+        }
+        String path = getAppDataPath();
+        String name = path + "//" + fileName;
+        buildJsonFile(jab.build(), path, name);
+    }
+    
 }

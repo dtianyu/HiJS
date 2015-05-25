@@ -93,7 +93,7 @@ public class Lib {
         //保存内容
         OutputStream outputStream;
         outputStream = new FileOutputStream(jsonFile);
-        outputStream.write(stringWriter.toString().getBytes());
+        outputStream.write(stringWriter.toString().getBytes("UTF-8"));
         outputStream.flush();
         outputStream.close();
 

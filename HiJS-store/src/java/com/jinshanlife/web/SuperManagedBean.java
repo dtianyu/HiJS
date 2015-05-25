@@ -42,6 +42,10 @@ import org.primefaces.model.UploadedFile;
  */
 public abstract class SuperManagedBean<T extends BaseEntity> implements Serializable {
 
+    private String appDataPath;
+    private String appImgPath;
+    private int appTopList;
+
     protected Class<T> entityClass;
     protected SuperEJB superEJB;
 
@@ -52,6 +56,9 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
     protected T newEntity;
     protected List<T> entityList;
     protected LazyDataModel model;
+
+    protected String fileName;
+    protected UploadedFile file;
 
     public SuperManagedBean() {
 
@@ -67,6 +74,9 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
             create();
             init();
         }
+        appDataPath = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("com.jinshanlife.web.appdatapath");
+        appImgPath = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("com.jinshanlife.web.appimgpath");
+        appTopList = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getInitParameter("com.jinshanlife.web.toplist"));
     }
 
     @PreDestroy
@@ -98,7 +108,7 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
         if (currentEntity != null) {
             JsonObjectBuilder job = Json.createObjectBuilder();
             job.add("id", currentEntity.getId());
-            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("//resources//config");
+            String path = getAppDataPath();
             String name = path + "//" + userManagedBean.getCurrentUser().getUserid() + ".json";
             buildJsonFile(job.build(), path, name);
         }
@@ -112,7 +122,7 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
                 jab.add(Json.createObjectBuilder()
                         .add("id", entity.getId()));
             }
-            String path = FacesContext.getCurrentInstance().getExternalContext().getRealPath("//resources//config");
+            String path = getAppDataPath();
             String name = path + "//" + entityClass.getSimpleName() + ".json";
             buildJsonFile(jab.build(), path, name);
         }
@@ -314,10 +324,6 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
         this.userManagedBean = userManagedBean;
     }
 
-    protected String destination;
-    protected String fileName;
-    protected UploadedFile file;
-
     public void handleFileUpload(FileUploadEvent event) {
 
         file = event.getFile();
@@ -342,16 +348,12 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
             HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             request.setCharacterEncoding("UTF-8");
 
-            if (userManagedBean.getSetting() != null) {
-                setDestination(userManagedBean.getSetting().getWebpath() + "//app//img//" + currentEntity.getId().toString());
-            }
-
-            File dir = new File(getDestination());
+            File dir = new File(getAppImgPath() + userManagedBean.getCurrentUser().getUserid());
             if (!dir.exists()) {
                 dir.mkdirs();
             }
 
-            OutputStream out = new FileOutputStream(new File(getDestination() + "//" + getFileName()));
+            OutputStream out = new FileOutputStream(new File(dir.getAbsolutePath() + "//" + getFileName()));
             int read = 0;
             byte[] bytes = new byte[1024];
             while (true) {
@@ -375,20 +377,6 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
     }
 
     /**
-     * @return the destination
-     */
-    public String getDestination() {
-        return destination;
-    }
-
-    /**
-     * @param destination the destination to set
-     */
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
-    /**
      * @return the fileName
      */
     public String getFileName() {
@@ -400,6 +388,27 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
      */
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    /**
+     * @return the appDataPath
+     */
+    public String getAppDataPath() {
+        return appDataPath;
+    }
+
+    /**
+     * @return the appImgPath
+     */
+    public String getAppImgPath() {
+        return appImgPath;
+    }
+
+    /**
+     * @return the appTopList
+     */
+    public int getAppTopList() {
+        return appTopList;
     }
 
 }

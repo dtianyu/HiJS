@@ -25,16 +25,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Store.getRowCount", query = "SELECT count(s) FROM Store s"),
-    @NamedQuery(name = "Store.findAll", query = "SELECT s FROM Store s"),
+    @NamedQuery(name = "Store.findAll", query = "SELECT s FROM Store s ORDER BY s.idx DESC "),
     @NamedQuery(name = "Store.findById", query = "SELECT s FROM Store s WHERE s.id = :id"),
     @NamedQuery(name = "Store.findByName", query = "SELECT s FROM Store s WHERE s.name = :name"),
-    @NamedQuery(name = "Store.findByAddress", query = "SELECT s FROM Store s WHERE s.address = :address"),
-    @NamedQuery(name = "Store.findByContactor", query = "SELECT s FROM Store s WHERE s.contacter = :contacter"),
+    @NamedQuery(name = "Store.findByKind", query = "SELECT s FROM Store s WHERE s.kind = :kind  ORDER BY s.idx DESC "),
+    @NamedQuery(name = "Store.findByTown", query = "SELECT s FROM Store s WHERE s.town = :town"),
     @NamedQuery(name = "Store.findByMobile", query = "SELECT s FROM Store s WHERE s.mobile = :mobile"),
     @NamedQuery(name = "Store.findByPhone", query = "SELECT s FROM Store s WHERE s.phone = :phone"),
-    @NamedQuery(name = "Store.findByCategory", query = "SELECT s FROM Store s WHERE s.category = :category"),
+    @NamedQuery(name = "Store.findByCategory", query = "SELECT s FROM Store s WHERE s.category = :category  ORDER BY s.idx DESC "),
     @NamedQuery(name = "Store.findByFeature", query = "SELECT s FROM Store s WHERE s.feature = :feature"),
-    @NamedQuery(name = "Store.findByAction", query = "SELECT s FROM Store s WHERE s.action = :action"),
     @NamedQuery(name = "Store.findByPcc", query = "SELECT s FROM Store s WHERE s.pcc = :pcc"),
     @NamedQuery(name = "Store.findByHot", query = "SELECT s FROM Store s WHERE s.hot = :hot"),
     @NamedQuery(name = "Store.findByIdx", query = "SELECT s FROM Store s WHERE s.idx = :idx"),
@@ -298,6 +297,5 @@ public class Store extends BaseOperateEntity {
     public void setTown(String town) {
         this.town = town;
     }
-
 
 }

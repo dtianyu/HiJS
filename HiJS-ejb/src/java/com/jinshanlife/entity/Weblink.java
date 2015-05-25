@@ -24,11 +24,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Weblink.getRowCount", query = "SELECT count(w) FROM Weblink w"),
-    @NamedQuery(name = "Weblink.findAll", query = "SELECT w FROM Weblink w"),
+    @NamedQuery(name = "Weblink.findAll", query = "SELECT w FROM Weblink w ORDER BY w.idx DESC "),
     @NamedQuery(name = "Weblink.findById", query = "SELECT w FROM Weblink w WHERE w.id = :id"),
     @NamedQuery(name = "Weblink.findByName", query = "SELECT w FROM Weblink w WHERE w.name = :name"),
-    @NamedQuery(name = "Weblink.findByUrl", query = "SELECT w FROM Weblink w WHERE w.url = :url"),
-    @NamedQuery(name = "Weblink.findByIdx", query = "SELECT w FROM Weblink w WHERE w.idx = :idx"),
+    @NamedQuery(name = "Weblink.findByLogo2", query = "SELECT w FROM Weblink w WHERE w.logo2 IS NOT NULL AND w.logo2<>'' ORDER BY w.idx DESC "),
     @NamedQuery(name = "Weblink.findByStatus", query = "SELECT w FROM Weblink w WHERE w.status = :status")})
 public class Weblink extends BaseOperateEntity {
    
