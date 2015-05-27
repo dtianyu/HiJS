@@ -19,8 +19,12 @@ public class SignCheck implements PhaseListener {
     @Override
     public void afterPhase(PhaseEvent event) {
         FacesContext fc = event.getFacesContext();
+        if (fc.getViewRoot().getViewId().startsWith("/register")) {
+            return;
+        }
         try {
             boolean isLoginPage = fc.getViewRoot().getViewId().lastIndexOf("login.xhtml") > -1;
+
             if (!isLoginPage && !isSignIn(fc)) {
                 fc.getApplication().getNavigationHandler().handleNavigation(fc, null, "login");
             }

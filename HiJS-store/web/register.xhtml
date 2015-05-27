@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>SENTINEL BLUE | Prime Faces Layouts Header</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+
+        <h:outputStylesheet name="css/font-icon-layout.css" library="sentinel-layout" />
+        <h:outputStylesheet name="css/sentinel-layout.css" library="sentinel-layout" />
+        <h:outputStylesheet name="css/core-layout.css" library="sentinel-layout" />
+    </h:head>
+
+    <h:body class="fontRegular login-back white-back">
+
+        <div class="Container100 MaxWid500 Fnone MarAuto TexAlLeft PaddingTopPercent10">
+            <a href="" id="login-logo">
+                <h:graphicImage name="images/LOGO.svg" styleClass="Fleft" library="sentinel-layout"/>
+                <span class="Fs30 FontTitilliumSemiBoldItalic Fleft"><span class="softblue">SENTINEL</span><span class="hardblue">LAYOUT</span></span>
+            </a>
+            <div class="EmptyBox10"></div>
+        </div>
+
+        <!-- REGISTER BOX COVER START -->
+        <div class="Container100 MaxWid500 white-back Fnone MarAuto BordRad10" id="register-box">
+            <div class="Container100">
+                <h:form id="formNew">
+                    <p:growl id="growl" sticky="true" showDetail="true"/>
+
+                    <p:wizard flowListener="#{systemUserManagedBean.onFlowProcess}">
+                        <p:tab id="registerid" title="设置登陆帐户">
+
+                            <p:messages  />
+                            <div class="EmptyBox20"></div>
+                            <h:panelGrid columns="3" class="Container100" columnClasses="Wid20, Wid70, Wid10">
+
+                                <h:outputText value="手机号码: *" />
+                                <p:inputText id="userid" value="#{systemUserManagedBean.newEntity.userid}" class ="Wid90" required="true"/>
+                                <h:outputText value="" />
+
+                                <h:outputText value="昵称: *" />
+                                <p:inputText value="#{systemUserManagedBean.newEntity.username}" class ="Wid90"  required="true"/>
+                                <h:outputText value="" />
+
+                                <h:outputText value="验证码: *" />
+                                <p:inputText value="#{systemUserManagedBean.verifyInput}"  required="true"/>
+                                <p:commandButton value="获取" actionListener="#{systemUserManagedBean.sendVerifyCode}" style="margin-left: -120px;"/>
+
+                            </h:panelGrid>
+                            <div class="EmptyBox20"></div>
+                        </p:tab> 
+
+                        <p:tab id="profile" title="填写帐户信息">
+                            <p:panel header="Address Details">
+                                <p:messages />
+                                <h:panelGrid columns="2" columnClasses="label, value">
+                                    <h:outputText value="Street: " />
+                                    <p:inputText value="#{systemUserManagedBean.newEntity.username}" />
+
+
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+
+
+                    </p:wizard>
+
+                </h:form>                
+            </div>
+        </div>
+        <!-- REGISTER BOX COVER END -->
+
+    </h:body>
+</html>

@@ -8,8 +8,36 @@
             com.jinshanlife.web.SignCheck
         </phase-listener>
     </lifecycle>
+    <name>primefaces-sentinel</name> 
+    <component>
+        <component-type>org.primefaces.component.SentinelMenu</component-type>
+        <component-class>org.primefaces.sentinel.component.menu.SentinelMenu</component-class>
+    </component>   
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.SentinelMenuRenderer</renderer-type>
+            <renderer-class>org.primefaces.sentinel.component.menu.SentinelMenuRenderer</renderer-class>
+        </renderer>
+    </render-kit>   
     <navigation-rule>
         <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>register</from-outcome>
+            <to-view-id>/register.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
         <navigation-case>
             <from-outcome>setting</from-outcome>
             <to-view-id>/setting.xhtml</to-view-id>

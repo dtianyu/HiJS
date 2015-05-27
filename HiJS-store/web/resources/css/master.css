@@ -113,37 +113,21 @@ li{
 }
 /*-------------------------------MainFrameStyle*/
 
-#loginDailog{
-    position: relative;
-    top: 82px;
-    width: 322px;
-    margin: auto;
+.ui-button .ui-button-text {
+    font-size: 10px;
 }
 
-#loginDailog input{
-    width: 312px;
-    margin-bottom: 5px;
+.ui-datatable .ui-paginator .ui-paginator-current,
+.ui-datatable .ui-paginator .ui-paginator-first,
+.ui-datatable .ui-paginator .ui-paginator-prev,
+.ui-datatable .ui-paginator .ui-paginator-pages .ui-paginator-page,
+.ui-datatable .ui-paginator .ui-paginator-next,
+.ui-datatable .ui-paginator .ui-paginator-last, 
+.ui-datatable .ui-paginator .ui-paginator-rpp-options{
+    padding: 1px 2px;
 }
 
-#loginDailog button{
-    padding-top: 3px;
-    padding-bottom: 3px;
-    width: 321px; 
-}
-
-.ui-widget{
-    font-size: 1em; 
-}
-
-.ui-widget-header .ui-button,.ui-widget-content .ui-button,.ui-widget-footer .ui-button{
-    font-size: 0.8em;
-}
-
-.ui-widget-header,.ui-widget-footer{
-    height: 26px;
-}
-
-.plgNew td,.plgEdit td,.plgView td{
+.ui-widget-header,.ui-widget-footer,.tableList td,.plgNew td,.plgEdit td,.plgView td{
     height: 28px;
 }
 

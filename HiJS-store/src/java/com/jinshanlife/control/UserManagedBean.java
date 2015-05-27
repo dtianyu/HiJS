@@ -5,11 +5,8 @@
 package com.jinshanlife.control;
 
 import com.jinshanlife.comm.Lib;
-import com.jinshanlife.ejb.SystemSettingBean;
 import com.jinshanlife.ejb.SystemUserBean;
-import com.jinshanlife.entity.SystemSetting;
 import com.jinshanlife.entity.SystemUser;
-
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.Calendar;

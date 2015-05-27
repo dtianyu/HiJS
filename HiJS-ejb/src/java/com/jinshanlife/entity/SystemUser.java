@@ -5,17 +5,12 @@
  */
 package com.jinshanlife.entity;
 
-import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,14 +23,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "systemuser")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "SystemUser.getRowCount", query = "SELECT count(s) FROM SystemUser s"),
     @NamedQuery(name = "SystemUser.findAll", query = "SELECT s FROM SystemUser s"),
     @NamedQuery(name = "SystemUser.findById", query = "SELECT s FROM SystemUser s WHERE s.userid = :userid"),
     @NamedQuery(name = "SystemUser.findByIdAndPwd", query = "SELECT s FROM SystemUser s WHERE s.userid = :id AND s.password = :pwd"),
     @NamedQuery(name = "SystemUser.findBySuperuser", query = "SELECT s FROM SystemUser s WHERE s.superuser = :superuser"),
     @NamedQuery(name = "SystemUser.findByStatus", query = "SELECT s FROM SystemUser s WHERE s.status = :status")})
-public class SystemUser implements Serializable {
-    private static final long serialVersionUID = 1L;
-    @Id
+public class SystemUser extends BaseOperateEntity {
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -56,22 +51,9 @@ public class SystemUser implements Serializable {
     @Column(name = "password")
     private String password;
     @Column(name = "superuser")
-    private Boolean superuser;
-    @Size(max = 2)
-    @Column(name = "status")
-    private String status;
-    @Size(max = 10)
-    @Column(name = "creator")
-    private String creator;
-    @Column(name = "credate")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date credate;
+    private Integer superuser;
 
     public SystemUser() {
-    }
-
-    public SystemUser(String userid) {
-        this.userid = userid;
     }
 
     public SystemUser(String userid, String username, String password) {
@@ -112,42 +94,18 @@ public class SystemUser implements Serializable {
         this.password = password;
     }
 
-    public Boolean getSuperuser() {
+    public Integer getSuperuser() {
         return superuser;
     }
 
-    public void setSuperuser(Boolean superuser) {
+    public void setSuperuser(Integer superuser) {
         this.superuser = superuser;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator;
-    }
-
-    public Date getCredate() {
-        return credate;
-    }
-
-    public void setCredate(Date credate) {
-        this.credate = credate;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (userid != null ? userid.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -158,7 +116,7 @@ public class SystemUser implements Serializable {
             return false;
         }
         SystemUser other = (SystemUser) object;
-        if ((this.userid == null && other.userid != null) || (this.userid != null && !this.userid.equals(other.userid))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -166,7 +124,7 @@ public class SystemUser implements Serializable {
 
     @Override
     public String toString() {
-        return "com.jinshanlife.entity.SystemUser[ userid=" + userid + " ]";
+        return "com.jinshanlife.entity.SystemUser[ id=" + id + " ]";
     }
-    
+
 }
