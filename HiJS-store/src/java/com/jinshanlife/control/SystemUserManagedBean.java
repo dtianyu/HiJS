@@ -50,6 +50,8 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
                 entity.setStatus("N");
                 entity.setCreator("system");
                 entity.setCredate(getDate());
+                entity.setOptuser(null);
+                entity.setOptdate(null);
                 setNewEntity(entity);
             } catch (InstantiationException | IllegalAccessException ex) {
                 Logger.getLogger(SuperOperateBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -92,7 +94,7 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
                 newEntity.setEmail(mail);
                 newEntity.setPassword(Lib.securityMD5(pwd));
                 newEntity.setSuperuser(0);
-                super.persist();
+                superEJB.persist(newEntity);
             } catch (UnsupportedEncodingException ex) {
                 FacesContext.getCurrentInstance().addMessage("growl", new FacesMessage("错误", "更新失败"));
                 Logger.getLogger(SystemUserManagedBean.class.getName()).log(Level.SEVERE, null, ex);

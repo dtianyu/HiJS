@@ -36,15 +36,15 @@
                         <p:tab id="tabRegister" title="设置登陆帐户">
                             <p:panel>
                                 <div class="EmptyBox20"></div>
-                                <h:panelGrid id="plgRegister" columns="3" class="Container100" columnClasses="Wid20, Wid40, Wid30">
+                                <h:panelGrid id="plgRegister" columns="3" styleClass="Container100" columnClasses="Wid20, Wid40, Wid30">
                                     <h:outputText value="手机号码" />
-                                    <p:inputText id="userid" value="#{systemUserManagedBean.mobile}" class ="Wid90" required="true" 
+                                    <p:inputText id="userid" value="#{systemUserManagedBean.mobile}" styleClass ="Wid90" required="true" 
                                                  requiredMessage="请输入手机号" validatorMessage="号码格式错误">
                                         <f:validateRegex pattern="^1[3|4|5|8][0-9]{9,9}$" for="userid"/>
                                     </p:inputText>
                                     <p:messages id="msgUserId" for="userid" />
                                     <h:outputText value="验证码" />
-                                    <p:inputText id="verifycode" value="#{systemUserManagedBean.verifyInput}" class="Wid30"  required="true"
+                                    <p:inputText id="verifycode" value="#{systemUserManagedBean.verifyInput}" styleClass="Wid30"  required="true"
                                                  requiredMessage="请输入验证码"/>
                                     <p:commandButton id="btnSendVerifyCode" value="获取"  actionListener="#{systemUserManagedBean.sendVerifyCode()}"
                                                      style="margin-left: -80px;" process="userid,btnSendVerifyCode" update="msgUserId"/>
@@ -58,22 +58,22 @@
                                 <div class="EmptyBox20"></div>
                                 <h:panelGrid columns="2" columnClasses="Wid20 TexAlCenter, Wid40">
                                     <h:outputText value="姓名"/>
-                                    <p:inputText id="username" value="#{systemUserManagedBean.username}" placeholder="姓名"  class ="Wid90"  required="true" requiredMessage="请输入姓名"/>
+                                    <p:inputText id="username" value="#{systemUserManagedBean.username}" placeholder="姓名"  styleClass ="Wid90"  required="true" requiredMessage="请输入姓名"/>
                                     <h:outputText value="邮箱"/>
-                                    <p:inputText id="mail" value="#{systemUserManagedBean.mail}" placeholder="邮箱" class ="Wid90"  required="true" 
+                                    <p:inputText id="mail" value="#{systemUserManagedBean.mail}" placeholder="邮箱" styleClass ="Wid90"  required="true" 
                                                  requiredMessage="请输入邮箱" validatorMessage="邮箱格式错误">
                                     </p:inputText>
                                     <h:outputText value="密码"/>
-                                    <p:password id="pwd1" value="#{systemUserManagedBean.pwd}" placeholder="密码" class ="Wid90" required="true" 
+                                    <p:password id="pwd1" value="#{systemUserManagedBean.pwd}" placeholder="密码" styleClass ="Wid90" required="true" 
                                                 requiredMessage="请输入密码" validatorMessage="密码至少六位"  match="pwd2" feedback="false">
                                         <f:validateLongRange minimum="6"/>
                                     </p:password>                                           
                                     <h:outputText value="确认密码"  style="text-align: right;"/>
-                                    <p:password id="pwd2" value="#{systemUserManagedBean.pwd}" placeholder="密码" class ="Wid90"  feedback="false"/>
+                                    <p:password id="pwd2" value="#{systemUserManagedBean.pwd}" placeholder="密码" styleClass ="Wid90"  feedback="false"/>
                                 </h:panelGrid>
                                 <div class="EmptyBox20"></div>
                                 <f:facet name="footer">   
-                                    <p:commandButton value="提交" actionListener="#{systemUserManagedBean.persist()}" oncomplete="login.xhtml"></p:commandButton> 
+                                    <p:commandButton value="提交" actionListener="#{systemUserManagedBean.persist()}" oncomplete="login"></p:commandButton> 
                                 </f:facet>  
                             </p:panel>
                         </p:tab>
