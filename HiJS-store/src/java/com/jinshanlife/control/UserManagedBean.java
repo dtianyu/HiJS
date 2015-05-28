@@ -57,7 +57,7 @@ public class UserManagedBean implements Serializable {
         try {
             SystemUser u = systemUserBean.getByIdAndPwd(getUserid(), getSecpwd());
             if (u != null) {
-                setCurrentUser(u);
+                currentUser = u;
                 setStatus(true);
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("消息", "用户名或密码错误"));
@@ -72,7 +72,7 @@ public class UserManagedBean implements Serializable {
 
     public String logout() {
         if (status) {
-            setCurrentUser(null);
+            currentUser=null;
             setStatus(false);
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
             session.invalidate();
@@ -106,13 +106,6 @@ public class UserManagedBean implements Serializable {
      */
     public SystemUser getCurrentUser() {
         return currentUser;
-    }
-
-    /**
-     * @param currentUser the currentUser to set
-     */
-    public void setCurrentUser(SystemUser currentUser) {
-        this.currentUser = currentUser;
     }
 
     public boolean getStatus() {

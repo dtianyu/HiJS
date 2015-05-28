@@ -95,6 +95,8 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
                 newEntity.setPassword(Lib.securityMD5(pwd));
                 newEntity.setSuperuser(0);
                 superEJB.persist(newEntity);
+                setNewEntity(null);
+                FacesContext.getCurrentInstance().addMessage("growl", new FacesMessage("信息", "更新成功"));
             } catch (UnsupportedEncodingException ex) {
                 FacesContext.getCurrentInstance().addMessage("growl", new FacesMessage("错误", "更新失败"));
                 Logger.getLogger(SystemUserManagedBean.class.getName()).log(Level.SEVERE, null, ex);

@@ -161,7 +161,7 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
             try {
                 getSuperEJB().delete(entity);
                 init();
-                if (userManagedBean.getCurrentUser().getSuperuser()==999) {
+                if (userManagedBean.getCurrentUser().getSuperuser() == 999) {
                     buildJsonArray();
                 } else {
                     buildJsonObject();
@@ -194,12 +194,14 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
                 getSuperEJB().persist(getNewEntity());
                 setNewEntity(null);
                 create();
-                if (userManagedBean.getCurrentUser().getSuperuser()==999) {
-                    buildJsonArray();
-                } else {
-                    buildJsonObject();
+                if (userManagedBean != null) {
+                    if (userManagedBean.getCurrentUser().getSuperuser() == 999) {
+                        buildJsonArray();
+                    } else {
+                        buildJsonObject();
+                    }
                 }
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, "更新成功！"));
+                FacesContext.getCurrentInstance().addMessage("growl", new FacesMessage(null, "更新成功！"));
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
@@ -215,7 +217,7 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
         if (currentEntity != null) {
             try {
                 getSuperEJB().update(currentEntity);
-                if (userManagedBean.getCurrentUser().getSuperuser()==999) {
+                if (userManagedBean.getCurrentUser().getSuperuser() == 999) {
                     buildJsonArray();
                 } else {
                     buildJsonObject();
@@ -348,7 +350,7 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
             HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             request.setCharacterEncoding("UTF-8");
 
-            File dir = new File(getAppImgPath() +  userManagedBean.getCurrentUser().getUserid());
+            File dir = new File(getAppImgPath() + userManagedBean.getCurrentUser().getUserid());
             if (!dir.exists()) {
                 dir.mkdirs();
             }
