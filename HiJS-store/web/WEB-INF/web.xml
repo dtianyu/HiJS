@@ -29,6 +29,10 @@
         <param-value>6Lex1tsSAAAAAJDxNaxZdily7R8_8ya2naP0cOhp</param-value>
     </context-param>
     <context-param>
+        <param-name>primefaces.CLIENT_SIDE_VALIDATION</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>sentinel</param-value>
     </context-param>

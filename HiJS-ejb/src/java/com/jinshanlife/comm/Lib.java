@@ -100,7 +100,7 @@ public class Lib {
 
     }
 
-    public static void sendVerifyCode(String value) {
+    public static void sendVerifyCode(String mobile,String value) {
 
         HashMap<String, Object> result = null;
 
@@ -136,7 +136,7 @@ public class Lib {
         //*系统默认模板的内容为“【云通讯】您使用的是云通讯短信模板，您的验证码是{1}，请于{2}分钟内正确输入”*
         //*第三个参数是要替换的内容数组。																														       *
         //**************************************************************************************************
-        result = restAPI.sendTemplateSMS("13816375299", "1", new String[]{value, "3"});
+        result = restAPI.sendTemplateSMS(mobile, "1", new String[]{value, "3"});
 
         System.out.println("SDKTestGetSubAccounts result=" + result);
         if (!"000000".equals(result.get("statusCode"))) {

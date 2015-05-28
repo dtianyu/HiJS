@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <title>SENTINEL BLUE | Prime Faces Layouts Header</title>
@@ -28,43 +29,54 @@
         <div class="Container100 MaxWid500 white-back Fnone MarAuto BordRad10" id="register-box">
             <div class="Container100">
                 <h:form id="formNew">
-                    <p:growl id="growl" sticky="true" showDetail="true"/>
+                    <p:growl id="growl" showSummary="false" showDetail="true" sticky="true" autoUpdate="true"/>
 
-                    <p:wizard flowListener="#{systemUserManagedBean.onFlowProcess}">
-                        <p:tab id="registerid" title="设置登陆帐户">
+                    <p:wizard id="wizRegister" flowListener="#{systemUserManagedBean.onFlowProcess}">
 
-                            <p:messages  />
-                            <div class="EmptyBox20"></div>
-                            <h:panelGrid columns="3" class="Container100" columnClasses="Wid20, Wid70, Wid10">
-
-                                <h:outputText value="手机号码: *" />
-                                <p:inputText id="userid" value="#{systemUserManagedBean.newEntity.userid}" class ="Wid90" required="true"/>
-                                <h:outputText value="" />
-
-                                <h:outputText value="昵称: *" />
-                                <p:inputText value="#{systemUserManagedBean.newEntity.username}" class ="Wid90"  required="true"/>
-                                <h:outputText value="" />
-
-                                <h:outputText value="验证码: *" />
-                                <p:inputText value="#{systemUserManagedBean.verifyInput}"  required="true"/>
-                                <p:commandButton value="获取" actionListener="#{systemUserManagedBean.sendVerifyCode}" style="margin-left: -120px;"/>
-
-                            </h:panelGrid>
-                            <div class="EmptyBox20"></div>
+                        <p:tab id="tabRegister" title="设置登陆帐户">
+                            <p:panel>
+                                <div class="EmptyBox20"></div>
+                                <h:panelGrid id="plgRegister" columns="3" class="Container100" columnClasses="Wid20, Wid40, Wid30">
+                                    <h:outputText value="手机号码" />
+                                    <p:inputText id="userid" value="#{systemUserManagedBean.mobile}" class ="Wid90" required="true" 
+                                                 requiredMessage="请输入手机号" validatorMessage="号码格式错误">
+                                        <f:validateRegex pattern="^1[3|4|5|8][0-9]{9,9}$" for="userid"/>
+                                    </p:inputText>
+                                    <p:messages id="msgUserId" for="userid" />
+                                    <h:outputText value="验证码" />
+                                    <p:inputText id="verifycode" value="#{systemUserManagedBean.verifyInput}" class="Wid30"  required="true"
+                                                 requiredMessage="请输入验证码"/>
+                                    <p:commandButton id="btnSendVerifyCode" value="获取"  actionListener="#{systemUserManagedBean.sendVerifyCode()}"
+                                                     style="margin-left: -80px;" process="userid,btnSendVerifyCode" update="msgUserId"/>
+                                </h:panelGrid>
+                                <div class="EmptyBox20"></div>
+                            </p:panel>
                         </p:tab> 
 
-                        <p:tab id="profile" title="填写帐户信息">
-                            <p:panel header="Address Details">
-                                <p:messages />
-                                <h:panelGrid columns="2" columnClasses="label, value">
-                                    <h:outputText value="Street: " />
-                                    <p:inputText value="#{systemUserManagedBean.newEntity.username}" />
-
-
+                        <p:tab id="tabProfile" title="填写帐户信息">
+                            <p:panel>
+                                <div class="EmptyBox20"></div>
+                                <h:panelGrid columns="2" columnClasses="Wid20 TexAlCenter, Wid40">
+                                    <h:outputText value="姓名"/>
+                                    <p:inputText id="username" value="#{systemUserManagedBean.username}" placeholder="姓名"  class ="Wid90"  required="true" requiredMessage="请输入姓名"/>
+                                    <h:outputText value="邮箱"/>
+                                    <p:inputText id="mail" value="#{systemUserManagedBean.mail}" placeholder="邮箱" class ="Wid90"  required="true" 
+                                                 requiredMessage="请输入邮箱" validatorMessage="邮箱格式错误">
+                                    </p:inputText>
+                                    <h:outputText value="密码"/>
+                                    <p:password id="pwd1" value="#{systemUserManagedBean.pwd}" placeholder="密码" class ="Wid90" required="true" 
+                                                requiredMessage="请输入密码" validatorMessage="密码至少六位"  match="pwd2" feedback="false">
+                                        <f:validateLongRange minimum="6"/>
+                                    </p:password>                                           
+                                    <h:outputText value="确认密码"  style="text-align: right;"/>
+                                    <p:password id="pwd2" value="#{systemUserManagedBean.pwd}" placeholder="密码" class ="Wid90"  feedback="false"/>
                                 </h:panelGrid>
+                                <div class="EmptyBox20"></div>
+                                <f:facet name="footer">   
+                                    <p:commandButton value="提交" actionListener="#{systemUserManagedBean.persist()}" oncomplete="login.xhtml"></p:commandButton> 
+                                </f:facet>  
                             </p:panel>
                         </p:tab>
-
 
                     </p:wizard>
 

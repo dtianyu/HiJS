@@ -10,11 +10,14 @@ import com.jinshanlife.ejb.SystemUserBean;
 import com.jinshanlife.entity.SystemUser;
 import com.jinshanlife.lazy.SystemUserModel;
 import com.jinshanlife.web.SuperOperateBean;
+import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.event.FlowEvent;
 
 /**
@@ -27,8 +30,10 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
 
     @EJB
     private SystemUserBean sessionBean;
-
-    private boolean skip;
+    private String mobile;
+    private String username;
+    private String mail;
+    private String pwd;
     private String verifyCode;
     private String verifyInput;
 
@@ -43,6 +48,7 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
             try {
                 entity = entityClass.newInstance();
                 entity.setStatus("N");
+                entity.setCreator("system");
                 entity.setCredate(getDate());
                 setNewEntity(entity);
             } catch (InstantiationException | IllegalAccessException ex) {
@@ -58,32 +64,40 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
     }
 
     public String onFlowProcess(FlowEvent event) {
-        if (skip) {
-            setSkip(false);   //reset in case user goes back
-            return "confirm";
-        } else {
-            return event.getNewStep();
-        }
+        return event.getNewStep();
+//        if (verifyCode.equals(verifyInput)) {
+//            return event.getNewStep();
+//        } else {
+//            FacesContext.getCurrentInstance().addMessage("growl", new FacesMessage("错误", "验证码错误"));
+//        }
+//        return  event.getOldStep();
     }
 
     public void sendVerifyCode() {
-        Integer code = (int) (Math.random() * 1000);
-        verifyCode = code.toString();
-        Lib.sendVerifyCode(verifyCode);
+        if ((!mobile.isEmpty()) && (mobile.length() == 11)) {
+            Integer code = (int) (Math.random() * 10000);
+            verifyCode = code.toString();
+            Lib.sendVerifyCode(mobile,verifyCode);
+        } else {
+            FacesContext.getCurrentInstance().addMessage("growl", new FacesMessage("错误", "请输入手机号码"));
+        }
     }
 
-    /**
-     * @return the skip
-     */
-    public boolean isSkip() {
-        return skip;
-    }
-
-    /**
-     * @param skip the skip to set
-     */
-    public void setSkip(boolean skip) {
-        this.skip = skip;
+    @Override
+    public void persist() {
+        if (getNewEntity() != null) {
+            try {
+                newEntity.setUserid(mobile);
+                newEntity.setUsername(username);
+                newEntity.setEmail(mail);
+                newEntity.setPassword(Lib.securityMD5(pwd));
+                newEntity.setSuperuser(0);
+                super.persist();
+            } catch (UnsupportedEncodingException ex) {
+                FacesContext.getCurrentInstance().addMessage("growl", new FacesMessage("错误", "更新失败"));
+                Logger.getLogger(SystemUserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     /**
@@ -98,6 +112,62 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
      */
     public void setVerifyInput(String verifyInput) {
         this.verifyInput = verifyInput;
+    }
+
+    /**
+     * @return the mobile
+     */
+    public String getMobile() {
+        return mobile;
+    }
+
+    /**
+     * @param mobile the mobile to set
+     */
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    /**
+     * @return the pwd
+     */
+    public String getPwd() {
+        return pwd;
+    }
+
+    /**
+     * @param pwd the pwd to set
+     */
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * @return the mail
+     */
+    public String getMail() {
+        return mail;
+    }
+
+    /**
+     * @param mail the mail to set
+     */
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
 }
