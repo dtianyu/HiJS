@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "SystemUser.getRowCount", query = "SELECT count(s) FROM SystemUser s"),
     @NamedQuery(name = "SystemUser.findAll", query = "SELECT s FROM SystemUser s"),
-    @NamedQuery(name = "SystemUser.findById", query = "SELECT s FROM SystemUser s WHERE s.userid = :userid"),
+    @NamedQuery(name = "SystemUser.findById", query = "SELECT s FROM SystemUser s WHERE s.userid = :id"),
     @NamedQuery(name = "SystemUser.findByIdAndPwd", query = "SELECT s FROM SystemUser s WHERE s.userid = :id AND s.password = :pwd"),
     @NamedQuery(name = "SystemUser.findBySuperuser", query = "SELECT s FROM SystemUser s WHERE s.superuser = :superuser"),
     @NamedQuery(name = "SystemUser.findByStatus", query = "SELECT s FROM SystemUser s WHERE s.status = :status")})
@@ -37,7 +38,7 @@ public class SystemUser extends BaseOperateEntity {
     @Column(name = "userid")
     private String userid;
     @Basic(optional = false)
-    @NotNull
+    @NotEmpty
     @Size(min = 1, max = 16)
     @Column(name = "username")
     private String username;

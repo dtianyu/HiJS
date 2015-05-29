@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -87,6 +86,14 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
         }
         setCurrentEntity(null);
         setNewEntity(null);
+    }
+
+    protected boolean doAfterPersist() {
+        return true;
+    }
+
+    protected boolean doBeforePersist() {
+        return true;
     }
 
     protected void buildJsonFile(JsonStructure value, String filePath, String fileName) {
@@ -189,21 +196,23 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
     }
 
     public void persist() {
-        if (getNewEntity() != null) {
-            try {
-                getSuperEJB().persist(getNewEntity());
-                setNewEntity(null);
-                create();
-                if (userManagedBean != null) {
-                    if (userManagedBean.getCurrentUser().getSuperuser() == 999) {
-                        buildJsonArray();
-                    } else {
-                        buildJsonObject();
-                    }
+        if (doBeforePersist()) {
+            if (getNewEntity() != null) {
+                try {
+                    getSuperEJB().persist(getNewEntity());
+                    setNewEntity(null);
+                    create();
+                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("更新成功！", "更新成功！"));
+                    if (userManagedBean.getCurrentUser() != null) {
+                        if (userManagedBean.getCurrentUser().getSuperuser() == 999) {
+                            buildJsonArray();
+                        } else {
+                            buildJsonObject();
+                        }
+                    }                   
+                } catch (Exception e) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("系统异常！", e.getMessage()));
                 }
-                FacesContext.getCurrentInstance().addMessage("growl", new FacesMessage(null, "更新成功！"));
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(null, e.getMessage()));
             }
         }
     }

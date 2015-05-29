@@ -18,6 +18,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
 
 /**
@@ -29,9 +30,10 @@ import org.primefaces.event.FlowEvent;
 public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
 
     @EJB
-    private SystemUserBean sessionBean;
+    private SystemUserBean systemUserBean;
     private String mobile;
     private String username;
+    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "电子邮件无效")
     private String mail;
     private String pwd;
     private String verifyCode;
@@ -61,8 +63,8 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
 
     @Override
     public void init() {
-        setSuperEJB(sessionBean);
-        setModel(new SystemUserModel(sessionBean));
+        setSuperEJB(systemUserBean);
+        setModel(new SystemUserModel(systemUserBean));
     }
 
     public String onFlowProcess(FlowEvent event) {
@@ -79,29 +81,27 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
         if ((!mobile.isEmpty()) && (mobile.length() == 11)) {
             Integer code = (int) (Math.random() * 10000);
             verifyCode = code.toString();
-            Lib.sendVerifyCode(mobile,verifyCode);
+            Lib.sendVerifyCode(mobile, verifyCode);
         } else {
             FacesContext.getCurrentInstance().addMessage("growl", new FacesMessage("错误", "请输入手机号码"));
         }
     }
 
     @Override
-    public void persist() {
-        if (getNewEntity() != null) {
-            try {
-                newEntity.setUserid(mobile);
-                newEntity.setUsername(username);
-                newEntity.setEmail(mail);
-                newEntity.setPassword(Lib.securityMD5(pwd));
-                newEntity.setSuperuser(0);
-                superEJB.persist(newEntity);
-                setNewEntity(null);
-                FacesContext.getCurrentInstance().addMessage("growl", new FacesMessage("信息", "更新成功"));
-            } catch (UnsupportedEncodingException ex) {
-                FacesContext.getCurrentInstance().addMessage("growl", new FacesMessage("错误", "更新失败"));
-                Logger.getLogger(SystemUserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    protected boolean doBeforePersist() {
+
+        try {
+            newEntity.setUserid(mobile);
+            newEntity.setUsername(username);
+            newEntity.setEmail(mail);
+            newEntity.setPassword(Lib.securityMD5(pwd));
+            newEntity.setSuperuser(0);
+            return true;
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(SystemUserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+
     }
 
     /**

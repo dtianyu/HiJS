@@ -112,7 +112,22 @@ public abstract class SuperEJB<T> implements Serializable {
         }
         return query.getResultList();
     }
-
+  
+    public T findById(String value) {
+        Query query = em.createNamedQuery(getClassName() + ".findById");
+        query.setParameter("id", value);
+        try {
+            Object entity = query.getSingleResult();
+            if (entity != null) {
+                return (T) entity;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }  
+    
     public List<T> findByStatus(String status) {
         Query query = em.createNamedQuery(getClassName() + ".findByStatus");
         query.setParameter("status", status);
@@ -125,15 +140,6 @@ public abstract class SuperEJB<T> implements Serializable {
         return query.getResultList();
     }
 
-    public T getById(String value) {
-        Query query = em.createNamedQuery(getClassName() + ".findById");
-        query.setParameter("id", value);
-        try {
-            return (T) query.getSingleResult();
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
     public T getNextById(String value) {
         Query query = em.createNamedQuery(className + ".findNextById").setFirstResult(0).setMaxResults(1);

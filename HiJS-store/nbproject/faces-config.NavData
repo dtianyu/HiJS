@@ -2,20 +2,20 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
-        <Node id="store.xhtml" x="150" y="150" zoom="true"/>
-        <Node id="storeView.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="template/master.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="weblinkView.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="login.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="storekind.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="*" x="400" y="450" zoom="true"/>
+        <Node id="template/leftMenu.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="storeEdit.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="storeNew.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="weblink.xhtml" x="900" y="300" zoom="true"/>
         <Node id="index.xhtml" x="150" y="600" zoom="true"/>
         <Node id="weblinkNew.xhtml" x="1150" y="150" zoom="true"/>
-        <Node id="weblinkView.xhtml" x="400" y="600" zoom="true"/>
-        <Node id="template/master.xhtml" x="650" y="300" zoom="true"/>
-        <Node id="*" x="400" y="450" zoom="true"/>
-        <Node id="storeNew.xhtml" x="150" y="300" zoom="true"/>
-        <Node id="login.xhtml" x="650" y="450" zoom="true"/>
         <Node id="weblinkEdit.xhtml" x="900" y="150" zoom="true"/>
-        <Node id="storeEdit.xhtml" x="650" y="150" zoom="true"/>
-        <Node id="template/leftMenu.xhtml" x="400" y="150" zoom="true"/>
-        <Node id="weblink.xhtml" x="900" y="300" zoom="true"/>
-        <Node id="storekind.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="store.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="storeView.xhtml" x="150" y="450" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

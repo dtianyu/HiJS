@@ -60,6 +60,11 @@ public abstract class SuperOperateBean<T extends BaseOperateEntity> extends Supe
         edit(entity);
         return edit(path);
     }
+       
+    public String persist(String path) {
+        persist();
+        return path;
+    }
 
     public void verify() {
         if (null != getCurrentEntity()) {
