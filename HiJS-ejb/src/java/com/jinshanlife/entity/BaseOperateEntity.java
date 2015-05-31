@@ -26,19 +26,19 @@ public abstract class BaseOperateEntity extends BaseEntity {
     @Size(min = 1, max = 2)
     @Column(name = "status")
     protected String status;
-    @Size(max = 10)
+    @Size(max = 20)
     @Column(name = "creator")
     protected String creator;
     @Column(name = "credate")
     @Temporal(TemporalType.TIMESTAMP)
     protected Date credate;
-    @Size(max = 10)
+    @Size(max = 20)
     @Column(name = "optuser")
     protected String optuser;
     @Column(name = "optdate")
     @Temporal(TemporalType.TIMESTAMP)
     protected Date optdate;
-    @Size(max = 10)
+    @Size(max = 20)
     @Column(name = "cfmuser")
     protected String cfmuser;
     @Column(name = "cfmdate")

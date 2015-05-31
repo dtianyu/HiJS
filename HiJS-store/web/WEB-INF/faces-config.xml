@@ -37,7 +37,11 @@
             <to-view-id>/index.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-        
+        <navigation-case>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/home.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>        
         <navigation-case>
             <from-outcome>setting</from-outcome>
             <to-view-id>/setting.xhtml</to-view-id>

@@ -9,8 +9,6 @@ import com.jinshanlife.entity.BaseOperateEntity;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
@@ -46,7 +44,7 @@ public abstract class SuperOperateBean<T extends BaseOperateEntity> extends Supe
             }
         }
     }
-    
+
     public String edit(String path) {
         if (currentEntity != null) {
             return path;
@@ -60,12 +58,25 @@ public abstract class SuperOperateBean<T extends BaseOperateEntity> extends Supe
         edit(entity);
         return edit(path);
     }
-       
-    public String persist(String path) {
-        persist();
-        return path;
-    }
 
+    public String persist(String path) {
+        try {
+            persist();
+            return path;
+        } catch (Exception e) {
+            return "";
+        }      
+    }
+    
+    public String save(String path) {
+        try {
+            save();
+            return path;
+        } catch (Exception e) {
+            return "";
+        }      
+    }
+    
     public void verify() {
         if (null != getCurrentEntity()) {
             try {
@@ -93,7 +104,7 @@ public abstract class SuperOperateBean<T extends BaseOperateEntity> extends Supe
             }
         }
     }
- 
+
     public String view(String path) {
         if (currentEntity != null) {
             return path;
@@ -106,8 +117,8 @@ public abstract class SuperOperateBean<T extends BaseOperateEntity> extends Supe
     public String view(T entity, String path) {
         view(entity);
         return view(path);
-    }   
-    
+    }
+
     public void onRowSelect(SelectEvent event) {
         setCurrentEntity((T) event.getObject());
     }

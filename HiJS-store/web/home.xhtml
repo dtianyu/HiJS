@@ -1,17 +1,14 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                  xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="./WEB-INF/template.xhtml">
 
-    <body>
+    <ui:define name="content">
+        <h:outputScript name="jquery/jquery.js" library="primefaces" target="head"/>
 
-        <ui:composition template="./WEB-INF/template.xhtml">
+        <h3 class="hardblue TexAlCenter">Home Page</h3>
+        <span class="TexAlCenter DispBlock Wid100">Use this page to start from scratch and place your custom content.</span>
+    </ui:define>
 
-            <ui:define name="content">
-                content
-            </ui:define>
-
-        </ui:composition>
-
-    </body>
-</html>
+</ui:composition>

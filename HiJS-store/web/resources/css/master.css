@@ -14,6 +14,14 @@ li{
     float: left;
 }
 
+.Wid40 input,.Wid40 span{
+    width:95%;
+}
+
+.Wid60 input,.Wid60 span{
+    width:95%;
+}
+
 .w020,.w020 input,.w020 label,.w020 span{
     width: 20px;
 }

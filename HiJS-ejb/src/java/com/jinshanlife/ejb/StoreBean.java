@@ -38,4 +38,10 @@ public class StoreBean extends SuperEJB<Store> {
         return query.getResultList();
     }
 
+    public List<Store> findByUserId(int id) {
+        Query query;
+        query = em.createNamedQuery("Store.findByUserId");
+        query.setParameter("userid", id);
+        return query.getResultList();
+    }
 }

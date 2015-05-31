@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Store.findAll", query = "SELECT s FROM Store s ORDER BY s.idx DESC "),
     @NamedQuery(name = "Store.findById", query = "SELECT s FROM Store s WHERE s.id = :id"),
     @NamedQuery(name = "Store.findByName", query = "SELECT s FROM Store s WHERE s.name = :name"),
+    @NamedQuery(name = "Store.findByUserId", query = "SELECT s FROM Store s WHERE s.userid = :userid"),
     @NamedQuery(name = "Store.findByKind", query = "SELECT s FROM Store s WHERE s.kind = :kind  ORDER BY s.idx DESC "),
     @NamedQuery(name = "Store.findByTown", query = "SELECT s FROM Store s WHERE s.town = :town"),
     @NamedQuery(name = "Store.findByMobile", query = "SELECT s FROM Store s WHERE s.mobile = :mobile"),
@@ -40,6 +41,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Store.findByStatus", query = "SELECT s FROM Store s WHERE s.status = :status")})
 public class Store extends BaseOperateEntity {
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "userid")
+    private int userid;
     @Basic(optional = false)
     @NotNull
     @Column(name = "kind")
@@ -296,6 +301,20 @@ public class Store extends BaseOperateEntity {
 
     public void setTown(String town) {
         this.town = town;
+    }
+
+    /**
+     * @return the userid
+     */
+    public int getUserid() {
+        return userid;
+    }
+
+    /**
+     * @param userid the userid to set
+     */
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
 
 }

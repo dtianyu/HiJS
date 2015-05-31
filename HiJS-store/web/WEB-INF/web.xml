@@ -2,11 +2,11 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <context-param>
         <param-name>com.jinshanlife.web.appdatapath</param-name>
-        <param-value>\usr\kevindong\Github\HiJS\HiJS-web\web\app\data</param-value>
+        <param-value>\users\kevindong\Github\HiJS\HiJS-web\web\app\data</param-value>
     </context-param>
     <context-param>
         <param-name>com.jinshanlife.web.appimgpath</param-name>
-        <param-value>\usr\kevindong\Github\HiJS\HiJS-web\web\app\img</param-value>
+        <param-value>\users\kevindong\Github\HiJS\HiJS-web\web\app\img</param-value>
     </context-param>
     <context-param>
         <param-name>com.jinshanlife.web.toplist</param-name>
@@ -127,4 +127,20 @@
         <extension>svg#fontawesomeregular</extension>
         <mime-type>image/svg+xml</mime-type>
     </mime-mapping>
+    <error-page>
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/login.html</location>
+    </error-page>
+    <error-page>
+        <exception-type>javax.persistence.NoResultException</exception-type>
+        <location>/empty.xhtml</location>
+    </error-page>
+    <error-page>
+        <exception-type>javax.servlet.ServletException</exception-type>
+        <location>/error.xhtml</location>
+    </error-page>
+      <error-page>
+        <exception-type>com.sun.faces.context.FacesFileNotFoundException</exception-type>
+        <location>/404.xhtml</location>
+    </error-page>
 </web-app>
