@@ -48,7 +48,17 @@ public abstract class SuperEJB<T> implements Serializable {
             return Integer.parseInt(query.getSingleResult().toString());
         }
     }
-
+    
+    public int getRowCountByUserId(int id) {
+        Query query = em.createNamedQuery(getClassName() + ".getRowCountByUserId");
+        query.setParameter("userid", id);
+        if (query.getSingleResult() == null) {
+            return 0;
+        } else {
+            return Integer.parseInt(query.getSingleResult().toString());
+        }
+    }
+    
     public int getRowCount(Map<String, Object> filters) {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT count(e) FROM ");
@@ -112,7 +122,7 @@ public abstract class SuperEJB<T> implements Serializable {
         }
         return query.getResultList();
     }
-  
+
     public T findById(String value) {
         Query query = em.createNamedQuery(getClassName() + ".findById");
         query.setParameter("id", value);
@@ -126,8 +136,8 @@ public abstract class SuperEJB<T> implements Serializable {
         } catch (Exception e) {
             return null;
         }
-    }  
-    
+    }
+
     public List<T> findByStatus(String status) {
         Query query = em.createNamedQuery(getClassName() + ".findByStatus");
         query.setParameter("status", status);
@@ -140,6 +150,19 @@ public abstract class SuperEJB<T> implements Serializable {
         return query.getResultList();
     }
 
+    public List<T> findByUserId(int id) {
+        Query query;
+        query = em.createNamedQuery(getClassName() + ".findByUserId");
+        query.setParameter("userid", id);
+        return query.getResultList();
+    }
+
+    public List<T> findByUserId(int id, int first, int pageSize) {
+        Query query;
+        query = em.createNamedQuery(getClassName() + ".findByUserId").setFirstResult(first).setMaxResults(pageSize);
+        query.setParameter("userid", id);
+        return query.getResultList();
+    }
 
     public T getNextById(String value) {
         Query query = em.createNamedQuery(className + ".findNextById").setFirstResult(0).setMaxResults(1);

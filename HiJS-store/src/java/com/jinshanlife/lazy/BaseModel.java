@@ -6,9 +6,11 @@
 package com.jinshanlife.lazy;
 
 import com.jinshanlife.comm.SuperEJB;
+import com.jinshanlife.control.UserManagedBean;
 import com.jinshanlife.entity.BaseEntity;
 import java.util.List;
 import java.util.Map;
+import javax.faces.bean.ManagedProperty;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
@@ -21,6 +23,8 @@ public abstract class BaseModel<T extends BaseEntity> extends LazyDataModel<T> {
 
     protected SuperEJB superEJB;
     protected List<T> dataList;
+    protected UserManagedBean userManagedBean;
+    
 
     @Override
     public void setRowIndex(int rowIndex) {
@@ -52,8 +56,13 @@ public abstract class BaseModel<T extends BaseEntity> extends LazyDataModel<T> {
 
     @Override
     public List<T> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        setDataList(superEJB.findAll(first, pageSize));
-        setRowCount(superEJB.getRowCount());
+        if (userManagedBean.getCurrentUser().getSuperuser() == 999) {
+            setDataList(superEJB.findAll(first, pageSize));
+            setRowCount(superEJB.getRowCount());
+        }else{
+            setDataList(superEJB.findByUserId(userManagedBean.getCurrentUser().getId(),first, pageSize));
+            setRowCount(superEJB.getRowCountByUserId(userManagedBean.getCurrentUser().getId()));
+        }
         return this.dataList;
     }
 

@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/template.xhtml"                   
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">
+        <!-- SECTION 1 -->       
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="EmptyBox20"></div>
+
+                <div class="Container50 Responsive">
+                    <div class="ContainerIndent">
+                        <p:panel style="min-height: 300px;">
+                            <i class="icon-user-2 Fs50 Fleft Wid25 hardblue TexAlCenter"></i>
+                            <div class="Fs24 Fright MarTop10 leaden Wid70"><span class="hardblue">#{storeManagedBean.currentEntity.name}</span></div>
+
+                            <div class="EmptyBox10"></div>
+                            <p:separator styleClass="Wid100"></p:separator>
+                            <div class="EmptyBox10"></div>
+                            <div class="Fs16 Fright">
+                                <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-briefcase hardblue"> Tasks (32)</i></a>
+                                <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-bell-alt hardblue"> Messages (3)</i></a>
+                                <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-cog-alt hardblue"> Settings</i></a>
+                            </div>
+                            <div class="EmptyBox10"></div>
+                            <p:separator styleClass="Wid100"></p:separator>
+                            <div class="EmptyBox10"></div>
+                            <i class="icon-key softgray MarRight10 Fs14 Fright"> Your Last Login - 18.08.2014, 18:30</i>
+                            <div class="EmptyBox10"></div>
+                            <p:separator styleClass="Wid100"></p:separator>
+
+                        </p:panel>
+                    </div>
+                </div>
+
+                <div class="Container50 Responsive">
+                    <div class="ContainerIndent">
+                        <p:panel style="min-height:300px;">
+                            <div class="Container100 Responsive Fs20">
+                                <i class="icon-chart-bar"></i> Visits Chart
+                            </div>
+                            <div class="Container100">
+
+                            </div>
+                        </p:panel>
+                    </div>
+                </div>
+
+                <div class="EmptyBox10"></div>
+            </div>
+        </div>
+        <!-- SECTION 1 -->
+
+        <!-- SECTION 2 -->
+        <div class="Container100 BorBotLeaden">
+            <div class="ContainerIndent">
+                <div class="EmptyBox10"></div>
+
+                <div class="Container75 Responsive">
+                    <div class="ContainerIndent">
+                        <p:panel style="min-height:410px;">
+                            <h:form id="formItemMaster">
+                                <div id="toolbar" class="Container100 Responsive Fs20">
+                                    <i class="icon-doc-text"></i> 商品列表
+                                    <p:button id="btnPersist" value="添加" outcome="itemNew" styleClass="Fright"/>
+                                    <p:commandButton id="btnEdit" value="修改" action="#{itemMasterManagedBean.edit('itemEdit')}" styleClass="Fright"/>
+                                </div>
+                                <div class="EmptyBox10"></div>
+                                <div class="Container100">
+                                    <p:dataTable id="tableList" var="item" value="#{itemMasterManagedBean.model}"
+                                                 rows="10" paginator="true" pageLinks="10" paginatorPosition="bottom" lazy="true"
+                                                 selectionMode="single" selection="#{itemMasterManagedBean.currentEntity}" rowKey="#{item.id}">
+                                        <p:ajax event="rowSelect"  update=":formItemMaster" />
+                                        <p:ajax event="rowUnselect" update=":formItemMaster" />
+                                        <p:column styleClass="Wid50">
+                                            <f:facet name="header">
+                                                <h:outputText value="名称"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.itemdesc}"/>
+                                        </p:column>  
+                                        <p:column styleClass="Wid20">
+                                            <f:facet name="header">
+                                                <h:outputText value="价格"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.price}"/>
+                                        </p:column>  
+                                        <p:column styleClass="Wid10">
+                                            <f:facet name="header">
+                                                <h:outputText value="单位"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.unit}"/>
+                                        </p:column>  
+                                        <p:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="折扣"/>
+                                            </f:facet>
+                                            <h:outputText value="#{item.disc}"/>
+                                        </p:column> 
+                                    </p:dataTable>
+                                </div>
+                            </h:form>
+
+                        </p:panel>
+                    </div>
+                </div>
+
+                <div class="Container25 Responsive">
+                    <div class="ContainerIndent">
+                        <p:panel style="min-height: 410px;">
+                            <i class="icon-rocket Fs50 Fleft Wid25 red TexAlCenter"></i>
+                            <div class="Fs24 Fright MarTop10 leaden Wid70">Sales Report</div>
+                            <div class="Fs18 Fright leaden Wid70">Totally <span class="red">$ 132.875,45</span></div>
+                            <div class="EmptyBox10"></div>
+                            <p:separator styleClass="Wid100"></p:separator>
+                            <div class="EmptyBox10"></div>
+                            <div class="Fs12 Fright leaden Wid50 TexAlCenter Responsive">4th Quarter<br/><span class="Fs20 orange">--</span></div>
+                            <div class="Fs12 Fright leaden Wid50 TexAlCenter Responsive">3rd Quarter<br/><span class="Fs20 orange">$13.760</span></div>
+                            <div class="Fs12 Fright leaden Wid50 TexAlCenter Responsive">2nd Quarter<br/><span class="Fs20 red">$23.567</span></div>
+                            <div class="Fs12 Fright leaden Wid50 TexAlCenter Responsive">1st Quarter<br/><span class="Fs20 hardblue">$2.370</span></div>
+                            <div class="EmptyBox10"></div>
+                            <p:separator styleClass="Wid100"></p:separator>
+                            <a href="#" class="DispInlBlock Fs14 Fright MarRight10"><i class="icon-doc-1 orange"> Get Full Report</i></a>
+                        </p:panel>
+                    </div>
+                </div>  
+
+                <div class="EmptyBox20"></div>
+            </div>
+        </div>
+        <!-- SECTION 2 -->
+    </ui:define>
+
+</ui:composition>

@@ -47,7 +47,7 @@ public class UserManagedBean implements Serializable {
 
     public String login() {
         if (getUserid().length() == 0 || getPwd().length() == 0) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("消息", "用户名或密码错误"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "请输入用户名和密码"));
         }
         try {
             secpwd = Lib.securityMD5(getPwd());
@@ -58,27 +58,41 @@ public class UserManagedBean implements Serializable {
             SystemUser u = systemUserBean.getByIdAndPwd(getUserid(), getSecpwd());
             if (u != null) {
                 currentUser = u;
-                setStatus(true);
+                status = true;
+                updateLoginTime();
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("消息", "用户名或密码错误"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "用户名或密码错误"));
             }
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("异常", "用户名或密码不正确！"));
-            setStatus(false);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal", "用户名或密码不正确！"));
+            status = false;
             return "login";
         }
-        return "index";
+        return "home";
     }
 
     public String logout() {
         if (status) {
-            currentUser=null;
-            setStatus(false);
+            currentUser = null;
+            status = false;
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
             session.invalidate();
-            return "index";
+            return "login";
         } else {
-            return "index";
+            return "home";
+        }
+    }
+
+    public void update() {
+        if (currentUser != null) {
+            systemUserBean.update(currentUser);
+        }
+    }
+
+    public void updateLoginTime() {
+        if (currentUser != null) {
+            currentUser.setLastlogin(getDate());
+            update();
         }
     }
 
@@ -87,13 +101,13 @@ public class UserManagedBean implements Serializable {
             secpwd = Lib.securityMD5(pwd);
             currentUser.setPassword(secpwd);
         } catch (UnsupportedEncodingException e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("异常", e.getMessage()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Fatal", e.getMessage()));
         }
         try {
-            systemUserBean.update(currentUser);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("消息", "更新成功"));
+            update();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Info", "更新密码成功"));
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("异常", e.getMessage()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Info", e.getMessage()));
         }
     }
 
@@ -110,10 +124,6 @@ public class UserManagedBean implements Serializable {
 
     public boolean getStatus() {
         return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 
     /**

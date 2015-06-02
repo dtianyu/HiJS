@@ -44,31 +44,6 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
     }
 
     @Override
-    public void create() {
-        super.create();
-        if (newEntity != null && userManagedBean.getCurrentUser() != null) {
-            newEntity.setUserid(userManagedBean.getCurrentUser().getId());
-        }
-        newEntity.setPcc(BigDecimal.ZERO);
-        newEntity.setHot(4);
-        newEntity.setIdx(0);
-    }
-
-    @Override
-    public void init() {
-        setSuperEJB(sessionBean);
-        setStoreKindList(storeKindBean.findAll());
-        if (userManagedBean.getCurrentUser() != null) {
-            if (userManagedBean.getCurrentUser().getSuperuser() == 999) {
-                setModel(new StoreModel(sessionBean));
-            } else {
-                setCurrentEntity(sessionBean.findByUserId(userManagedBean.getCurrentUser().getId()).get(0));
-            }
-        }
-
-    }
-
-    @Override
     protected void buildJsonObject() {
         if (currentEntity != null && userManagedBean.getCurrentUser() != null) {
             JsonObjectBuilder job = createJsonObject(currentEntity);
@@ -168,6 +143,36 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
         job.add("hot", entity.getHot())
                 .add("idx", entity.getIdx());
         return job;
+    }
+
+    @Override
+    protected boolean doBeforePersist() {
+        if (newEntity != null && userManagedBean.getCurrentUser() != null) {
+            newEntity.setUserid(userManagedBean.getCurrentUser().getId());
+            newEntity.setPcc(BigDecimal.ZERO);
+            newEntity.setHot(4);
+            newEntity.setIdx(0);
+            userManagedBean.getCurrentUser().setOwnstore(Boolean.TRUE);
+            userManagedBean.update();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public void init() {
+        setSuperEJB(sessionBean);
+        setStoreKindList(storeKindBean.findAll());
+        if (userManagedBean.getCurrentUser() != null) {
+            if (userManagedBean.getCurrentUser().getSuperuser() == 999) {
+                setModel(new StoreModel(sessionBean));
+            } else if (userManagedBean.getCurrentUser().getOwnstore()) {
+                setCurrentEntity(sessionBean.findByUserId(userManagedBean.getCurrentUser().getId()).get(0));
+            } else {
+                setCurrentEntity(newEntity);
+            }
+        }
     }
 
     /**

@@ -5,12 +5,15 @@
  */
 package com.jinshanlife.entity;
 
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -53,6 +56,13 @@ public class SystemUser extends BaseOperateEntity {
     private String password;
     @Column(name = "superuser")
     private Integer superuser;
+    @Column(name = "ownstore")
+    private Boolean ownstore;
+    @Column(name = "locked")
+    private Boolean locked;
+    @Column(name = "lastlogin")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastlogin;
 
     public SystemUser() {
     }
@@ -130,6 +140,48 @@ public class SystemUser extends BaseOperateEntity {
     @Override
     public String toString() {
         return "com.jinshanlife.entity.SystemUser[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the ownstore
+     */
+    public Boolean getOwnstore() {
+        return ownstore;
+    }
+
+    /**
+     * @param ownstore the ownstore to set
+     */
+    public void setOwnstore(Boolean ownstore) {
+        this.ownstore = ownstore;
+    }
+
+    /**
+     * @return the locked
+     */
+    public Boolean getLocked() {
+        return locked;
+    }
+
+    /**
+     * @param locked the locked to set
+     */
+    public void setLocked(Boolean locked) {
+        this.locked = locked;
+    }
+
+    /**
+     * @return the lastlogin
+     */
+    public Date getLastlogin() {
+        return lastlogin;
+    }
+
+    /**
+     * @param lastlogin the lastlogin to set
+     */
+    public void setLastlogin(Date lastlogin) {
+        this.lastlogin = lastlogin;
     }
 
 }

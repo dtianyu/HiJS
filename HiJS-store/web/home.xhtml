@@ -1,14 +1,77 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                  xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 template="./WEB-INF/template.xhtml">
 
     <ui:define name="content">
         <h:outputScript name="jquery/jquery.js" library="primefaces" target="head"/>
+        <!-- SECTION 1 -->       
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="EmptyBox20"></div>
 
-        <h3 class="hardblue TexAlCenter">Home Page</h3>
-        <span class="TexAlCenter DispBlock Wid100">Use this page to start from scratch and place your custom content.</span>
+                <div class="Container33 Responsive">
+                    <div class="ContainerIndent">
+                        <p:panel style="min-height: 300px;">
+                            <i class="icon-user-2 Fs50 Fleft Wid25 hardblue TexAlCenter"></i>
+                            <div class="Fs24 Fright MarTop10 leaden Wid70"><span class="hardblue">#{userManagedBean.currentUser.username}</span>, 欢迎你</div>
+
+                            <div class="EmptyBox10"></div>
+                            <p:separator styleClass="Wid100"></p:separator>
+                            <div class="EmptyBox10"></div>
+                            <div class="Fs16 Fright">
+                                <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-briefcase hardblue"> Tasks (32)</i></a>
+                                <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-bell-alt hardblue"> Messages (3)</i></a>
+                                <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-cog-alt hardblue"> Settings</i></a>
+                            </div>
+                            <div class="EmptyBox10"></div>
+                            <p:separator styleClass="Wid100"></p:separator>
+                            <div class="EmptyBox10"></div>
+                            <i class="icon-key softgray MarRight10 Fs14 Fright"> 最后一次登录－#{userManagedBean.currentUser.lastlogin}</i>
+                            <div class="EmptyBox10"></div>
+                            <p:separator styleClass="Wid100"></p:separator>
+
+                        </p:panel>
+                    </div>
+                </div>
+
+                <div class="Container33 Responsive">
+                    <div class="ContainerIndent">
+                        <p:panel style="min-height: 300px;">
+                            <i class="icon-rocket Fs50 Fleft Wid25 red TexAlCenter"></i>
+                            <div class="Fs24 Fright MarTop10 leaden Wid70">Sales Report</div>
+                            <div class="Fs18 Fright leaden Wid70">Totally <span class="red">$ 132.875,45</span></div>
+                            <div class="EmptyBox10"></div>
+                            <p:separator styleClass="Wid100"></p:separator>
+                            <div class="EmptyBox10"></div>
+                            <div class="Fs12 Fright leaden Wid50 TexAlCenter Responsive">4th Quarter<br/><span class="Fs20 orange">--</span></div>
+                            <div class="Fs12 Fright leaden Wid50 TexAlCenter Responsive">3rd Quarter<br/><span class="Fs20 orange">$13.760</span></div>
+                            <div class="Fs12 Fright leaden Wid50 TexAlCenter Responsive">2nd Quarter<br/><span class="Fs20 red">$23.567</span></div>
+                            <div class="Fs12 Fright leaden Wid50 TexAlCenter Responsive">1st Quarter<br/><span class="Fs20 hardblue">$2.370</span></div>
+                            <div class="EmptyBox10"></div>
+                            <p:separator styleClass="Wid100"></p:separator>
+                            <a href="#" class="DispInlBlock Fs14 Fright MarRight10"><i class="icon-doc-1 orange"> Get Full Report</i></a>
+                        </p:panel>
+                    </div>
+                </div>
+
+                <div class="Container33 Responsive">
+                    <div class="ContainerIndent">
+                        <p:panel style="min-height:300px">
+                            <div class="Fs24 MarTop10 leaden Wid100 TexAlCenter">Customer Report</div>
+                            <div class="EmptyBox10"></div>
+                            <div class="Fs24  leaden Wid100 TexAlCenter">
+                                即将开放
+                            </div>
+                        </p:panel>
+                    </div>
+                </div>
+
+                <div class="EmptyBox10"></div>
+            </div>
+        </div>
+        <!-- SECTION 1 -->
     </ui:define>
 
 </ui:composition>

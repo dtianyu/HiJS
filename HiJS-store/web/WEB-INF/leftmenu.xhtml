@@ -5,24 +5,24 @@
     xmlns:ps="http://primefaces.org/sentinel"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
-    
+
     <div id="layout-menubar" class="Unselectable fontRegular">
         <div class="layout-menubarinner-box" id="buttonArea">
             <a href="#" id="layout-menubar-resize" class="BordRad3" title="Menu Resize"><i class="icon-th-list-2"></i></a>
             <a href="#" id="layout-menubar-resize2" class="BordRad3" title="Open Menu"><i class="icon-menu"></i></a>
         </div>
-        <h:form>
-        <ps:menu id="sm_leftmenu">
-            <p:menuitem id="sm_dashboard" value="首页" icon="icon-home-outline" outcome="home" containerStyleClass="layout-menubar-active"/>
-            <p:submenu id="sm_store" label="我的店铺" icon="icon-th-thumb" >
-                <p:menuitem id="sm_item" value="Forms" icon="icon-doc-text-1" outcome="storeNew"/>
-                <p:menuitem id="sm_item2" value="Forms" icon="icon-doc-text-1" outcome="store"/>
-                <p:menuitem id="sm_item3" value="Forms" icon="icon-doc-text-1" outcome="storeEdit"/>
-            </p:submenu>
+        <h:form id="form_leftmenu">
+            <ps:menu id="sm_leftmenu">
+                <p:menuitem id="sm_dashboard" value="首页" icon="icon-home-outline" outcome="home" containerStyleClass="layout-menubar-active"/>
+                <p:submenu id="sm_store" label="店铺" icon="icon-th-thumb" rendered="#{userManagedBean.getCurrentUser().getOwnstore()}" >
+                    <p:menuitem id="sm_item" value="店铺首页" icon="icon-doc-text-1" outcome="storeHome"/>
+                    <p:menuitem id="sm_item2" value="添加商品" icon="icon-doc-text-1" outcome="itemNew"/>
+                    <p:menuitem id="sm_item3" value="店铺信息" icon="icon-doc-text-1" outcome="storeEdit"/>
+                </p:submenu>
 
-            <p:menuitem id="sm_user" value="账户" icon="icon-vcard" outcome="store" />
+                <p:menuitem id="sm_user" value="账户" icon="icon-vcard" outcome="store" />
 
-        </ps:menu>
+            </ps:menu>
         </h:form>
     </div>
 

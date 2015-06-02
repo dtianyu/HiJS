@@ -41,7 +41,22 @@
             <from-outcome>home</from-outcome>
             <to-view-id>/home.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>        
+        </navigation-case>  
+        <navigation-case>
+            <from-outcome>itemHome</from-outcome>
+            <to-view-id>/itemHome.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemNew</from-outcome>
+            <to-view-id>/itemNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemEdit</from-outcome>
+            <to-view-id>/itemEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>      
         <navigation-case>
             <from-outcome>setting</from-outcome>
             <to-view-id>/setting.xhtml</to-view-id>
@@ -63,30 +78,15 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>weblink</from-outcome>
-            <to-view-id>/weblink.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>weblinkNew</from-outcome>
-            <to-view-id>/weblinkNew.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>weblinkEdit</from-outcome>
-            <to-view-id>/weblinkEdit.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>weblinkView</from-outcome>
-            <to-view-id>/weblinkView.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>store</from-outcome>
             <to-view-id>/store.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>storeHome</from-outcome>
+            <to-view-id>/storeHome.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case> 
         <navigation-case>
             <from-outcome>storeNew</from-outcome>
             <to-view-id>/storeNew.xhtml</to-view-id>
@@ -106,6 +106,28 @@
             <from-outcome>storekind</from-outcome>
             <to-view-id>/storekind.xhtml</to-view-id>
             <redirect/>
+        </navigation-case>       
+        
+        <navigation-case>
+            <from-outcome>weblink</from-outcome>
+            <to-view-id>/weblink.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>weblinkNew</from-outcome>
+            <to-view-id>/weblinkNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>weblinkEdit</from-outcome>
+            <to-view-id>/weblinkEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>weblinkView</from-outcome>
+            <to-view-id>/weblinkView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    
     </navigation-rule>
 </faces-config>
