@@ -56,7 +56,7 @@ public abstract class BaseModel<T extends BaseEntity> extends LazyDataModel<T> {
 
     @Override
     public List<T> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        if (userManagedBean.getCurrentUser().getSuperuser() == 999) {
+        if (userManagedBean.getCurrentUser().getSuperuser()) {
             setDataList(superEJB.findAll(first, pageSize));
             setRowCount(superEJB.getRowCount());
         }else{

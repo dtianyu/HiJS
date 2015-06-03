@@ -8,6 +8,9 @@ package com.jinshanlife.comm;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObjectBuilder;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -23,6 +26,22 @@ public abstract class SuperEJB<T> implements Serializable {
     protected EntityManager em;
 
     protected String className;
+
+    public JsonArrayBuilder createJsonArrayBuilder(List<T> entityList) {
+        if (entityList != null) {
+            JsonArrayBuilder jab = Json.createArrayBuilder();
+            for (T entity : entityList) {
+                jab.add(createJsonObjectBuilder(entity));
+            }
+            return jab;
+        } else {
+            return null;
+        }
+    }
+
+    public JsonObjectBuilder createJsonObjectBuilder(T entity) {
+        return null;
+    }
 
     public void delete(T entity) {
         try {
@@ -48,17 +67,7 @@ public abstract class SuperEJB<T> implements Serializable {
             return Integer.parseInt(query.getSingleResult().toString());
         }
     }
-    
-    public int getRowCountByUserId(int id) {
-        Query query = em.createNamedQuery(getClassName() + ".getRowCountByUserId");
-        query.setParameter("userid", id);
-        if (query.getSingleResult() == null) {
-            return 0;
-        } else {
-            return Integer.parseInt(query.getSingleResult().toString());
-        }
-    }
-    
+
     public int getRowCount(Map<String, Object> filters) {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT count(e) FROM ");
@@ -84,6 +93,16 @@ public abstract class SuperEJB<T> implements Serializable {
             }
         }
         return Integer.parseInt(query.getSingleResult().toString());
+    }
+
+    public int getRowCountByUserId(int id) {
+        Query query = em.createNamedQuery(getClassName() + ".getRowCountByUserId");
+        query.setParameter("userid", id);
+        if (query.getSingleResult() == null) {
+            return 0;
+        } else {
+            return Integer.parseInt(query.getSingleResult().toString());
+        }
     }
 
     public List<T> findAll() {

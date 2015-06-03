@@ -83,7 +83,7 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
             verifyCode = code.toString();
             Lib.sendVerifyCode(mobile, verifyCode);
         } else {
-            FacesContext.getCurrentInstance().addMessage("growl", new FacesMessage("错误", "请输入手机号码"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "请输入手机号码"));
         }
     }
 
@@ -95,7 +95,7 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
             newEntity.setUsername(username);
             newEntity.setEmail(mail);
             newEntity.setPassword(Lib.securityMD5(pwd));
-            newEntity.setSuperuser(0);
+            newEntity.setSuperuser(Boolean.FALSE);
             return true;
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(SystemUserManagedBean.class.getName()).log(Level.SEVERE, null, ex);

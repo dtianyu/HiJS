@@ -55,7 +55,7 @@ public class SystemUser extends BaseOperateEntity {
     @Column(name = "password")
     private String password;
     @Column(name = "superuser")
-    private Integer superuser;
+    private Boolean superuser;
     @Column(name = "ownstore")
     private Boolean ownstore;
     @Column(name = "locked")
@@ -109,11 +109,11 @@ public class SystemUser extends BaseOperateEntity {
         this.password = password;
     }
 
-    public Integer getSuperuser() {
+    public Boolean getSuperuser() {
         return superuser;
     }
 
-    public void setSuperuser(Integer superuser) {
+    public void setSuperuser(Boolean superuser) {
         this.superuser = superuser;
     }
 

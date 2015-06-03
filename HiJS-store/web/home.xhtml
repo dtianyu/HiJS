@@ -27,8 +27,11 @@
                             </div>
                             <div class="EmptyBox10"></div>
                             <p:separator styleClass="Wid100"></p:separator>
-                            <div class="EmptyBox10"></div>
-                            <i class="icon-key softgray MarRight10 Fs14 Fright"> 最后一次登录－#{userManagedBean.currentUser.lastlogin}</i>
+                            <div class="EmptyBox10"></div>                     
+                            <h:outputText value="#{userManagedBean.currentUser.lastlogin}" styleClass="Fright">
+                                <f:convertDateTime pattern="yyyy/MM/dd hh:mm"/>
+                            </h:outputText>
+                            <i class="icon-key softgray MarRight10 Fs14 Fright"> Your Last Login - </i>
                             <div class="EmptyBox10"></div>
                             <p:separator styleClass="Wid100"></p:separator>
 
@@ -59,6 +62,7 @@
                 <div class="Container33 Responsive">
                     <div class="ContainerIndent">
                         <p:panel style="min-height:300px">
+                            <i class=" icon-data-science-inv Fs50 Fleft Wid25 orange TexAlCenter"></i>
                             <div class="Fs24 MarTop10 leaden Wid100 TexAlCenter">Customer Report</div>
                             <div class="EmptyBox10"></div>
                             <div class="Fs24  leaden Wid100 TexAlCenter">

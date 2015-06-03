@@ -14,38 +14,50 @@
                     <p:button id="btnReturn" value="返回" outcome="storeHome" icon="ui-icon-arrowreturn-1-w"/> 
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnPersist" action="#{itemMasterManagedBean.persist('storeHome')}" icon="ui-icon-disk" value="保存" style="float: right"></p:commandButton>
+                    <p:commandButton id="btnPersist" value="保存" action="#{itemMasterManagedBean.persist('storeHome')}" icon="ui-icon-disk"  update="plgNew"/>
                 </f:facet>
             </p:toolbar>  
             <p:panel id="panelNew" header="商品信息－新增">
-                <h:panelGrid id="plgNew" columns="2" columnClasses="Wid10,Wid40 Responsive" >
-
+                <h:panelGrid id="plgNew" columns="3" columnClasses="Wid10,Wid60,Wid30" styleClass="Wid60 Responsive" >
                     <p:outputLabel value="商品编码" for="itemno" />
                     <p:inputText id="itemno" value="#{itemMasterManagedBean.newEntity.itemno}" title="Itemno" />
+                    <h:outputText value=""/>
                     <p:outputLabel value="商品名称" for="itemdesc" />
                     <p:inputText id="itemdesc" value="#{itemMasterManagedBean.newEntity.itemdesc}" title="Itemdesc" required="true" requiredMessage="请输入商品名称"/>
+                    <p:message for="itemdesc"/>
                     <p:outputLabel value="商品描述" for="itemspec" />
-                    <p:inputTextarea id="itemspec" value="#{itemMasterManagedBean.newEntity.itemspec}" title="Itemspec" maxlength="100" styleClass="Wid80 Responsive" />
+                    <p:inputTextarea id="itemspec" value="#{itemMasterManagedBean.newEntity.itemspec}" title="Itemspec" maxlength="100" styleClass="Wid80" />
+                    <h:outputText value=""/>
                     <p:outputLabel value="商品特点" for="itemproperty" />
                     <p:inputText id="itemproperty" value="#{itemMasterManagedBean.newEntity.itemproperty}" title="Itemproperty" />
+                    <h:outputText value=""/>
                     <p:outputLabel value="品牌" for="brand" />
                     <p:inputText id="brand" value="#{itemMasterManagedBean.newEntity.brand}" title="Brand" />
+                    <h:outputText value=""/>
                     <p:outputLabel value="型号" for="batch" />
                     <p:inputText id="batch" value="#{itemMasterManagedBean.newEntity.batch}" title="Batch" />
+                    <h:outputText value=""/>
                     <p:outputLabel value="序号" for="sn" />
                     <p:inputText id="sn" value="#{itemMasterManagedBean.newEntity.sn}" title="Sn" /> 
+                    <h:outputText value=""/>
                     <p:outputLabel value="单位" for="unit" />
                     <p:inputText id="unit" value="#{itemMasterManagedBean.newEntity.unit}" title="Unit" required="true" requiredMessage="请输入单位."/>
+                    <p:message for="unit"/>
                     <p:outputLabel value="价格" for="price" />
                     <p:inputText id="price" value="#{itemMasterManagedBean.newEntity.price}" title="Price" required="true" requiredMessage="请输入单价."/>
+                    <p:message for="price"/>
                     <p:outputLabel value="折扣" for="disc" />
-                    <p:inputText id="disc" value="#{itemMasterManagedBean.newEntity.disc}" title="Disc" />
-                    <p:outputLabel value="排序" for="idx" />
-                    <p:inputText id="idx" value="#{itemMasterManagedBean.newEntity.idx}" title="Idx" />
+                    <p:inputText id="disc" value="#{itemMasterManagedBean.newEntity.disc}" title="Disc"  required="true" requiredMessage="请输入折扣."/>                
+                    <p:message for="disc"/>             
+                    <p:outputLabel value="优先顺序" for="idx" />                   
+                    <p:inputText id="idx" value="#{itemMasterManagedBean.newEntity.idx}" title="Idx" required="true" requiredMessage="请输入顺序."/>
+                    <p:message for="idx"/>
                     <p:outputLabel value="Logo1" for="logo1" />
                     <p:inputText id="logo1" value="#{itemMasterManagedBean.newEntity.logo1}" title="Logo1" />
+                    <h:outputText value=""/>
                     <p:outputLabel value="Logo2" for="logo2" />
                     <p:inputText id="logo2" value="#{itemMasterManagedBean.newEntity.logo2}" title="Logo2" />
+                    <h:outputText value=""/>
                     <f:facet name="footer">   
 
                     </f:facet>      

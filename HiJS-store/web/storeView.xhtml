@@ -32,7 +32,7 @@
                             <p:selectOneMenu value="#{storeManagedBean.currentEntity.kind}" title="Kind" disabled="true">
                                 <!-- TODO: update below reference to list of available items-->
                                 <f:selectItem itemLabel="Select One" itemValue="" />  
-                                <f:selectItems value="#{storeKindQueryBean.entityList}"  var="e"  itemLabel="#{e.name}" itemValue="#{e.id}" />
+                                <f:selectItems value="#{storeManagedBean.storeKindList}"  var="e"  itemLabel="#{e.name}" itemValue="#{e.id}" />
                             </p:selectOneMenu> 
                             <h:outputText value="商家名称"/>
                             <h:outputText value="#{storeManagedBean.currentEntity.name}" title="Name"/>

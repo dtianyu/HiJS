@@ -1,10 +1,9 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./WEB-INF/template.xhtml"                   
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+<ui:composition  xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"              
+                 xmlns:p="http://primefaces.org/ui"
+                 xmlns:f="http://xmlns.jcp.org/jsf/core"
+                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                 template="./WEB-INF/template.xhtml">
 
     <ui:define name="content">
         <!-- SECTION 1 -->       
@@ -14,26 +13,33 @@
 
                 <div class="Container50 Responsive">
                     <div class="ContainerIndent">
-                        <p:panel style="min-height: 300px;">
-                            <i class="icon-user-2 Fs50 Fleft Wid25 hardblue TexAlCenter"></i>
-                            <div class="Fs24 Fright MarTop10 leaden Wid70"><span class="hardblue">#{storeManagedBean.currentEntity.name}</span></div>
+                        <h:form id="formStore">
+                            <p:growl id="growl" showSummary="false" showDetail="true" autoUpdate="true"/>
+                            <p:panel style="min-height: 300px;">
+                                <i class="icon-user-2 Fs50 Fleft Wid25 hardblue TexAlCenter"></i>
+                                <div class="Fs24 Fright MarTop10 leaden Wid70"><span class="hardblue">#{storeManagedBean.currentEntity.name}</span>
+                                    <p:commandButton value="发布" actionListener="#{storeManagedBean.push()}" styleClass="Fright MarRight20" update="growl"/>                      
+                                </div>
+                                <div class="EmptyBox10"></div>
+                                <p:separator styleClass="Wid100"></p:separator>
+                                <div class="EmptyBox10"></div>
+                                <div class="Fs16 Fright">
+                                    <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-briefcase hardblue"> Tasks (32)</i></a>
+                                    <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-bell-alt hardblue"> Messages (3)</i></a>
+                                    <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-cog-alt hardblue"> Settings</i></a>
+                                </div>
+                                <div class="EmptyBox10"></div>
+                                <p:separator styleClass="Wid100"></p:separator>
+                                <div class="EmptyBox10"></div>
+                                <h:outputText value="#{userManagedBean.currentUser.lastlogin}" styleClass="Fright">
+                                    <f:convertDateTime pattern="yyyy/MM/dd hh:mm"/>
+                                </h:outputText>
+                                <i class="icon-key softgray MarRight10 Fs14 Fright"> Your Last Login - </i>
+                                <div class="EmptyBox10"></div>
+                                <p:separator styleClass="Wid100"></p:separator>
 
-                            <div class="EmptyBox10"></div>
-                            <p:separator styleClass="Wid100"></p:separator>
-                            <div class="EmptyBox10"></div>
-                            <div class="Fs16 Fright">
-                                <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-briefcase hardblue"> Tasks (32)</i></a>
-                                <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-bell-alt hardblue"> Messages (3)</i></a>
-                                <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-cog-alt hardblue"> Settings</i></a>
-                            </div>
-                            <div class="EmptyBox10"></div>
-                            <p:separator styleClass="Wid100"></p:separator>
-                            <div class="EmptyBox10"></div>
-                            <i class="icon-key softgray MarRight10 Fs14 Fright"> Your Last Login - 18.08.2014, 18:30</i>
-                            <div class="EmptyBox10"></div>
-                            <p:separator styleClass="Wid100"></p:separator>
-
-                        </p:panel>
+                            </p:panel>
+                        </h:form>
                     </div>
                 </div>
 
@@ -44,7 +50,10 @@
                                 <i class="icon-chart-bar"></i> Visits Chart
                             </div>
                             <div class="Container100">
-
+                                <div class="EmptyBox10"></div>
+                                <div class="Fs24  leaden Wid100 TexAlCenter">
+                                    即将开放
+                                </div>
                             </div>
                         </p:panel>
                     </div>
@@ -60,10 +69,10 @@
             <div class="ContainerIndent">
                 <div class="EmptyBox10"></div>
 
-                <div class="Container75 Responsive">
+                <div class="Container70 Responsive">
                     <div class="ContainerIndent">
-                        <p:panel style="min-height:410px;">
-                            <h:form id="formItemMaster">
+                        <h:form id="formItemMaster">             
+                            <p:panel style="min-height:410px;">
                                 <div id="toolbar" class="Container100 Responsive Fs20">
                                     <i class="icon-doc-text"></i> 商品列表
                                     <p:button id="btnPersist" value="添加" outcome="itemNew" styleClass="Fright"/>
@@ -102,13 +111,12 @@
                                         </p:column> 
                                     </p:dataTable>
                                 </div>
-                            </h:form>
-
-                        </p:panel>
+                            </p:panel>
+                        </h:form>     
                     </div>
                 </div>
 
-                <div class="Container25 Responsive">
+                <div class="Container30 Responsive">
                     <div class="ContainerIndent">
                         <p:panel style="min-height: 410px;">
                             <i class="icon-rocket Fs50 Fleft Wid25 red TexAlCenter"></i>

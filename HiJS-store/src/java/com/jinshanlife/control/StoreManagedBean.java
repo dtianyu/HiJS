@@ -5,8 +5,10 @@
  */
 package com.jinshanlife.control;
 
+import com.jinshanlife.ejb.ItemMasterBean;
 import com.jinshanlife.ejb.StoreBean;
 import com.jinshanlife.ejb.StoreKindBean;
+import com.jinshanlife.entity.ItemMaster;
 import com.jinshanlife.entity.Store;
 import com.jinshanlife.entity.StoreKind;
 import com.jinshanlife.lazy.StoreModel;
@@ -34,6 +36,9 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
     @EJB
     private StoreBean sessionBean;
 
+    @EJB
+    private ItemMasterBean itemMasterBean;
+
     private List<StoreKind> storeKindList;
 
     /**
@@ -44,17 +49,10 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
     }
 
     @Override
-    protected void buildJsonObject() {
-        if (currentEntity != null && userManagedBean.getCurrentUser() != null) {
-            JsonObjectBuilder job = createJsonObject(currentEntity);
-            String path = getAppDataPath();
-            String name = path + "//" + currentEntity.getId() + ".json";
-            buildJsonFile(job.build(), path, name);
-        }
-    }
-
-    @Override
     protected void buildJsonArray() {
+        JsonArrayBuilder jab;
+        String path = getAppDataPath();
+        String name;
         if (storeKindList.isEmpty()) {
             setStoreKindList(storeKindBean.findAll());
         } else {
@@ -62,87 +60,33 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
                 setEntityList(null);
                 setEntityList(sessionBean.findByKind(kind.getId()));
                 if (!entityList.isEmpty()) {
-                    createJson(kind.getClassname() + ".json");
+                    jab = sessionBean.createJsonArrayBuilder(entityList);
+                    name = path + "//" + kind.getClassname() + ".json";
+                    buildJsonFile(jab.build(), path, name);
+
                     setEntityList(entityList.subList(0, getAppTopList() < entityList.size() ? getAppTopList() : entityList.size()));
-                    if (!entityList.isEmpty()) {
-                        createJson(kind.getClassname() + "Top.json");
-                    }
+                    jab = sessionBean.createJsonArrayBuilder(entityList);
+                    name = path + "//" + kind.getClassname() + "Top.json";
+                    buildJsonFile(jab.build(), path, name);
                 }
             }
         }
     }
 
-    private void createJson(String fileName) {
-        JsonArrayBuilder jab = Json.createArrayBuilder();
-        JsonObjectBuilder job;
-        for (Store entity : entityList) {
-            job = createJsonObject(entity);
-            jab.add(job);
+    @Override
+    protected void buildJsonObject() {
+        if (currentEntity != null) {
+            JsonObjectBuilder job;
+            String path = getAppDataPath();
+            String name;
+            job = sessionBean.createJsonObjectBuilder(currentEntity);
+            List<ItemMaster> itemMasterList = itemMasterBean.findByStoreId(currentEntity.getId());
+            if (!itemMasterList.isEmpty()) {
+                job.add("content", itemMasterBean.createJsonArrayBuilder(itemMasterList));
+            }
+            name = path + "//" + currentEntity.getId().toString() + ".json";
+            buildJsonFile(job.build(), path, name);
         }
-        String path = getAppDataPath();
-        String name = path + "//" + fileName;
-        buildJsonFile(jab.build(), path, name);
-    }
-
-    private JsonObjectBuilder createJsonObject(Store entity) {
-        JsonObjectBuilder job;
-        job = Json.createObjectBuilder();
-        job.add("id", entity.getId())
-                .add("name", entity.getName())
-                .add("kind", entity.getKind());
-        if (entity.getAddress() != null) {
-            job.add("address", entity.getAddress());
-        } else {
-            job.addNull("address");
-        }
-        if (entity.getContacter() != null) {
-            job.add("contacter", entity.getContacter());
-        } else {
-            job.addNull("contacter");
-        }
-        if (entity.getPhone() != null) {
-            job.add("phone", entity.getPhone());
-        } else {
-            job.addNull("phone");
-        }
-        if (entity.getTown() != null) {
-            job.add("town", entity.getTown());
-        } else {
-            job.addNull("town");
-        }
-        if (entity.getCategory() != null) {
-            job.add("category", entity.getCategory());
-        } else {
-            job.addNull("category");
-        }
-        if (entity.getPcc() != null) {
-            job.add("pcc", entity.getPcc());
-        } else {
-            job.add("pcc", 0);
-        }
-        if (entity.getFeature() != null) {
-            job.add("feature", entity.getFeature());
-        } else {
-            job.addNull("feature");
-        }
-        if (entity.getAction() != null) {
-            job.add("action", entity.getAction());
-        } else {
-            job.addNull("action");
-        }
-        if (entity.getLogo1() != null) {
-            job.add("logo1", entity.getLogo1());
-        } else {
-            job.addNull("logo1");
-        }
-        if (entity.getLogo2() != null) {
-            job.add("logo2", entity.getLogo2());
-        } else {
-            job.addNull("logo2");
-        }
-        job.add("hot", entity.getHot())
-                .add("idx", entity.getIdx());
-        return job;
     }
 
     @Override
@@ -165,8 +109,9 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
         setSuperEJB(sessionBean);
         setStoreKindList(storeKindBean.findAll());
         if (userManagedBean.getCurrentUser() != null) {
-            if (userManagedBean.getCurrentUser().getSuperuser() == 999) {
+            if (userManagedBean.getCurrentUser().getSuperuser()) {
                 setModel(new StoreModel(sessionBean));
+                setCurrentEntity(newEntity);
             } else if (userManagedBean.getCurrentUser().getOwnstore()) {
                 setCurrentEntity(sessionBean.findByUserId(userManagedBean.getCurrentUser().getId()).get(0));
             } else {

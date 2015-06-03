@@ -93,6 +93,7 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
                 dir.mkdirs();
             }
             Lib.buildJson(value, fileName);
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "发布成功"));
         } catch (IOException ex) {
             Logger.getLogger(SuperManagedBean.class.getName()).log(Level.SEVERE, null, ex);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal", ex.getMessage()));
@@ -166,7 +167,7 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
             try {
                 getSuperEJB().delete(entity);
                 init();
-                if (userManagedBean.getCurrentUser().getSuperuser() == 999) {
+                if (userManagedBean.getCurrentUser().getSuperuser()) {
                     buildJsonArray();
                 } else {
                     buildJsonObject();
@@ -175,6 +176,8 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal", e.getMessage()));
             }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可删除数据！"));
         }
     }
 
@@ -201,17 +204,22 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
                     setNewEntity(null);
                     create();
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功！"));
-                    if (userManagedBean.getCurrentUser() != null) {
-                        if (userManagedBean.getCurrentUser().getSuperuser() == 999) {
-                            buildJsonArray();
-                        } else {
-                            buildJsonObject();
-                        }
-                    }
                 } catch (Exception e) {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal", e.getMessage()));
                     throw new Exception();
                 }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "没有可更新数据！"));
+            }
+        }
+    }
+
+    public void push() {
+        if (userManagedBean.getCurrentUser() != null) {
+            if (userManagedBean.getCurrentUser().getSuperuser()) {
+                buildJsonArray();
+            } else {
+                buildJsonObject();
             }
         }
     }
@@ -225,11 +233,6 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
         if (currentEntity != null) {
             try {
                 getSuperEJB().update(currentEntity);
-                if (userManagedBean.getCurrentUser().getSuperuser() == 999) {
-                    buildJsonArray();
-                } else {
-                    buildJsonObject();
-                }
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功！"));
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal", e.toString()));
@@ -335,11 +338,10 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
     }
 
     public void handleFileUpload(FileUploadEvent event) {
-
         file = event.getFile();
         if (file != null && getCurrentEntity() != null) {
             try {
-                setFileName(file.getFileName());
+                fileName = file.getFileName();
                 upload();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", getFileName() + " is uploaded."));
             } catch (Exception e) {
@@ -358,7 +360,7 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
             HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             request.setCharacterEncoding("UTF-8");
 
-            File dir = new File(getAppImgPath() +"//"+ userManagedBean.getCurrentUser().getId());
+            File dir = new File(getAppImgPath() + "//" + userManagedBean.getCurrentUser().getId());
             if (!dir.exists()) {
                 dir.mkdirs();
             }
@@ -391,13 +393,6 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
      */
     public String getFileName() {
         return fileName;
-    }
-
-    /**
-     * @param fileName the fileName to set
-     */
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
     }
 
     /**

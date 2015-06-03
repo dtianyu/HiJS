@@ -1,4 +1,5 @@
-<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
@@ -13,42 +14,54 @@
                     <p:button id="btnReturn" value="返回" outcome="home" icon="ui-icon-arrowreturn-1-w"  />                          
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnSave" action="#{storeManagedBean.save('home')}" icon="ui-icon-disk" value="保存"/>                                
+                    <p:commandButton id="btnSave" value="保存" action="#{storeManagedBean.save('home')}" icon="ui-icon-disk" update="plgEdit" />                                
                 </f:facet>
             </p:toolbar>
             <p:panel id="panelEdit" header="商家信息－修改">
                 <f:facet name="header">   
 
                 </f:facet> 
-                <h:panelGrid id="plgEdit" columns="2" columnClasses="Wid10,Wid40" styleClass="">
+                <h:panelGrid id="plgEdit"  columns="3" columnClasses="Wid10,Wid60,Wid30" styleClass="Wid60 Responsive" >     
                     <p:outputLabel value="板块" for="kind" />
-                    <p:selectOneMenu id="kind" value="#{storeManagedBean.currentEntity.kind}" title="Kind" required="true" requiredMessage="板块不能为空.">
+                    <p:selectOneMenu id="kind" value="#{storeManagedBean.currentEntity.kind}" title="Kind" required="true" requiredMessage="请选择板块.">
                         <!-- TODO: update below reference to list of available items-->
                         <f:selectItem itemLabel="Select One" itemValue="" />  
                         <f:selectItems value="#{storeManagedBean.storeKindList}"  var="e"  itemLabel="#{e.name}" itemValue="#{e.id}" />
                     </p:selectOneMenu> 
+                    <p:message for="kind"/>
                     <p:outputLabel value="商家名称" for="name" />
-                    <p:inputText id="name" value="#{storeManagedBean.currentEntity.name}" title="Name" required="true" requiredMessage="名称不能为空."/>                       
-                    <p:outputLabel value="城镇" for="town" />
-                    <p:inputText id="town" value="#{storeManagedBean.currentEntity.town}" title="Town"  required="true" requiredMessage="城镇不能为空."/>
+                    <p:inputText id="name" value="#{storeManagedBean.currentEntity.name}" title="Name" required="true" requiredMessage="请输入名称."/>                       
+                    <p:message for="name"/>
+                    <p:outputLabel value="地区" for="town" />
+                    <p:inputText id="town" value="#{storeManagedBean.currentEntity.town}" title="Town"  required="true" requiredMessage="请输入地区."/>
+                    <p:message for="town"/>
                     <p:outputLabel value="地址" for="address" />
-                    <p:inputText id="address" value="#{storeManagedBean.currentEntity.address}" title="Address" required="true" requiredMessage="地址不能为空."/>
+                    <p:inputText id="address" value="#{storeManagedBean.currentEntity.address}" title="Address" required="true" requiredMessage="请输入地址."/>
+                    <p:message for="address"/>
                     <p:outputLabel value="联系人" for="contactor" />
-                    <p:inputText id="contactor" value="#{storeManagedBean.currentEntity.contacter}" title="Contactor" required="true" requiredMessage="联系人不能为空."/>
-                    <p:outputLabel value="手机" for="mobile" />
-                    <p:inputText id="mobile" value="#{storeManagedBean.currentEntity.mobile}" title="Mobile" required="true" requiredMessage="手机不能为空."/>
+                    <p:inputText id="contactor" value="#{storeManagedBean.currentEntity.contacter}" title="Contactor" required="true" requiredMessage="请输入联系人."/>
+                    <p:message for="contactor"/>
+                    <p:outputLabel value="手机" for="mobile" />                   
+                    <p:inputText id="mobile" value="#{storeManagedBean.currentEntity.mobile}" title="Mobile" required="true" requiredMessage="请输入手机."/>
+                    <p:message for="mobile"/>
                     <p:outputLabel value="电话" for="phone" />
                     <p:inputText id="phone" value="#{storeManagedBean.currentEntity.phone}" title="Phone" />
+                    <h:outputText value=""/>
                     <p:outputLabel value="分类" for="category" />
-                    <p:inputText id="category" value="#{storeManagedBean.currentEntity.category}" title="Category" required="true" requiredMessage="分类不能为空."/>
+                    <p:inputText id="category" value="#{storeManagedBean.currentEntity.category}" title="Category" required="true" requiredMessage="请输入分类."/>
+                    <p:message for="category"/>
                     <p:outputLabel value="专长" for="feature" />
                     <p:inputText id="feature" value="#{storeManagedBean.currentEntity.feature}" title="Feature" />
+                    <h:outputText value=""/>
                     <p:outputLabel value="活动" for="action" />
                     <p:inputText id="action" value="#{storeManagedBean.currentEntity.action}" title="Action" />
+                    <h:outputText value=""/>
                     <p:outputLabel value="小Logo" for="logo1" />
                     <p:inputText id="logo1" value="#{storeManagedBean.currentEntity.logo1}" title="Logo1" />
+                    <h:outputText value=""/>
                     <p:outputLabel value="大Logo" for="logo2" />
                     <p:inputText id="logo2" value="#{storeManagedBean.currentEntity.logo2}" title="Logo2" />                                
+                    <h:outputText value=""/>
                     <f:facet name="footer">   
 
                     </f:facet>  

@@ -10,6 +10,8 @@ import com.jinshanlife.entity.Store;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.json.Json;
+import javax.json.JsonObjectBuilder;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +24,72 @@ public class StoreBean extends SuperEJB<Store> {
 
     public StoreBean() {
         this.className = "Store";
+    }
+
+    @Override
+    public JsonObjectBuilder createJsonObjectBuilder(Store entity) {
+        if (entity != null) {
+            JsonObjectBuilder job;
+            job = Json.createObjectBuilder();
+            job.add("id", entity.getId())
+                    .add("name", entity.getName())
+                    .add("kind", entity.getKind());
+            if (entity.getAddress() != null) {
+                job.add("address", entity.getAddress());
+            } else {
+                job.addNull("address");
+            }
+            if (entity.getContacter() != null) {
+                job.add("contacter", entity.getContacter());
+            } else {
+                job.addNull("contacter");
+            }
+            if (entity.getPhone() != null) {
+                job.add("phone", entity.getPhone());
+            } else {
+                job.addNull("phone");
+            }
+            if (entity.getTown() != null) {
+                job.add("town", entity.getTown());
+            } else {
+                job.addNull("town");
+            }
+            if (entity.getCategory() != null) {
+                job.add("category", entity.getCategory());
+            } else {
+                job.addNull("category");
+            }
+            if (entity.getPcc() != null) {
+                job.add("pcc", entity.getPcc());
+            } else {
+                job.add("pcc", 0);
+            }
+            if (entity.getFeature() != null) {
+                job.add("feature", entity.getFeature());
+            } else {
+                job.addNull("feature");
+            }
+            if (entity.getAction() != null) {
+                job.add("action", entity.getAction());
+            } else {
+                job.addNull("action");
+            }
+            if (entity.getLogo1() != null) {
+                job.add("logo1", entity.getLogo1());
+            } else {
+                job.addNull("logo1");
+            }
+            if (entity.getLogo2() != null) {
+                job.add("logo2", entity.getLogo2());
+            } else {
+                job.addNull("logo2");
+            }
+            job.add("hot", entity.getHot())
+                    .add("idx", entity.getIdx());
+            return job;
+        } else {
+            return null;
+        }
     }
 
     public List<Store> findByKind(int id) {
@@ -38,10 +106,4 @@ public class StoreBean extends SuperEJB<Store> {
         return query.getResultList();
     }
 
-    public List<Store> findByUserId(int id) {
-        Query query;
-        query = em.createNamedQuery("Store.findByUserId");
-        query.setParameter("userid", id);
-        return query.getResultList();
-    }
 }

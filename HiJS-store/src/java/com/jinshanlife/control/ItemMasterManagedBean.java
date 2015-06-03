@@ -15,6 +15,9 @@ import java.math.BigDecimal;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObjectBuilder;
 
 /**
  *
@@ -23,13 +26,13 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class ItemMasterManagedBean extends SuperOperateBean<ItemMaster> {
-
+    
     @EJB
     private StoreBean storeBean;
-
+    
     @EJB
     private ItemMasterBean sessionBean;
-
+    
     private Store currentStore;
 
     /**
@@ -38,24 +41,34 @@ public class ItemMasterManagedBean extends SuperOperateBean<ItemMaster> {
     public ItemMasterManagedBean() {
         super(ItemMaster.class);
     }
-
+    
+    
+    @Override
+    public void create() {
+        super.create();
+        if (newEntity != null) {
+            newEntity.setDisc(new BigDecimal(100.00));
+            newEntity.setHot(4);
+            newEntity.setIdx(0);
+        }
+    }
+    
     @Override
     protected boolean doBeforePersist() {
         if (newEntity != null && currentStore != null) {
             newEntity.setUserid(currentStore.getUserid());
-            newEntity.setStoreid(currentStore.getId());
-            newEntity.setHot(4);
+            newEntity.setStoreid(currentStore.getId());        
             return true;
         } else {
             return false;
         }
     }
-
+    
     @Override
     public void init() {
         setSuperEJB(sessionBean);
         setModel(new ItemMasterModel(sessionBean, this.userManagedBean));
         currentStore = storeBean.findByUserId(userManagedBean.getCurrentUser().getId()).get(0);
     }
-
+    
 }

@@ -7,9 +7,12 @@ package com.jinshanlife.ejb;
 
 import com.jinshanlife.comm.SuperEJB;
 import com.jinshanlife.entity.ItemMaster;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.json.Json;
+import javax.json.JsonObjectBuilder;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +25,68 @@ public class ItemMasterBean extends SuperEJB<ItemMaster> {
 
     public ItemMasterBean() {
         this.className = "ItemMaster";
+    }
+
+    @Override
+    public JsonObjectBuilder createJsonObjectBuilder(ItemMaster entity) {
+        JsonObjectBuilder job;
+        job = Json.createObjectBuilder();
+        if (entity != null) {
+
+            job.add("id", entity.getId())
+                    .add("storeid", entity.getStoreid())
+                    .add("userid", entity.getUserid());
+            if (entity.getItemno() != null) {
+                job.add("itemno", entity.getItemno());
+            } else {
+                job.addNull("itemno");
+            }
+            if (entity.getItemdesc() != null) {
+                job.add("itemdesc", entity.getItemdesc());
+            } else {
+                job.addNull("itemdesc");
+            }
+            if (entity.getItemspec() != null) {
+                job.add("itemspec", entity.getItemspec());
+            } else {
+                job.addNull("itemspec");
+            }
+            if (entity.getItemproperty() != null) {
+                job.add("itemproperty", entity.getItemproperty());
+            } else {
+                job.addNull("itemproperty");
+            }
+            if (entity.getBrand() != null) {
+                job.add("brand", entity.getBrand());
+            } else {
+                job.addNull("brand");
+            }
+            if (entity.getBatch() != null) {
+                job.add("batch", entity.getBatch());
+            } else {
+                job.addNull("batch");
+            }
+            if (entity.getSn() != null) {
+                job.add("sn", entity.getSn());
+            } else {
+                job.addNull("sn");
+            }
+
+            job.add("unit", entity.getUnit())
+                    .add("price", entity.getPrice());
+
+            if (entity.getPrice() != null) {
+                job.add("unit", entity.getUnit());
+            } else {
+                job.addNull("unit");
+            }
+            if (entity.getUnit() != null) {
+                job.add("unit", entity.getUnit());
+            } else {
+                job.addNull("unit");
+            }
+        }
+        return job;
     }
 
     public List<ItemMaster> findByKind(int id) {
@@ -51,6 +116,5 @@ public class ItemMasterBean extends SuperEJB<ItemMaster> {
         query.setParameter("storeid", id);
         return query.getResultList();
     }
-
 
 }
