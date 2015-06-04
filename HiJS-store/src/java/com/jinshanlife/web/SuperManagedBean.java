@@ -92,8 +92,9 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
             if (!dir.exists()) {
                 dir.mkdirs();
             }
+            fileName = filePath + "//" + fileName;
             Lib.buildJson(value, fileName);
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "发布成功"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "发布成功"));
         } catch (IOException ex) {
             Logger.getLogger(SuperManagedBean.class.getName()).log(Level.SEVERE, null, ex);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal", ex.getMessage()));

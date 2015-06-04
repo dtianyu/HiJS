@@ -15,10 +15,11 @@ import com.jinshanlife.lazy.StoreModel;
 import com.jinshanlife.web.SuperOperateBean;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 
@@ -61,12 +62,12 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
                 setEntityList(sessionBean.findByKind(kind.getId()));
                 if (!entityList.isEmpty()) {
                     jab = sessionBean.createJsonArrayBuilder(entityList);
-                    name = path + "//" + kind.getClassname() + ".json";
+                    name = kind.getClassname() + ".json";
                     buildJsonFile(jab.build(), path, name);
 
                     setEntityList(entityList.subList(0, getAppTopList() < entityList.size() ? getAppTopList() : entityList.size()));
                     jab = sessionBean.createJsonArrayBuilder(entityList);
-                    name = path + "//" + kind.getClassname() + "Top.json";
+                    name = kind.getClassname() + "Top.json";
                     buildJsonFile(jab.build(), path, name);
                 }
             }
@@ -83,8 +84,14 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
             List<ItemMaster> itemMasterList = itemMasterBean.findByStoreId(currentEntity.getId());
             if (!itemMasterList.isEmpty()) {
                 job.add("content", itemMasterBean.createJsonArrayBuilder(itemMasterList));
+                currentEntity.setItemcount(itemMasterList.size());
+                try {
+                    this.save();
+                } catch (Exception ex) {
+                    Logger.getLogger(StoreManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            name = path + "//" + currentEntity.getId().toString() + ".json";
+            name =  currentEntity.getId().toString() + ".json";
             buildJsonFile(job.build(), path, name);
         }
     }
@@ -96,6 +103,7 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
             newEntity.setPcc(BigDecimal.ZERO);
             newEntity.setHot(4);
             newEntity.setIdx(0);
+            newEntity.setItemcount(0);
             userManagedBean.getCurrentUser().setOwnstore(Boolean.TRUE);
             userManagedBean.update();
             return true;
@@ -110,7 +118,7 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
         setStoreKindList(storeKindBean.findAll());
         if (userManagedBean.getCurrentUser() != null) {
             if (userManagedBean.getCurrentUser().getSuperuser()) {
-                setModel(new StoreModel(sessionBean));
+                setModel(new StoreModel(sessionBean, userManagedBean));
                 setCurrentEntity(newEntity);
             } else if (userManagedBean.getCurrentUser().getOwnstore()) {
                 setCurrentEntity(sessionBean.findByUserId(userManagedBean.getCurrentUser().getId()).get(0));

@@ -34,7 +34,7 @@ public class StoreKindManagedBean extends SuperOperateBean<StoreKind> {
     @Override
     public void init() {
         setSuperEJB(sessionBean);
-        setModel(new StoreKindModel(sessionBean));
+        setModel(new StoreKindModel(sessionBean,userManagedBean));
         if (currentEntity == null) {
             setCurrentEntity(getNewEntity());
         }

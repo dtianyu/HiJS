@@ -10,6 +10,8 @@ import com.jinshanlife.entity.Weblink;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.json.Json;
+import javax.json.JsonObjectBuilder;
 import javax.persistence.Query;
 
 /**
@@ -22,6 +24,26 @@ public class WeblinkBean extends SuperEJB<Weblink> {
 
     public WeblinkBean() {
         this.className = "Weblink";
+    }
+
+    @Override
+    public JsonObjectBuilder createJsonObjectBuilder(Weblink entity) {
+        JsonObjectBuilder job = Json.createObjectBuilder();
+        job.add("id", entity.getId())
+                .add("name", entity.getName())
+                .add("url", entity.getUrl());
+        if (entity.getLogo1() != null) {
+            job.add("logo1", entity.getLogo1());
+        } else {
+            job.addNull("logo1");
+        }
+        if (entity.getLogo2() != null) {
+            job.add("logo2", entity.getLogo2());
+        } else {
+            job.addNull("logo2");
+        }
+        job.add("idx", entity.getIdx());
+        return job;
     }
 
     public List<Weblink> findByLogo2() {

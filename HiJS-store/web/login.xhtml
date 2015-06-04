@@ -35,12 +35,12 @@
                         <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />   
                         <div class="EmptyBox50"></div>
                         <p:inputText value="#{userManagedBean.userid}" placeholder="手机\邮箱" styleClass="Container80 Fnone MarAuto Fs18" 
-                                     style="text-align: left;" required="true"/>
+                                     style="text-align: left;" required="true" requiredMessage="请输入账号"/>
                         <div class="EmptyBox10"></div>
                         <p:password value="#{userManagedBean.pwd}" placeholder="密码" styleClass="Container80 Fnone MarAuto Fs18" 
-                                    style="text-align: left;" required="true" feedback="false"/>
+                                    style="text-align: left;" required="true" requiredMessage="请输入密码" feedback="false"/>
                         <div class="EmptyBox20"></div>
-                        <p:commandButton  value="Log In" styleClass="Fs16" action="#{userManagedBean.login()}"/>
+                        <p:commandButton  value="Log In" styleClass="Fs16" action="#{userManagedBean.login()}" update="growl"/>
                     </h:form>
                     <div class="EmptyBox10"></div>
                     <p:button value="注册" styleClass="Fs16" outcome="register"/>

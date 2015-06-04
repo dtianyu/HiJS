@@ -9,23 +9,15 @@
 
     <div id="layout-header" class="Unselectable fontRegular">
         <h:form id="form_topbar">
+            <h:outputScript name="js/topbar.js" library="sentinel-layout" />
             <a href="dashboard.xhtml" id="layout-logo">
                 <h:graphicImage name="images/LOGO.svg" styleClass="Fleft" library="sentinel-layout"/>
                 <span class="Fs19 FontTitilliumSemiBoldItalic Fleft"><span class="softblue">SENTINEL</span><span class="hardblue">LAYOUT</span></span>
             </a>
             <ul id="sm-topmenu" class="layout-header-widgets white Fs14">
-                <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-user-male"></i>
+                <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-mail"></i><span class="alertBubble BordRad10 Fs9">16</span>
                     <ul class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
-                        <li class="Animated05"><a class="white Unselectable"><i class="icon-user-2 OvHidden"></i>#{userManagedBean.currentUser.username}</a></li>
-                    </ul>
-                </li>
-                <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-mail"></i><span class="alertBubble BordRad10 Fs9">166</span>
-                    <ul class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
-                        <li class="Animated05"><a href="#" class="white Unselectable TexAlRight"><i class="icon-chat-empty yellow"></i>Gustavo Fring<br/><span class="Fs10">What does a man do Walter?</span></a></li>
-                        <li class="Animated05"><a href="#" class="white Unselectable TexAlRight"><i class="icon-chat-empty"></i>Skyler White<br/><span class="Fs10">Where are you?.</span></a></li>
-                        <li class="Animated05"><a href="#" class="white Unselectable TexAlRight"><i class="icon-chat-empty red"></i>Hank Schrader<br/><span class="Fs10">Barbecue photos from last weekend.</span></a></li>
-                        <li class="Animated05"><a href="#" class="white Unselectable TexAlRight"><i class="icon-chat-empty red"></i>Jesse Pinkman<br/><span class="Fs10">Mr. White.</span></a></li>
-                        <li class="Animated05"><a href="#" class="white Unselectable TexAlRight"><i class="icon-chat-empty"></i>Heisenberg<br/><span class="Fs10">I am the one who knocks.</span></a></li>
+
                     </ul>
                 </li>
                 <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-wrench-1"></i>
@@ -34,10 +26,11 @@
                         <li class="Animated05"><a href="#" class="white Unselectable"><i class="icon-lifebuoy"></i>Help Desk</a></li>
                     </ul>
                 </li>
-                <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-power"></i>
+                <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-user-male"></i>
                     <ul class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+                        <li class="Animated05"><a class="white Unselectable"><i class="icon-user-2 OvHidden"></i>#{userManagedBean.currentUser.username}</a></li>
                         <li class="Animated05"><a href="login.xhtml" class="white Unselectable"><i class="icon-ccw-1"></i>重新登录</a></li>
-                        <li class="Animated05"><a href="#"  class="white Unselectable"><i class="icon-logout"></i>注销</a></li>
+                        <li class="Animated05"><a href="javascript:void(0);" onClick="quit();" class="white Unselectable"><i class="icon-logout"></i>注销</a><p:commandButton id="btnQuit" action="#{userManagedBean.logout()}" style="display: none;" /></li>
                     </ul>
                 </li>
             </ul>
@@ -46,6 +39,7 @@
                 <li class="Fleft BordRadHalf TexAlCenter Animated05 DisplayOnResponsive"><i class="icon-th-1"></i></li>
             </ul>
             <!-- ****** -->
+
         </h:form>
     </div>
 

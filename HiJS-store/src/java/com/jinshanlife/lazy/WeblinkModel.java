@@ -6,6 +6,7 @@
 package com.jinshanlife.lazy;
 
 import com.jinshanlife.comm.SuperEJB;
+import com.jinshanlife.control.UserManagedBean;
 import com.jinshanlife.entity.Weblink;
 
 /**
@@ -14,9 +15,9 @@ import com.jinshanlife.entity.Weblink;
  */
 public class WeblinkModel extends BaseModel<Weblink> {
 
-    public WeblinkModel(SuperEJB sessionBean) {
+    public WeblinkModel(SuperEJB sessionBean, UserManagedBean userManagedBean) {
         this.superEJB = sessionBean;
+        this.userManagedBean = userManagedBean;
     }
-
 
 }

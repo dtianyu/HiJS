@@ -34,7 +34,7 @@ public class SystemSettingManagedBean extends SuperOperateBean<SystemSetting> {
     @Override
     public void init() {
         setSuperEJB(sessionBean);
-        setModel(new SystemSettingModel(sessionBean));
+        setModel(new SystemSettingModel(sessionBean,userManagedBean));
     }
 
 }

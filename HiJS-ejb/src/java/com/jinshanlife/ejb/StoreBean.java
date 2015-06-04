@@ -32,6 +32,7 @@ public class StoreBean extends SuperEJB<Store> {
             JsonObjectBuilder job;
             job = Json.createObjectBuilder();
             job.add("id", entity.getId())
+                    .add("userid", entity.getUserid())
                     .add("name", entity.getName())
                     .add("kind", entity.getKind());
             if (entity.getAddress() != null) {

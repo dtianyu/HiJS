@@ -64,7 +64,7 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
     @Override
     public void init() {
         setSuperEJB(systemUserBean);
-        setModel(new SystemUserModel(systemUserBean));
+        setModel(new SystemUserModel(systemUserBean, userManagedBean));
     }
 
     public String onFlowProcess(FlowEvent event) {
@@ -83,7 +83,7 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
             verifyCode = code.toString();
             Lib.sendVerifyCode(mobile, verifyCode);
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "请输入手机号码"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "请输入手机号码"));
         }
     }
 
@@ -96,6 +96,8 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
             newEntity.setEmail(mail);
             newEntity.setPassword(Lib.securityMD5(pwd));
             newEntity.setSuperuser(Boolean.FALSE);
+            newEntity.setOwnstore(Boolean.FALSE);
+            newEntity.setLocked(Boolean.FALSE);
             return true;
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(SystemUserManagedBean.class.getName()).log(Level.SEVERE, null, ex);

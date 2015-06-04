@@ -71,20 +71,22 @@ public class ItemMasterBean extends SuperEJB<ItemMaster> {
             } else {
                 job.addNull("sn");
             }
-
             job.add("unit", entity.getUnit())
-                    .add("price", entity.getPrice());
+                    .add("price", entity.getPrice())
+                    .add("hot", entity.getHot())
+                    .add("idx", entity.getIdx());
 
-            if (entity.getPrice() != null) {
-                job.add("unit", entity.getUnit());
+            if (entity.getLogo1() != null) {
+                job.add("logo1", entity.getLogo1());
             } else {
-                job.addNull("unit");
+                job.addNull("logo1");
             }
-            if (entity.getUnit() != null) {
-                job.add("unit", entity.getUnit());
+            if (entity.getLogo1() != null) {
+                job.add("logo2", entity.getLogo1());
             } else {
-                job.addNull("unit");
+                job.addNull("logo2");
             }
+            
         }
         return job;
     }

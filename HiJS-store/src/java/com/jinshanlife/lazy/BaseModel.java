@@ -24,7 +24,6 @@ public abstract class BaseModel<T extends BaseEntity> extends LazyDataModel<T> {
     protected SuperEJB superEJB;
     protected List<T> dataList;
     protected UserManagedBean userManagedBean;
-    
 
     @Override
     public void setRowIndex(int rowIndex) {
@@ -56,12 +55,14 @@ public abstract class BaseModel<T extends BaseEntity> extends LazyDataModel<T> {
 
     @Override
     public List<T> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-        if (userManagedBean.getCurrentUser().getSuperuser()) {
-            setDataList(superEJB.findAll(first, pageSize));
-            setRowCount(superEJB.getRowCount());
-        }else{
-            setDataList(superEJB.findByUserId(userManagedBean.getCurrentUser().getId(),first, pageSize));
-            setRowCount(superEJB.getRowCountByUserId(userManagedBean.getCurrentUser().getId()));
+        if (userManagedBean != null) {
+            if (userManagedBean.getCurrentUser().getSuperuser()) {
+                setDataList(superEJB.findAll(first, pageSize));
+                setRowCount(superEJB.getRowCount());
+            } else {
+                setDataList(superEJB.findByUserId(userManagedBean.getCurrentUser().getId(), first, pageSize));
+                setRowCount(superEJB.getRowCountByUserId(userManagedBean.getCurrentUser().getId()));
+            }
         }
         return this.dataList;
     }

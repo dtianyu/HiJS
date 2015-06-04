@@ -6,6 +6,7 @@
 package com.jinshanlife.lazy;
 
 import com.jinshanlife.comm.SuperEJB;
+import com.jinshanlife.control.UserManagedBean;
 import com.jinshanlife.entity.SystemUser;
 
 /**
@@ -14,8 +15,9 @@ import com.jinshanlife.entity.SystemUser;
  */
 public class SystemUserModel extends BaseModel<SystemUser> {
     
-    public SystemUserModel(SuperEJB sessionBean){
+    public SystemUserModel(SuperEJB sessionBean, UserManagedBean userManagedBean) {
         this.superEJB = sessionBean;
+        this.userManagedBean = userManagedBean;
     }
     
 }

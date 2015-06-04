@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Store.getRowCount", query = "SELECT count(s) FROM Store s"),
-    @NamedQuery(name = "Store.findAll", query = "SELECT s FROM Store s ORDER BY s.idx DESC "),
+    @NamedQuery(name = "Store.findAll", query = "SELECT s FROM Store s ORDER BY s.status,s.idx DESC "),
     @NamedQuery(name = "Store.findById", query = "SELECT s FROM Store s WHERE s.id = :id"),
     @NamedQuery(name = "Store.findByName", query = "SELECT s FROM Store s WHERE s.name = :name"),
     @NamedQuery(name = "Store.findByUserId", query = "SELECT s FROM Store s WHERE s.userid = :userid"),
@@ -113,7 +113,9 @@ public class Store extends BaseOperateEntity {
     @Size(max = 45)
     @Column(name = "logo2")
     private String logo2;
-
+    @Column(name = "itemcount")
+    private int itemcount;
+    
     public Store() {
     }
 
@@ -315,6 +317,20 @@ public class Store extends BaseOperateEntity {
      */
     public void setUserid(int userid) {
         this.userid = userid;
+    }
+
+    /**
+     * @return the itemcount
+     */
+    public int getItemcount() {
+        return itemcount;
+    }
+
+    /**
+     * @param itemcount the itemcount to set
+     */
+    public void setItemcount(int itemcount) {
+        this.itemcount = itemcount;
     }
 
 }

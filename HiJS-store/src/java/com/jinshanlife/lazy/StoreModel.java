@@ -6,6 +6,7 @@
 package com.jinshanlife.lazy;
 
 import com.jinshanlife.comm.SuperEJB;
+import com.jinshanlife.control.UserManagedBean;
 import com.jinshanlife.entity.Store;
 
 /**
@@ -14,8 +15,9 @@ import com.jinshanlife.entity.Store;
  */
 public class StoreModel extends BaseModel<Store> {
 
-    public StoreModel(SuperEJB sessionBean) {
+    public StoreModel(SuperEJB sessionBean, UserManagedBean userManagedBean) {
         this.superEJB = sessionBean;
+        this.userManagedBean = userManagedBean;
     }
 
 }
