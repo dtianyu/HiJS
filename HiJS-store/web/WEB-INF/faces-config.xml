@@ -106,8 +106,22 @@
             <from-outcome>storekind</from-outcome>
             <to-view-id>/storekind.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>       
-        
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>systemuser</from-outcome>
+            <to-view-id>/systemuser.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>         
+        <navigation-case>
+            <from-outcome>systemuserEdit</from-outcome>
+            <to-view-id>/systemuserEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>        
+        <navigation-case>
+            <from-outcome>resetPwd</from-outcome>
+            <to-view-id>/resetPwd.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>                 
         <navigation-case>
             <from-outcome>weblink</from-outcome>
             <to-view-id>/weblink.xhtml</to-view-id>

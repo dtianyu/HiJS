@@ -86,7 +86,8 @@ public class StoreBean extends SuperEJB<Store> {
                 job.addNull("logo2");
             }
             job.add("hot", entity.getHot())
-                    .add("idx", entity.getIdx());
+                    .add("idx", entity.getIdx())
+                    .add("itemcount", entity.getIdx());
             return job;
         } else {
             return null;

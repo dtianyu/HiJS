@@ -68,13 +68,12 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
     }
 
     public String onFlowProcess(FlowEvent event) {
-        return event.getNewStep();
-//        if (verifyCode.equals(verifyInput)) {
-//            return event.getNewStep();
-//        } else {
-//            FacesContext.getCurrentInstance().addMessage("growl", new FacesMessage("错误", "验证码错误"));
-//        }
-//        return  event.getOldStep();
+        if (verifyCode.equals(verifyInput)) {
+            return event.getNewStep();
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Warn", "验证码错误"));
+        }
+        return  event.getOldStep();
     }
 
     public void sendVerifyCode() {
@@ -83,7 +82,7 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
             verifyCode = code.toString();
             Lib.sendVerifyCode(mobile, verifyCode);
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "请输入手机号码"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "请输入手机号码"));
         }
     }
 

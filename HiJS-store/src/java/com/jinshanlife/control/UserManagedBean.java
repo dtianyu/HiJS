@@ -34,6 +34,7 @@ public class UserManagedBean implements Serializable {
     private SystemUser currentUser;
     private String userid;
     private String pwd;
+    private String newpwd;
     private String secpwd;
     private boolean status;
 
@@ -62,6 +63,8 @@ public class UserManagedBean implements Serializable {
                 updateLoginTime();
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "用户名或密码错误"));
+                status = false;
+                return "";
             }
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal", "用户名或密码不正确！"));
@@ -98,16 +101,20 @@ public class UserManagedBean implements Serializable {
 
     public void updatePwd() {
         try {
-            secpwd = Lib.securityMD5(pwd);
-            currentUser.setPassword(secpwd);
+            secpwd = Lib.securityMD5(getPwd());
+            SystemUser u = systemUserBean.getByIdAndPwd(getUserid(), getSecpwd());
+            if (u != null) {
+                secpwd = Lib.securityMD5(newpwd);
+                currentUser.setPassword(secpwd);
+                update();
+                pwd="";
+                newpwd="";
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新密码成功"));
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "原密码错误"));
+            }
         } catch (UnsupportedEncodingException e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Fatal", e.getMessage()));
-        }
-        try {
-            update();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Info", "更新密码成功"));
-        } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Info", e.getMessage()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal", e.getMessage()));
         }
     }
 
@@ -145,6 +152,20 @@ public class UserManagedBean implements Serializable {
      */
     public String getPwd() {
         return pwd;
+    }
+
+    /**
+     * @return the newpwd
+     */
+    public String getNewpwd() {
+        return newpwd;
+    }
+
+    /**
+     * @param newpwd the newpwd to set
+     */
+    public void setNewpwd(String newpwd) {
+        this.newpwd = newpwd;
     }
 
     /**

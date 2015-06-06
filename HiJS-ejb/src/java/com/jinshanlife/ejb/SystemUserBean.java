@@ -32,7 +32,7 @@ public class SystemUserBean extends SuperEJB<SystemUser> {
         try {
             return (SystemUser) query.getSingleResult();
         } catch (Exception e) {
-            throw new NullPointerException();
+            return null;
         }
     }
       
