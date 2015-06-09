@@ -111,7 +111,12 @@
             <from-outcome>systemuser</from-outcome>
             <to-view-id>/systemuser.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>         
+        </navigation-case>  
+        <navigation-case>
+            <from-outcome>systemuserNew</from-outcome>
+            <to-view-id>/systemuserNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>        
         <navigation-case>
             <from-outcome>systemuserEdit</from-outcome>
             <to-view-id>/systemuserEdit.xhtml</to-view-id>

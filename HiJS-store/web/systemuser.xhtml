@@ -23,7 +23,7 @@
                     <p:commandButton id="btnUnverify" actionListener="#{systemUserManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
                                      rendered="#{systemUserManagedBean.currentEntity.status=='V'}"  update=":formList"/>
                     <p:commandButton id="btnCreate" icon="ui-icon-plus" value="新增"
-                                     action="#{systemUserManagedBean.create('register')}" /> 
+                                     action="#{systemUserManagedBean.create('systemuserNew')}" /> 
                 </f:facet>
             </p:toolbar>
             <p:dataTable value="#{systemUserManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"  

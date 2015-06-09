@@ -62,31 +62,6 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
     }
 
     @Override
-    public void init() {
-        setSuperEJB(systemUserBean);
-        setModel(new SystemUserModel(systemUserBean, userManagedBean));
-    }
-
-    public String onFlowProcess(FlowEvent event) {
-        if (verifyCode.equals(verifyInput)) {
-            return event.getNewStep();
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Warn", "验证码错误"));
-        }
-        return  event.getOldStep();
-    }
-
-    public void sendVerifyCode() {
-        if ((!mobile.isEmpty()) && (mobile.length() == 11)) {
-            Integer code = (int) (Math.random() * 10000);
-            verifyCode = code.toString();
-            Lib.sendVerifyCode(mobile, verifyCode);
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "请输入手机号码"));
-        }
-    }
-
-    @Override
     protected boolean doBeforePersist() {
 
         try {
@@ -103,6 +78,32 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
             return false;
         }
 
+    }
+
+    @Override
+    public void init() {
+        setSuperEJB(systemUserBean);
+        setModel(new SystemUserModel(systemUserBean, userManagedBean));
+    }
+
+    public String onFlowProcess(FlowEvent event) {
+        if (verifyCode.equals(verifyInput)) {
+            return event.getNewStep();
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "验证码错误"));
+        }
+        return event.getOldStep();
+    }
+
+    public void sendVerifyCode() {
+        if ((!mobile.isEmpty()) && (mobile.length() == 11)) {
+            Integer code = (int) (Math.random() * 10000);
+            verifyCode = code.toString();
+            Lib.sendVerifyCode(mobile, verifyCode);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "验证码已发送"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "请输入手机号码"));
+        }
     }
 
     /**
