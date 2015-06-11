@@ -56,7 +56,7 @@ public class UserManagedBean implements Serializable {
             Logger.getLogger(UserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            SystemUser u = systemUserBean.getByIdAndPwd(getUserid(), getSecpwd());
+            SystemUser u = systemUserBean.findByIdAndPwd(getUserid(), getSecpwd());
             if (u != null) {
                 currentUser = u;
                 status = true;
@@ -102,7 +102,7 @@ public class UserManagedBean implements Serializable {
     public void updatePwd() {
         try {
             secpwd = Lib.securityMD5(getPwd());
-            SystemUser u = systemUserBean.getByIdAndPwd(getUserid(), getSecpwd());
+            SystemUser u = systemUserBean.findByIdAndPwd(getUserid(), getSecpwd());
             if (u != null) {
                 secpwd = Lib.securityMD5(newpwd);
                 currentUser.setPassword(secpwd);

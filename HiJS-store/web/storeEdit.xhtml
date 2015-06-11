@@ -24,7 +24,7 @@
                 <h:panelGrid id="plgEdit"  columns="3" columnClasses="Wid20,Wid50,Wid30" styleClass="Wid60 Responsive" >     
                     <p:outputLabel value="板块" for="kind" />
                     <p:selectOneMenu id="kind" value="#{storeManagedBean.currentEntity.kind}" title="Kind" required="true" requiredMessage="请选择板块.">
-                        <!-- TODO: update below reference to list of available items-->
+                        <p:ajax listener="#{storeManagedBean.onKindChangedEdit}" update="category" />
                         <f:selectItem itemLabel="Select One" itemValue="" />  
                         <f:selectItems value="#{storeManagedBean.storeKindList}"  var="e"  itemLabel="#{e.name}" itemValue="#{e.id}" />
                     </p:selectOneMenu> 
@@ -48,7 +48,11 @@
                     <p:inputText id="phone" value="#{storeManagedBean.currentEntity.phone}" title="Phone" />
                     <h:outputText value=""/>
                     <p:outputLabel value="分类" for="category" />
-                    <p:inputText id="category" value="#{storeManagedBean.currentEntity.category}" title="Category" required="true" requiredMessage="请输入分类."/>
+                    <p:selectOneMenu id="category" value="#{storeManagedBean.currentEntity.category}" title="Category" required="true" requiredMessage="请输入分类." >
+                        <!-- TODO: update below reference to list of available items-->
+                        <f:selectItem itemLabel="Select One" itemValue="" />  
+                        <f:selectItems value="#{storeManagedBean.storeCategoryList}"  var="e"  itemLabel="#{e.category}" itemValue="#{e.category}" />
+                    </p:selectOneMenu> 
                     <p:message for="category"/>
                     <p:outputLabel value="专长" for="feature" />
                     <p:inputText id="feature" value="#{storeManagedBean.currentEntity.feature}" title="Feature" />

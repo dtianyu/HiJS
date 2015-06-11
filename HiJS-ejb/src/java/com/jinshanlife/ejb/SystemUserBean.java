@@ -18,22 +18,33 @@ import javax.persistence.Query;
 @Stateless
 @LocalBean
 public class SystemUserBean extends SuperEJB<SystemUser> {
-    
-    public SystemUserBean(){
-        this.className="SystemUser";
+
+    public SystemUserBean() {
+        this.className = "SystemUser";
     }
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method 
-    public SystemUser getByIdAndPwd(String id, String pwd) {
+    public SystemUser findByIdAndPwd(String id, String pwd) {
         Query query = em.createNamedQuery("SystemUser.findByIdAndPwd");
         query.setParameter("id", id);
         query.setParameter("pwd", pwd);
+        query.setParameter("email", id);
         try {
             return (SystemUser) query.getSingleResult();
         } catch (Exception e) {
             return null;
         }
     }
-      
+
+    public SystemUser findByMailAdd(String value) {
+        Query query = em.createNamedQuery("SystemUser.findByMailAdd");
+        query.setParameter("email", value);
+        try {
+            return (SystemUser) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

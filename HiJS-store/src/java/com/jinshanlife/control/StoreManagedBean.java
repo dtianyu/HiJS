@@ -7,9 +7,11 @@ package com.jinshanlife.control;
 
 import com.jinshanlife.ejb.ItemMasterBean;
 import com.jinshanlife.ejb.StoreBean;
+import com.jinshanlife.ejb.StoreCategoryBean;
 import com.jinshanlife.ejb.StoreKindBean;
 import com.jinshanlife.entity.ItemMaster;
 import com.jinshanlife.entity.Store;
+import com.jinshanlife.entity.StoreCategory;
 import com.jinshanlife.entity.StoreKind;
 import com.jinshanlife.lazy.StoreModel;
 import com.jinshanlife.web.SuperOperateBean;
@@ -33,7 +35,8 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
 
     @EJB
     private StoreKindBean storeKindBean;
-
+    @EJB
+    private StoreCategoryBean storeCategoryBean;
     @EJB
     private StoreBean sessionBean;
 
@@ -41,6 +44,7 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
     private ItemMasterBean itemMasterBean;
 
     private List<StoreKind> storeKindList;
+    private List<StoreCategory> storeCategoryList;
 
     /**
      * Creates a new instance of StoreManagedBean
@@ -91,7 +95,7 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
                     Logger.getLogger(StoreManagedBean.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            name =  currentEntity.getId().toString() + ".json";
+            name = currentEntity.getId().toString() + ".json";
             buildJsonFile(job.build(), path, name);
         }
     }
@@ -116,6 +120,7 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
     public void init() {
         setSuperEJB(sessionBean);
         setStoreKindList(storeKindBean.findAll());
+        setStoreCategoryList(storeCategoryBean.findAll());
         if (userManagedBean.getCurrentUser() != null) {
             if (userManagedBean.getCurrentUser().getSuperuser()) {
                 setModel(new StoreModel(sessionBean, userManagedBean));
@@ -126,6 +131,26 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
                 setCurrentEntity(newEntity);
             }
         }
+    }
+
+    public void onKindChangedNew() {
+        if (newEntity != null && newEntity.getKind() != 0) {
+            onKindChanged(newEntity.getKind());
+        } else {
+            onKindChanged(0);
+        }
+    }
+
+    public void onKindChangedEdit() {
+        if (currentEntity != null && currentEntity.getKind() != 0) {
+            onKindChanged(currentEntity.getKind());
+        } else {
+            onKindChanged(0);
+        }
+    }
+
+    private void onKindChanged(int kind) {
+        setStoreCategoryList(storeCategoryBean.findByKind(kind));
     }
 
     /**
@@ -140,6 +165,20 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
      */
     public void setStoreKindList(List<StoreKind> storeKindList) {
         this.storeKindList = storeKindList;
+    }
+
+    /**
+     * @return the storeCategoryList
+     */
+    public List<StoreCategory> getStoreCategoryList() {
+        return storeCategoryList;
+    }
+
+    /**
+     * @param storeCategoryList the storeCategoryList to set
+     */
+    public void setStoreCategoryList(List<StoreCategory> storeCategoryList) {
+        this.storeCategoryList = storeCategoryList;
     }
 
 }

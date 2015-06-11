@@ -10,7 +10,6 @@ import com.jinshanlife.control.UserManagedBean;
 import com.jinshanlife.entity.BaseEntity;
 import java.util.List;
 import java.util.Map;
-import javax.faces.bean.ManagedProperty;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 

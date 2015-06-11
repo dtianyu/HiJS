@@ -168,11 +168,6 @@ public abstract class SuperManagedBean<T extends BaseEntity> implements Serializ
             try {
                 getSuperEJB().delete(entity);
                 init();
-                if (userManagedBean.getCurrentUser().getSuperuser()) {
-                    buildJsonArray();
-                } else {
-                    buildJsonObject();
-                }
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "删除成功！"));
             } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal", e.getMessage()));

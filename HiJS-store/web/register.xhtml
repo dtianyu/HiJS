@@ -36,7 +36,7 @@
                         <p:tab id="tabRegister" title="设置登陆帐户">
                             <p:panel>
                                 <div class="EmptyBox20"></div>
-                                <h:panelGrid id="plgRegister" columns="3" styleClass="Container100" columnClasses="Wid20, Wid30, Wid40">
+                                <h:panelGrid id="plgRegister" columns="3" styleClass="Container100" columnClasses="Wid20 TexAlCenter, Wid30, Wid40">
                                     <h:outputText value="手机号码" />
                                     <p:inputText id="userid" value="#{systemUserManagedBean.mobile}" styleClass ="Wid90" required="true" 
                                                  requiredMessage="请输入手机号" >
@@ -57,12 +57,13 @@
                         <p:tab id="tabProfile" title="填写帐户信息">
                             <p:panel>
                                 <div class="EmptyBox20"></div>
-                                <h:panelGrid  id="plgProfile" columns="2" columnClasses="Wid20 TexAlCenter, Wid40">
+                                <h:panelGrid  id="plgProfile" columns="3" styleClass="Container100"  columnClasses="Wid20 TexAlCenter,Wid30, Wid40">
                                     <h:outputText value="姓名"/>
                                     <p:inputText id="username" value="#{systemUserManagedBean.username}" placeholder="姓名"  styleClass ="Wid90"  required="true" requiredMessage="请输入姓名"/>
                                     <h:outputText value="邮箱"/>
                                     <p:inputText id="mail" value="#{systemUserManagedBean.mail}" placeholder="邮箱" styleClass ="Wid90"  required="true" 
                                                  requiredMessage="请输入邮箱">
+                                        <f:validator validatorId="com.jinshanlife.validator.UserMailAdd"/>
                                     </p:inputText>
                                     <h:outputText value="密码"/>
                                     <p:password id="pwd1" value="#{systemUserManagedBean.pwd}" placeholder="密码" styleClass ="Wid90" required="true" 
