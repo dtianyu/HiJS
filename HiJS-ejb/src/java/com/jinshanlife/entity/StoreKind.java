@@ -5,18 +5,12 @@
  */
 package com.jinshanlife.entity;
 
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -50,7 +44,9 @@ public class StoreKind extends BaseOperateEntity {
     @Size(max = 20)
     @Column(name = "classname")
     private String classname;
-    
+    @Column(name = "storecount")
+    private Integer storecount;
+
     public StoreKind() {
     }
 
@@ -103,6 +99,20 @@ public class StoreKind extends BaseOperateEntity {
     @Override
     public String toString() {
         return "com.jinshanlife.entity.StoreKind[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the storecount
+     */
+    public Integer getStorecount() {
+        return storecount;
+    }
+
+    /**
+     * @param storecount the storecount to set
+     */
+    public void setStorecount(Integer storecount) {
+        this.storecount = storecount;
     }
 
 }

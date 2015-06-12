@@ -33,7 +33,11 @@
                     <p:inputText id="name" value="#{storeManagedBean.currentEntity.name}" title="Name" required="true" requiredMessage="请输入名称."/>                       
                     <p:message for="name"/>
                     <p:outputLabel value="地区" for="town" />
-                    <p:inputText id="town" value="#{storeManagedBean.currentEntity.town}" title="Town"  required="true" requiredMessage="请输入地区."/>
+                    <p:selectOneMenu id="town" value="#{storeManagedBean.currentEntity.town}" title="Town" required="true" requiredMessage="请输入地区.">
+                        <!-- TODO: update below reference to list of available items-->
+                        <f:selectItem itemLabel="Select One" itemValue="" />  
+                        <f:selectItems value="#{storeManagedBean.areaList}"  var="e"  itemLabel="#{e.area}" itemValue="#{e.area}" />
+                    </p:selectOneMenu> 
                     <p:message for="town"/>
                     <p:outputLabel value="地址" for="address" />
                     <p:inputText id="address" value="#{storeManagedBean.currentEntity.address}" title="Address" required="true" requiredMessage="请输入地址."/>

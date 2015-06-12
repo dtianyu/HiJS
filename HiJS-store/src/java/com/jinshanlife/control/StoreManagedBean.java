@@ -5,10 +5,12 @@
  */
 package com.jinshanlife.control;
 
+import com.jinshanlife.ejb.AreaBean;
 import com.jinshanlife.ejb.ItemMasterBean;
 import com.jinshanlife.ejb.StoreBean;
 import com.jinshanlife.ejb.StoreCategoryBean;
 import com.jinshanlife.ejb.StoreKindBean;
+import com.jinshanlife.entity.Area;
 import com.jinshanlife.entity.ItemMaster;
 import com.jinshanlife.entity.Store;
 import com.jinshanlife.entity.StoreCategory;
@@ -34,15 +36,17 @@ import javax.json.JsonObjectBuilder;
 public class StoreManagedBean extends SuperOperateBean<Store> {
 
     @EJB
+    private AreaBean areaBean;
+    @EJB
     private StoreKindBean storeKindBean;
     @EJB
     private StoreCategoryBean storeCategoryBean;
     @EJB
     private StoreBean sessionBean;
-
     @EJB
     private ItemMasterBean itemMasterBean;
 
+    private List<Area> areaList;
     private List<StoreKind> storeKindList;
     private List<StoreCategory> storeCategoryList;
 
@@ -58,7 +62,7 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
         JsonArrayBuilder jab;
         String path = getAppDataPath();
         String name;
-        if (storeKindList.isEmpty()) {
+        if (storeKindList == null || storeKindList.isEmpty()) {
             setStoreKindList(storeKindBean.findAll());
         } else {
             for (StoreKind kind : storeKindList) {
@@ -68,6 +72,9 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
                     jab = sessionBean.createJsonArrayBuilder(entityList);
                     name = kind.getClassname() + ".json";
                     buildJsonFile(jab.build(), path, name);
+                    
+                    kind.setStorecount(entityList.size());
+                    storeKindBean.update(kind);
 
                     setEntityList(entityList.subList(0, getAppTopList() < entityList.size() ? getAppTopList() : entityList.size()));
                     jab = sessionBean.createJsonArrayBuilder(entityList);
@@ -119,6 +126,7 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
     @Override
     public void init() {
         setSuperEJB(sessionBean);
+        setAreaList(areaBean.findAll());
         setStoreKindList(storeKindBean.findAll());
         setStoreCategoryList(storeCategoryBean.findAll());
         if (userManagedBean.getCurrentUser() != null) {
@@ -179,6 +187,20 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
      */
     public void setStoreCategoryList(List<StoreCategory> storeCategoryList) {
         this.storeCategoryList = storeCategoryList;
+    }
+
+    /**
+     * @return the areaList
+     */
+    public List<Area> getAreaList() {
+        return areaList;
+    }
+
+    /**
+     * @param areaList the areaList to set
+     */
+    public void setAreaList(List<Area> areaList) {
+        this.areaList = areaList;
     }
 
 }

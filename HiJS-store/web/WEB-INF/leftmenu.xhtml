@@ -15,6 +15,7 @@
             <ps:menu id="sm_leftmenu">
                 <p:menuitem id="sm_dashboard" value="首页" outcome="home" icon="icon-home-outline" containerStyleClass="layout-menubar-active"/>
                 <p:submenu id="sm_sys" label="系统管理" icon="icon-th-thumb" rendered="#{userManagedBean.getCurrentUser().superuser}" expanded="true">
+                    <p:menuitem id="sm_sys_area" value="地区管理" icon="icon-doc-text-1" outcome="area" />
                     <p:menuitem id="sm_sys_storekind" value="板块管理" icon="icon-doc-text-1" outcome="storekind" />
                     <p:menuitem id="sm_sys_storecategory" value="分类管理" icon="icon-doc-text-1" outcome="storecategory" />
                     <p:menuitem id="sm_sys_user" value="账户管理" icon="icon-vcard" outcome="systemuser" />

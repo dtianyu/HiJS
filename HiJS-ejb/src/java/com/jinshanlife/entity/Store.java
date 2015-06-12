@@ -25,6 +25,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Store.getRowCount", query = "SELECT count(s) FROM Store s"),
+    @NamedQuery(name = "Store.getRowCountByKind", query = "SELECT count(s) FROM Store s WHERE s.kind = :kind"),
+    @NamedQuery(name = "Store.getRowCountByTown", query = "SELECT count(s) FROM Store s WHERE s.town = :town"),
+    @NamedQuery(name = "Store.getRowCountByUserId", query = "SELECT count(s) FROM Store s WHERE s.userid = :userid"),
     @NamedQuery(name = "Store.findAll", query = "SELECT s FROM Store s ORDER BY s.status,s.idx DESC "),
     @NamedQuery(name = "Store.findById", query = "SELECT s FROM Store s WHERE s.id = :id"),
     @NamedQuery(name = "Store.findByName", query = "SELECT s FROM Store s WHERE s.name = :name"),
@@ -115,7 +118,7 @@ public class Store extends BaseOperateEntity {
     private String logo2;
     @Column(name = "itemcount")
     private int itemcount;
-    
+
     public Store() {
     }
 

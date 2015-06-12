@@ -108,4 +108,24 @@ public class StoreBean extends SuperEJB<Store> {
         return query.getResultList();
     }
 
+    public int getRowCountByKind(int kind) {
+        Query query = em.createNamedQuery("Store.getRowCountByKind");
+        query.setParameter("kind", kind);
+        if (query.getSingleResult() == null) {
+            return 0;
+        } else {
+            return Integer.parseInt(query.getSingleResult().toString());
+        }
+    }
+
+    public int getRowCountByTown(String value) {
+        Query query = em.createNamedQuery("Store.getRowCountByTown");
+        query.setParameter("town", value);
+        if (query.getSingleResult() == null) {
+            return 0;
+        } else {
+            return Integer.parseInt(query.getSingleResult().toString());
+        }
+    }
+
 }

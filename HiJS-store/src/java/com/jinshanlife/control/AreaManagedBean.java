@@ -5,9 +5,10 @@
  */
 package com.jinshanlife.control;
 
-import com.jinshanlife.ejb.StoreKindBean;
-import com.jinshanlife.entity.StoreKind;
-import com.jinshanlife.lazy.StoreKindModel;
+import com.jinshanlife.ejb.AreaBean;
+import com.jinshanlife.ejb.StoreBean;
+import com.jinshanlife.entity.Area;
+import com.jinshanlife.lazy.AreaModel;
 import com.jinshanlife.web.SuperOperateBean;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -20,32 +21,37 @@ import javax.json.JsonArrayBuilder;
  */
 @ManagedBean
 @SessionScoped
-public class StoreKindManagedBean extends SuperOperateBean<StoreKind> {
+public class AreaManagedBean extends SuperOperateBean<Area> {
 
     @EJB
-    private StoreKindBean sessionBean;
+    private StoreBean storeBean;
+    @EJB
+    private AreaBean sessionBean;
 
-    /**
-     * Creates a new instance of StoreKindManagedBean
-     */
-    public StoreKindManagedBean() {
-        super(StoreKind.class);
+    public AreaManagedBean() {
+        super(Area.class);
     }
 
     @Override
     protected void buildJsonArray() {
         JsonArrayBuilder jab;
-        setEntityList(sessionBean.findAll());
+        if (entityList == null) {
+            setEntityList(sessionBean.findAll());
+        }
         if (!entityList.isEmpty()) {
+            for (Area entity : entityList) {
+                entity.setStorecount(storeBean.getRowCountByTown(entity.getArea()));
+                sessionBean.update(entity);
+            }
             jab = sessionBean.createJsonArrayBuilder(entityList);
-            buildJsonFile(jab.build(), getAppDataPath(), "storekind.json");
+            buildJsonFile(jab.build(), getAppDataPath(), "town.json");
         }
     }
 
     @Override
     public void init() {
         setSuperEJB(sessionBean);
-        setModel(new StoreKindModel(sessionBean, userManagedBean));
+        setModel(new AreaModel(sessionBean, userManagedBean));
         if (currentEntity == null) {
             setCurrentEntity(getNewEntity());
         }

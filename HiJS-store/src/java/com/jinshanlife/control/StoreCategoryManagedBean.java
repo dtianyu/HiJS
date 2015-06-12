@@ -41,7 +41,7 @@ public class StoreCategoryManagedBean extends SuperOperateBean<StoreCategory> {
     protected void buildJsonArray() {
         JsonArrayBuilder jab;
         String name;
-        if (storeKindList.isEmpty()) {
+        if (storeKindList==null || storeKindList.isEmpty()) {
             setStoreKindList(storeKindBean.findAll());
         } else {
             for (StoreKind kind : storeKindList) {
