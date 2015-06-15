@@ -58,6 +58,10 @@ public abstract class SuperEJB<T> implements Serializable {
     public void persist(T entity) {
         em.persist(entity);
     }
+    
+    public EntityManager getEntityManager(){
+        return em;
+    }
 
     public int getRowCount() {
         Query query = em.createNamedQuery(getClassName() + ".getRowCount");
@@ -142,9 +146,9 @@ public abstract class SuperEJB<T> implements Serializable {
         return query.getResultList();
     }
 
-    public T findById(String value) {
+    public T findById(Object value) {
         Query query = em.createNamedQuery(getClassName() + ".findById");
-        query.setParameter("id", value);
+        query.setParameter("id", (int)(value));
         try {
             Object entity = query.getSingleResult();
             if (entity != null) {
