@@ -13,6 +13,7 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -74,6 +75,10 @@ public class Lib {
         FacesContext context = FacesContext.getCurrentInstance();
         ResourceBundle bundle = context.getApplication().getResourceBundle(context, "i18n");
         return bundle.getString(value);
+    }
+    
+    public static Date getDate(){
+        return Calendar.getInstance().getTime();
     }
 
     public static String securityMD5(String str) throws UnsupportedEncodingException {

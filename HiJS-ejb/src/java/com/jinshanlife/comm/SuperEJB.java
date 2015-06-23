@@ -146,9 +146,9 @@ public abstract class SuperEJB<T> implements Serializable {
         return query.getResultList();
     }
 
-    public T findById(Object value) {
+    public T findById(int value) {
         Query query = em.createNamedQuery(getClassName() + ".findById");
-        query.setParameter("id", (int)(value));
+        query.setParameter("id", value);
         try {
             Object entity = query.getSingleResult();
             if (entity != null) {

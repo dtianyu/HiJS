@@ -38,6 +38,7 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
     private String pwd;
     private String verifyCode;
     private String verifyInput;
+    private int count;//验证码发送次数
 
     public SystemUserManagedBean() {
         super(SystemUser.class);
@@ -96,6 +97,10 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
     }
 
     public void sendVerifyCode() {
+        if(count>3){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "已申请多次，稍后再试"));
+            return;
+        }
         if ((!mobile.isEmpty()) && (mobile.length() == 11)) {
             Integer code = (int) (Math.random() * 10000);
             verifyCode = code.toString();

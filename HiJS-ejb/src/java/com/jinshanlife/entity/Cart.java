@@ -5,15 +5,9 @@
  */
 package com.jinshanlife.entity;
 
-import com.jinshanlife.entity.BaseEntity;
-import java.io.Serializable;
-import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -29,19 +23,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "cart")
 @XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "Cart.getRowCount", query = "SELECT count(c) FROM Cart c"),
+    @NamedQuery(name = "Cart.getRowCountByUserId", query = "SELECT count(c) FROM Cart c WHERE c.userid = :userid"),
     @NamedQuery(name = "Cart.findAll", query = "SELECT c FROM Cart c"),
     @NamedQuery(name = "Cart.findById", query = "SELECT c FROM Cart c WHERE c.id = :id"),
-    @NamedQuery(name = "Cart.findByCartid", query = "SELECT c FROM Cart c WHERE c.cartid = :cartid"),
-    @NamedQuery(name = "Cart.findByStoreid", query = "SELECT c FROM Cart c WHERE c.storeid = :storeid"),
-    @NamedQuery(name = "Cart.findByItemno", query = "SELECT c FROM Cart c WHERE c.itemno = :itemno"),
-    @NamedQuery(name = "Cart.findByItemdesc", query = "SELECT c FROM Cart c WHERE c.itemdesc = :itemdesc"),
-    @NamedQuery(name = "Cart.findByPrice", query = "SELECT c FROM Cart c WHERE c.price = :price"),
-    @NamedQuery(name = "Cart.findByDisc", query = "SELECT c FROM Cart c WHERE c.disc = :disc"),
-    @NamedQuery(name = "Cart.findByQty", query = "SELECT c FROM Cart c WHERE c.qty = :qty"),
-    @NamedQuery(name = "Cart.findByAmts", query = "SELECT c FROM Cart c WHERE c.amts = :amts"),
-    @NamedQuery(name = "Cart.findByRemark", query = "SELECT c FROM Cart c WHERE c.remark = :remark"),
+    @NamedQuery(name = "Cart.findByCartId", query = "SELECT c FROM Cart c WHERE c.cartid = :cartid"),
+    @NamedQuery(name = "Cart.findByUserId", query = "SELECT c FROM Cart c WHERE c.userid = :userid"),
     @NamedQuery(name = "Cart.findByStatus", query = "SELECT c FROM Cart c WHERE c.status = :status")})
-public class Cart extends BaseEntity {
+public class Cart extends BaseOperateEntity {
 
     @Basic(optional = false)
     @NotNull
@@ -50,56 +39,32 @@ public class Cart extends BaseEntity {
     private String cartid;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "storeid")
-    private int storeid;
-    @Size(max = 20)
-    @Column(name = "itemno")
-    private String itemno;
+    @Column(name = "userid")
+    private int userid;
+    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="电话/传真格式无效, 应为 xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "itemdesc")
-    private String itemdesc;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "phone")
+    private String phone;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "price")
-    private BigDecimal price;
-    @Column(name = "disc")
-    private BigDecimal disc;
+    @Size(min = 1, max = 45)
+    @Column(name = "contacter")
+    private String contacter;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "qty")
-    private int qty;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "amts")
-    private BigDecimal amts;
-    @Size(max = 200)
+    @Size(min = 1, max = 200)
+    @Column(name = "address")
+    private String address;
     @Column(name = "remark")
     private String remark;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2)
-    @Column(name = "status")
-    private String status;
 
     public Cart() {
     }
 
     public Cart(Integer id) {
         this.id = id;
-    }
-
-    public Cart(Integer id, String cartid, int storeid, String itemdesc, BigDecimal price, int qty, BigDecimal amts, String status) {
-        this.id = id;
-        this.cartid = cartid;
-        this.storeid = storeid;
-        this.itemdesc = itemdesc;
-        this.price = price;
-        this.qty = qty;
-        this.amts = amts;
-        this.status = status;
     }
 
     public String getCartid() {
@@ -110,76 +75,12 @@ public class Cart extends BaseEntity {
         this.cartid = cartid;
     }
 
-    public int getStoreid() {
-        return storeid;
-    }
-
-    public void setStoreid(int storeid) {
-        this.storeid = storeid;
-    }
-
-    public String getItemno() {
-        return itemno;
-    }
-
-    public void setItemno(String itemno) {
-        this.itemno = itemno;
-    }
-
-    public String getItemdesc() {
-        return itemdesc;
-    }
-
-    public void setItemdesc(String itemdesc) {
-        this.itemdesc = itemdesc;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public BigDecimal getDisc() {
-        return disc;
-    }
-
-    public void setDisc(BigDecimal disc) {
-        this.disc = disc;
-    }
-
-    public int getQty() {
-        return qty;
-    }
-
-    public void setQty(int qty) {
-        this.qty = qty;
-    }
-
-    public BigDecimal getAmts() {
-        return amts;
-    }
-
-    public void setAmts(BigDecimal amts) {
-        this.amts = amts;
-    }
-
     public String getRemark() {
         return remark;
     }
 
     public void setRemark(String remark) {
         this.remark = remark;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     @Override
@@ -206,5 +107,37 @@ public class Cart extends BaseEntity {
     public String toString() {
         return "com.jinshanlife.ejb.Cart[ id=" + id + " ]";
     }
-    
+
+    public int getUserid() {
+        return userid;
+    }
+
+    public void setUserid(int userid) {
+        this.userid = userid;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getContacter() {
+        return contacter;
+    }
+
+    public void setContacter(String contacter) {
+        this.contacter = contacter;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
 }

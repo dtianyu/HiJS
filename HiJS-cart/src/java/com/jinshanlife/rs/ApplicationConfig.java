@@ -12,7 +12,7 @@ import javax.ws.rs.core.Application;
  *
  * @author C0160
  */
-@javax.ws.rs.ApplicationPath("webresources")
+@javax.ws.rs.ApplicationPath("app")
 public class ApplicationConfig extends Application {
 
     @Override
@@ -30,6 +30,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(com.jinshanlife.rs.CORSFilter.class);
+        resources.add(com.jinshanlife.rs.CartDetailFacadeREST.class);
         resources.add(com.jinshanlife.rs.CartFacadeREST.class);
     }
     

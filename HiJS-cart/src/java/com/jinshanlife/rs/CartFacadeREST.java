@@ -5,9 +5,14 @@
  */
 package com.jinshanlife.rs;
 
-import com.jinshanlife.ejb.CartBean;
+import com.jinshanlife.comm.Lib;
+import com.jinshanlife.ejb.SystemUserBean;
 import com.jinshanlife.entity.Cart;
+import com.jinshanlife.entity.SystemUser;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -23,26 +28,46 @@ import javax.ws.rs.Produces;
 
 /**
  *
- * @author C0160
+ * @author kevindong
  */
 @Stateless
 @Path("cart")
 public class CartFacadeREST extends AbstractFacade<Cart> {
 
     @EJB
-    private CartBean cartBean;
+    private SystemUserBean systemUserBean;
+    
+    @PersistenceContext(unitName = "HiJS-cartPU")
+    private EntityManager em;
     
     public CartFacadeREST() {
         super(Cart.class);
     }
     
     @POST
+    @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(List<Cart> entityList) {
-        setSuperEJB(cartBean);
-        for (Cart entity : entityList) {
-            super.create(entity);
-        }      
+    public void create(Cart entity) {
+        SystemUser user ;
+        user = systemUserBean.findByUserId(entity.getPhone());
+        if (user==null){
+            Integer pwd = (int) (Math.random() * 10000);
+            try {
+                user = new SystemUser(entity.getPhone(),entity.getContacter(),Lib.securityMD5(pwd.toString()));
+                user.setStatusToNew();
+                user.setCreatorToSystem();
+                user.setCredateToNow();
+                systemUserBean.persist(user);
+                user = systemUserBean.findByUserId(entity.getPhone());
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(CartFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        entity.setUserid(user.getId());
+        entity.setStatus("N");
+        entity.setCreator("system");
+        entity.setCredate(Lib.getDate());
+        super.create(entity);
     }
     
     @PUT
@@ -63,6 +88,32 @@ public class CartFacadeREST extends AbstractFacade<Cart> {
     @Produces({"application/xml", "application/json"})
     public Cart find(@PathParam("id") Integer id) {
         return super.find(id);
+    }
+    
+    @GET
+    @Override
+    @Produces({"application/xml", "application/json"})
+    public List<Cart> findAll() {
+        return super.findAll();
+    }
+    
+    @GET
+    @Path("{from}/{to}")
+    @Produces({"application/xml", "application/json"})
+    public List<Cart> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return super.findRange(new int[]{from, to});
+    }
+    
+    @GET
+    @Path("count")
+    @Produces("text/plain")
+    public String countREST() {
+        return String.valueOf(super.count());
+    }
+    
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
     }
     
 }

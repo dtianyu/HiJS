@@ -64,3 +64,8 @@ $RECYCLE.BIN/
 /build/
 /HiJS-store/dist/
 /HiJS-cart/nbproject/private/
+/HiJS-cart/dist/
+/HiJS-cart/build/
+/HiJS-cart-test/nbproject/private/
+/HiJS-cart-test/build/
+/HiJS-cart-test/dist/

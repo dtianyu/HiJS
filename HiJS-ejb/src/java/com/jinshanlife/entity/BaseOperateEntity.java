@@ -5,6 +5,7 @@
  */
 package com.jinshanlife.entity;
 
+import com.jinshanlife.comm.Lib;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -100,5 +101,30 @@ public abstract class BaseOperateEntity extends BaseEntity {
     public void setCfmdate(Date cfmdate) {
         this.cfmdate = cfmdate;
     }
+    
+    public void setStatusToNew(){
+        this.setStatus("N");
+    }
+    
+    public void setStatusToModify(){
+        this.setStatus("M");
+    }
+    
+    public void setCreatorToSystem(){
+        this.setCreator("system");
+    }
+    
+    public void setCredateToNow(){
+        this.setCredate(Lib.getDate());
+    }
+    
+    public void setOptuserToSystem(){
+        this.setOptuser("system");
+    }
+    
+    public void setOptdateToNow(){
+        this.setOptdate(Lib.getDate());
+    }
+            
 
 }

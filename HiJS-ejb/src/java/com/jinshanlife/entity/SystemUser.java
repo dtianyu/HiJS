@@ -30,11 +30,11 @@ import org.hibernate.validator.constraints.NotEmpty;
     @NamedQuery(name = "SystemUser.getRowCount", query = "SELECT count(s) FROM SystemUser s"),
     @NamedQuery(name = "SystemUser.getRowCountByUserId", query = "SELECT count(s) FROM SystemUser s WHERE s.id= :userid"),
     @NamedQuery(name = "SystemUser.findAll", query = "SELECT s FROM SystemUser s"),
-    @NamedQuery(name = "SystemUser.findById", query = "SELECT s FROM SystemUser s WHERE s.userid = :id"),
-    @NamedQuery(name = "SystemUser.findByIdAndPwd", query = "SELECT s FROM SystemUser s WHERE (s.userid = :id OR s.email =:email) AND s.password = :pwd"),
+    @NamedQuery(name = "SystemUser.findById", query = "SELECT s FROM SystemUser s WHERE s.id = :id"),
+    @NamedQuery(name = "SystemUser.findByUserId", query = "SELECT s FROM SystemUser s WHERE s.userid = :userid"),
+    @NamedQuery(name = "SystemUser.findByUserIdAndPwd", query = "SELECT s FROM SystemUser s WHERE (s.userid = :userid OR s.email =:email) AND s.password = :pwd"),
     @NamedQuery(name = "SystemUser.findByMailAdd", query = "SELECT s FROM SystemUser s WHERE s.email = :email"),
-    @NamedQuery(name = "SystemUser.findByStatus", query = "SELECT s FROM SystemUser s WHERE s.status = :status"),
-    @NamedQuery(name = "SystemUser.findByUserId", query = "SELECT s FROM SystemUser s WHERE s.id = :userid"),})
+    @NamedQuery(name = "SystemUser.findByStatus", query = "SELECT s FROM SystemUser s WHERE s.status = :status")})
 public class SystemUser extends BaseOperateEntity {
 
     @Basic(optional = false)
@@ -67,10 +67,6 @@ public class SystemUser extends BaseOperateEntity {
     private Date lastlogin;
 
     public SystemUser() {
-    }
-
-    public SystemUser(Integer id) {
-        this.id = id;
     }
 
     public SystemUser(String userid, String username, String password) {

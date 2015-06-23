@@ -27,7 +27,7 @@ public class UserIdValidator implements Validator {
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         if (value != null) {
-            if (systemUserBean.findById(value.toString()) == null) {
+            if (systemUserBean.findByUserId(value.toString()) == null) {
                 return;
             }
         }

@@ -23,13 +23,22 @@ public class SystemUserBean extends SuperEJB<SystemUser> {
         this.className = "SystemUser";
     }
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method 
-    public SystemUser findByIdAndPwd(String id, String pwd) {
-        Query query = em.createNamedQuery("SystemUser.findByIdAndPwd");
-        query.setParameter("id", id);
+    public SystemUser findByUserId(String userid) {
+        Query query = em.createNamedQuery("SystemUser.findByUserId");
+        query.setParameter("userid", userid);
+        Object o = query.getSingleResult();
+        if(o!=null){
+            return (SystemUser)o;
+        }else{
+            return null;
+        }
+    }
+
+    public SystemUser findByUserIdAndPwd(String userid, String pwd) {
+        Query query = em.createNamedQuery("SystemUser.findByUserIdAndPwd");
+        query.setParameter("userid", userid);
         query.setParameter("pwd", pwd);
-        query.setParameter("email", id);
+        query.setParameter("email", userid);
         try {
             return (SystemUser) query.getSingleResult();
         } catch (Exception e) {
