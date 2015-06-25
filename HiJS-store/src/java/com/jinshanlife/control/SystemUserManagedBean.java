@@ -9,10 +9,13 @@ import com.jinshanlife.comm.Lib;
 import com.jinshanlife.ejb.SystemUserBean;
 import com.jinshanlife.entity.SystemUser;
 import com.jinshanlife.lazy.SystemUserModel;
+import com.jinshanlife.web.GraphicCode;
 import com.jinshanlife.web.SuperOperateBean;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -20,6 +23,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.validation.constraints.Pattern;
 import org.primefaces.event.FlowEvent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -31,6 +35,7 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
 
     @EJB
     private SystemUserBean systemUserBean;
+    private GraphicCode graphicCode;
     private String mobile;
     private String username;
     @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "电子邮件无效")
@@ -38,6 +43,8 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
     private String pwd;
     private String verifyCode;
     private String verifyInput;
+    private StreamedContent graphicContent;
+    private String graphicString;
     private int count;//验证码发送次数
 
     public SystemUserManagedBean() {
@@ -50,9 +57,9 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
             SystemUser entity;
             try {
                 entity = entityClass.newInstance();
-                entity.setStatus("N");
-                entity.setCreator("system");
-                entity.setCredate(getDate());
+                entity.setStatusToNew();
+                entity.setCreatorToSystem();
+                entity.setCredateToNow();
                 entity.setOptuser(null);
                 entity.setOptdate(null);
                 setNewEntity(entity);
@@ -85,6 +92,13 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
     public void init() {
         setSuperEJB(systemUserBean);
         setModel(new SystemUserModel(systemUserBean, userManagedBean));
+        try {
+            graphicCode = new GraphicCode();
+            graphicCode.build();
+            graphicContent = graphicCode.getContent();
+        } catch (IOException ex) {
+            Logger.getLogger(SystemUserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public String onFlowProcess(FlowEvent event) {
@@ -96,16 +110,33 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
         return event.getOldStep();
     }
 
+    public void sendGraphicCode() {
+        if (graphicCode == null) {
+            graphicCode = new GraphicCode();
+        }
+        try {
+            graphicCode.build();
+            graphicContent = graphicCode.getContent();
+        } catch (IOException ex) {
+            Logger.getLogger(SystemUserManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void sendVerifyCode() {
-        if(count>3){
+        if (graphicString == null ? graphicCode.getCode() != null : !graphicString.equals(graphicCode.getCode())) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "图形验证码错误"));
+            return;
+        }
+        if (getCount() > 3) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "已申请多次，稍后再试"));
             return;
         }
         if ((!mobile.isEmpty()) && (mobile.length() == 11)) {
             Integer code = (int) (Math.random() * 10000);
             verifyCode = code.toString();
-            Lib.sendVerifyCode(mobile, verifyCode);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "验证码已发送"));
+            //Lib.sendVerifyCode(mobile, verifyCode);
+            setCount(getCount() + 1);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", verifyCode + "验证码已发送"));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "请输入手机号码"));
         }
@@ -179,6 +210,41 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
      */
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    /**
+     * @return the count
+     */
+    public int getCount() {
+        return count;
+    }
+
+    /**
+     * @param count the count to set
+     */
+    public void setCount(int count) {
+        this.count = count;
+    }
+    
+    /**
+     * @return the graphicContent
+     */
+    public StreamedContent getGraphicContent() {
+        return graphicContent;
+    }
+
+    /**
+     * @return the graphicString
+     */
+    public String getGraphicString() {
+        return graphicString;
+    }
+
+    /**
+     * @param graphicString the graphicString to set
+     */
+    public void setGraphicString(String graphicString) {
+        this.graphicString = graphicString;
     }
 
 }

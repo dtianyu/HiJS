@@ -13,6 +13,8 @@
         <h:outputStylesheet name="css/font-icon-layout.css" library="sentinel-layout" />
         <h:outputStylesheet name="css/sentinel-layout.css" library="sentinel-layout" />
         <h:outputStylesheet name="css/core-layout.css" library="sentinel-layout" />
+        <h:outputScript name="register.js" library="js"/>
+        <h:outputStylesheet name="register.css"  library="css"/>
     </h:head>
 
     <h:body class="fontRegular login-back white-back">
@@ -28,12 +30,12 @@
         <!-- REGISTER BOX COVER START -->
         <div class="Container100 MaxWid500 white-back Fnone MarAuto BordRad10" id="register-box">
             <div class="Container100">
-                <h:form id="formNew">
+                <h:form id="formRegister">
                     <p:growl id="growl" showSummary="false" showDetail="true"  autoUpdate="true"/>
 
                     <p:wizard id="wizRegister" flowListener="#{systemUserManagedBean.onFlowProcess}">
 
-                        <p:tab id="tabRegister" title="设置登陆帐户">
+                        <p:tab id="tabRegister" title="登陆帐户">
                             <p:panel>
                                 <div class="EmptyBox20"></div>
                                 <h:panelGrid id="plgRegister" columns="3" styleClass="Container100" columnClasses="Wid20 TexAlCenter, Wid30, Wid40">
@@ -44,39 +46,50 @@
                                         <f:validator validatorId="com.jinshanlife.validator.UserId"/>
                                     </p:inputText>
                                     <p:messages id="msgUserId" for="userid" />
-                                    <h:outputText value="验证码" />
+                                    <h:outputText value="图形验证" />                        
+                                    <p:inputText id="graphicCode" value="#{systemUserManagedBean.graphicString}" styleClass="Wid30"  required="true"
+                                                 requiredMessage="请输入图形验证码"/>
+                                    <p:graphicImage id="graphicContent" value="#{systemUserManagedBean.graphicContent}" cache="false"  styleClass="MarLeft-80" onclick="sendGraphicCode();" />
+                                    <h:outputText value="短信验证" />                             
                                     <p:inputText id="verifycode" value="#{systemUserManagedBean.verifyInput}" styleClass="Wid30"  required="true"
-                                                 requiredMessage="请输入验证码"/>
-                                    <p:commandButton id="btnSendVerifyCode" value="获取"  actionListener="#{systemUserManagedBean.sendVerifyCode()}"
-                                                     style="margin-left: -80px;" process="userid,btnSendVerifyCode" update="msgUserId"/>
+                                                 requiredMessage="请输入短信验证码"/>
+                                    <p:commandButton id="btnSendVerifyCode" value="获取验证码"  actionListener="#{systemUserManagedBean.sendVerifyCode()}" 
+                                                     oncomplete="waiting();"  styleClass="MarLeft-80" process="userid,graphicCode,btnSendVerifyCode" update="userid,msgUserId,graphicCode,count"/>
+                                    <h:inputText id="count" style="display: none" value="#{systemUserManagedBean.count}"/>
+                                    <p:commandButton id="btnSendGraphicCode" value="获取图形码"  actionListener="#{systemUserManagedBean.sendGraphicCode()}" 
+                                                     style="display: none;"  process="btnSendGraphicCode" update="graphicContent"/>
                                 </h:panelGrid>
                                 <div class="EmptyBox20"></div>
                             </p:panel>
                         </p:tab> 
 
-                        <p:tab id="tabProfile" title="填写帐户信息">
+                        <p:tab id="tabProfile" title="帐户信息">
                             <p:panel>
                                 <div class="EmptyBox20"></div>
-                                <h:panelGrid  id="plgProfile" columns="3" styleClass="Container100"  columnClasses="Wid20 TexAlCenter,Wid30, Wid40">
+                                <h:panelGrid  id="plgProfile" columns="3" styleClass="Container100"  columnClasses="Wid20 TexAlCenter,Wid40, Wid40">
                                     <h:outputText value="姓名"/>
                                     <p:inputText id="username" value="#{systemUserManagedBean.username}" placeholder="姓名"  styleClass ="Wid90"  required="true" requiredMessage="请输入姓名"/>
+                                    <p:messages  for="username" />
                                     <h:outputText value="邮箱"/>
                                     <p:inputText id="mail" value="#{systemUserManagedBean.mail}" placeholder="邮箱" styleClass ="Wid90"  required="true" 
                                                  requiredMessage="请输入邮箱">
                                         <f:validator validatorId="com.jinshanlife.validator.UserMailAdd"/>
                                     </p:inputText>
+                                    <p:messages  for="mail" />
                                     <h:outputText value="密码"/>
                                     <p:password id="pwd1" value="#{systemUserManagedBean.pwd}" placeholder="密码" styleClass ="Wid90" required="true" 
                                                 requiredMessage="请输入密码" validatorMessage="密码至少六位"  match="pwd2" feedback="false">
                                         <f:validateLength minimum="6"/>
-                                    </p:password>                                           
+                                    </p:password>    
+                                    <p:messages  for="pwd1" />
                                     <h:outputText value="确认密码"  style="text-align: right;"/>
                                     <p:password id="pwd2" value="#{systemUserManagedBean.pwd}" placeholder="密码" styleClass ="Wid90"  feedback="false"/>
+                                    <h:outputText value=""/>
                                 </h:panelGrid>
                                 <div class="EmptyBox20"></div>
                                 <f:facet name="footer">
                                     <p:commandButton value="重置" type="reset" ></p:commandButton>  
-                                    <p:commandButton value="提交" styleClass="Fright" action="#{systemUserManagedBean.persist('login')}"></p:commandButton>
+                                    <p:commandButton value="提交" styleClass="Fright" action="#{systemUserManagedBean.persist('login')}" update="plgProfile"/>
                                 </f:facet>  
                             </p:panel>
                         </p:tab>

@@ -19,22 +19,26 @@
                 </f:facet>
             </p:toolbar>  
             <p:panel id="panelEdit" header="用户信息－新增">
-                <h:panelGrid id="plgEdit"  columns="3" columnClasses="Wid20,Wid50,Wid30" styleClass="Wid60 Responsive" >       
+                <h:panelGrid id="plgEdit"  columns="3" columnClasses="Wid20,Wid40,Wid40" styleClass="Wid60 Responsive" cellspacing="10" >       
                     <h:outputText value="手机号码" />
-                    <p:inputText id="userid" value="#{userManagedBean.currentUser.userid}" placeholder="手机" styleClass ="Wid90" required="true" 
-                                 requiredMessage="请输入手机号" >
-                        <f:validateRegex pattern="^1[3|4|5|8][0-9]{9,9}$"  />
-                        <f:validator validatorId="com.jinshanlife.validator.UserId"/>
-                    </p:inputText>
+                    <p:inplace editor="true" label="#{userManagedBean.mobile}">
+                        <p:inputText id="userid" value="#{userManagedBean.mobile}" placeholder="手机" styleClass ="Wid90">
+                            <f:validateRegex pattern="^1[3|4|5|8][0-9]{9,9}$"  />
+                            <f:validator validatorId="com.jinshanlife.validator.UserId"/>
+                        </p:inputText>
+                    </p:inplace>
                     <p:message for="userid"/>
                     <h:outputText value="姓名"/>
-                    <p:inputText id="username" value="#{userManagedBean.currentUser.username}" placeholder="姓名"  styleClass ="Wid90"  required="true" requiredMessage="请输入姓名"/>
+                    <p:inplace editor="true" label="#{userManagedBean.currentUser.username}">
+                        <p:inputText id="username" value="#{userManagedBean.currentUser.username}" placeholder="姓名"  styleClass ="Wid90"/>
+                    </p:inplace>
                     <p:message for="username"/>
-                    <h:outputText value="邮箱"/>                    
-                    <p:inputText id="mail" value="#{userManagedBean.currentUser.email}" placeholder="邮箱" styleClass ="Wid90"  required="true" 
-                                 requiredMessage="请输入邮箱">
-                        <f:validator validatorId="com.jinshanlife.validator.UserMailAdd"/>
-                    </p:inputText>
+                    <h:outputText value="邮箱"/>
+                    <p:inplace editor="true" label="#{userManagedBean.currentUser.email}">
+                        <p:inputText id="mail" value="#{userManagedBean.email}" placeholder="邮箱" styleClass ="Wid90">
+                            <f:validator validatorId="com.jinshanlife.validator.UserMailAdd"/>
+                        </p:inputText>
+                    </p:inplace>
                     <p:message for="mail"/>
                 </h:panelGrid>
             </p:panel>

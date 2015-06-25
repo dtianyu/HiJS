@@ -33,6 +33,8 @@ public class UserManagedBean implements Serializable {
 
     private SystemUser currentUser;
     private String userid;
+    private String mobile;
+    private String email;
     private String pwd;
     private String newpwd;
     private String secpwd;
@@ -60,6 +62,7 @@ public class UserManagedBean implements Serializable {
             if (u != null) {
                 currentUser = u;
                 status = true;
+                mobile = u.getUserid();
                 updateLoginTime();
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "用户名或密码错误"));
@@ -88,7 +91,18 @@ public class UserManagedBean implements Serializable {
 
     public void update() {
         if (currentUser != null) {
-            systemUserBean.update(currentUser);
+            if (mobile!=null && !mobile.equals("") && !mobile.equals(currentUser.getUserid())) {
+                currentUser.setUserid(mobile);
+            }
+            if (email != null && !email.equals("") && !email.equals(currentUser.getEmail())) {
+                currentUser.setEmail(email);
+            }
+            try {
+                systemUserBean.update(currentUser);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新成功"));
+            } catch (Exception e) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "更新失败！"));
+            }           
         }
     }
 
@@ -107,8 +121,8 @@ public class UserManagedBean implements Serializable {
                 secpwd = Lib.securityMD5(newpwd);
                 currentUser.setPassword(secpwd);
                 update();
-                pwd="";
-                newpwd="";
+                pwd = "";
+                newpwd = "";
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "更新密码成功"));
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn", "原密码错误"));
@@ -155,6 +169,13 @@ public class UserManagedBean implements Serializable {
     }
 
     /**
+     * @param pwd the pwd to set
+     */
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    /**
      * @return the newpwd
      */
     public String getNewpwd() {
@@ -169,17 +190,38 @@ public class UserManagedBean implements Serializable {
     }
 
     /**
-     * @param pwd the pwd to set
-     */
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
-
-    /**
      * @return the secpwd
      */
     public String getSecpwd() {
         return secpwd;
+    }
+
+    /**
+     * @return the mobile
+     */
+    public String getMobile() {
+        return mobile;
+    }
+
+    /**
+     * @param mobile the mobile to set
+     */
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

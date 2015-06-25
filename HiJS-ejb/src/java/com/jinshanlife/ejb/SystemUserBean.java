@@ -26,10 +26,9 @@ public class SystemUserBean extends SuperEJB<SystemUser> {
     public SystemUser findByUserId(String userid) {
         Query query = em.createNamedQuery("SystemUser.findByUserId");
         query.setParameter("userid", userid);
-        Object o = query.getSingleResult();
-        if(o!=null){
-            return (SystemUser)o;
-        }else{
+        try {
+            return (SystemUser) query.getSingleResult();
+        } catch (Exception e) {
             return null;
         }
     }

@@ -54,6 +54,9 @@ public class CartFacadeREST extends AbstractFacade<Cart> {
             Integer pwd = (int) (Math.random() * 10000);
             try {
                 user = new SystemUser(entity.getPhone(),entity.getContacter(),Lib.securityMD5(pwd.toString()));
+                user.setSuperuser(Boolean.FALSE);
+                user.setOwnstore(Boolean.FALSE);
+                user.setLocked(Boolean.FALSE);
                 user.setStatusToNew();
                 user.setCreatorToSystem();
                 user.setCredateToNow();
