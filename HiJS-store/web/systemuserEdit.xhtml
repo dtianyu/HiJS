@@ -18,7 +18,7 @@
                     <p:commandButton id="btnSave" value="保存" action="#{userManagedBean.update()}" icon="ui-icon-disk" update="plgEdit"/>
                 </f:facet>
             </p:toolbar>  
-            <p:panel id="panelEdit" header="用户信息－新增">
+            <p:panel id="panelEdit" header="用户信息－修改">
                 <h:panelGrid id="plgEdit"  columns="3" columnClasses="Wid20,Wid40,Wid40" styleClass="Wid60 Responsive" cellspacing="10" >       
                     <h:outputText value="手机号码" />
                     <p:inplace editor="true" label="#{userManagedBean.mobile}">

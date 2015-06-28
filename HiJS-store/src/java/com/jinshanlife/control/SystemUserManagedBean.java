@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -134,7 +133,7 @@ public class SystemUserManagedBean extends SuperOperateBean<SystemUser> {
         if ((!mobile.isEmpty()) && (mobile.length() == 11)) {
             Integer code = (int) (Math.random() * 10000);
             verifyCode = code.toString();
-            //Lib.sendVerifyCode(mobile, verifyCode);
+            Lib.sendShortMessageVerifyCode(mobile, verifyCode);
             setCount(getCount() + 1);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", verifyCode + "验证码已发送"));
         } else {

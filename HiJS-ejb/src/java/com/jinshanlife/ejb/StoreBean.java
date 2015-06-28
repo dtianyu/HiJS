@@ -87,7 +87,19 @@ public class StoreBean extends SuperEJB<Store> {
             }
             job.add("hot", entity.getHot())
                     .add("idx", entity.getIdx())
-                    .add("itemcount", entity.getIdx());
+                    .add("itemcount", entity.getItemcount())
+                    .add("opentime", entity.getOpentime().toString())
+                    .add("closetime", entity.getClosetime().toString());
+            if (entity.getOpenremark() != null) {
+                job.add("openremark", entity.getOpenremark());
+            } else {
+                job.addNull("openremark");
+            }
+            if (entity.getCloseremark() != null) {
+                job.add("closeremark", entity.getCloseremark());
+            } else {
+                job.addNull("closeremark");
+            }
             return job;
         } else {
             return null;

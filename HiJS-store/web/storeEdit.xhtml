@@ -67,6 +67,21 @@
                     <p:outputLabel value="人均消费" for="pcc" />
                     <p:inputText id="pcc" value="#{storeManagedBean.currentEntity.pcc}" title="Pcc" />
                     <h:outputText value=""/>
+                    <p:outputLabel value="开始营业" for="opentime" />
+                    <p:inputText id="opentime" value="#{storeManagedBean.currentEntity.opentime}" 
+                                 title="OpenTime" required="true">
+                        <f:convertDateTime pattern="HH:mm" />
+                    </p:inputText>
+                    <h:outputText value=""/>
+                    <p:outputLabel value="结束营业" for="closetime" />
+                    <p:inputText id="closetime" value="#{storeManagedBean.currentEntity.closetime}" 
+                                 title="CloseTime" required="true">
+                        <f:convertDateTime pattern="HH:mm" />
+                    </p:inputText>
+                    <h:outputText value=""/>
+                    <p:outputLabel value="营业备注" for="openremark" />
+                    <p:inputText id="openremark" value="#{storeManagedBean.currentEntity.openremark}" title="OpenRemark" />
+                    <h:outputText value=""/>
                     <p:outputLabel value="小Logo" for="logo1" />
                     <p:inputText id="logo1" value="#{storeManagedBean.currentEntity.logo1}" title="Logo1" />
                     <h:outputText value="小Logo宽72px高72px"/>

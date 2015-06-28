@@ -5,12 +5,15 @@
  */
 package com.jinshanlife.entity;
 
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -31,6 +34,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cart.findByUserId", query = "SELECT c FROM Cart c WHERE c.userid = :userid"),
     @NamedQuery(name = "Cart.findByStatus", query = "SELECT c FROM Cart c WHERE c.status = :status")})
 public class Cart extends BaseOperateEntity {
+ 
+    @Column(name = "recdate")
+    @Temporal(TemporalType.DATE)
+    private Date recdate;
+    @Column(name = "rectime")
+    @Temporal(TemporalType.TIME)
+    private Date rectime;  
 
     @Basic(optional = false)
     @NotNull
@@ -138,6 +148,22 @@ public class Cart extends BaseOperateEntity {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Date getRecdate() {
+        return recdate;
+    }
+
+    public void setRecdate(Date recdate) {
+        this.recdate = recdate;
+    }
+
+    public Date getRectime() {
+        return rectime;
+    }
+
+    public void setRectime(Date rectime) {
+        this.rectime = rectime;
     }
 
 }

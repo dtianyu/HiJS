@@ -45,22 +45,22 @@
                 </p:column>
                 <p:column>
                     <f:facet name="header">
-                        <h:outputText value="说明"/>
+                        <h:outputText value="编码"/>
                     </f:facet>
-                    <h:outputText value="#{item.itemspec}"/>
-                </p:column>             
+                    <h:outputText value="#{item.itemno}"/>
+                </p:column>
+                <p:column styleClass="Wid20">
+                    <f:facet name="header">
+                        <h:outputText value="价格"/>
+                    </f:facet>
+                    <h:outputText value="#{item.price}"/>
+                </p:column>      
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
                         <h:outputText value="单位"/>
                     </f:facet>
                     <h:outputText value="#{item.unit}"/>
-                </p:column>
-                <p:column styleClass="Wid10">
-                    <f:facet name="header">
-                        <h:outputText value="价格"/>
-                    </f:facet>
-                    <h:outputText value="#{item.price}"/>
-                </p:column>
+                </p:column>  
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
                         <h:outputText value="折扣"/>

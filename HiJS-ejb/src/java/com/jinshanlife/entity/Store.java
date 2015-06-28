@@ -6,12 +6,15 @@
 package com.jinshanlife.entity;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -43,6 +46,24 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Store.findByIdx", query = "SELECT s FROM Store s WHERE s.idx = :idx"),
     @NamedQuery(name = "Store.findByStatus", query = "SELECT s FROM Store s WHERE s.status = :status")})
 public class Store extends BaseOperateEntity {
+  
+    @Column(name = "hot")
+    private Integer hot;
+    @Column(name = "opentime")
+    @Temporal(TemporalType.TIME)
+    private Date opentime;
+    @Size(max = 20)
+    @Column(name = "openremark")
+    private String openremark;
+    @Column(name = "closetime")
+    @Temporal(TemporalType.TIME)
+    private Date closetime;
+    @Size(max = 20)
+    @Column(name = "closeremark")
+    private String closeremark;
+    @Column(name = "itemcount")
+    private Integer itemcount;
+
 
     @Basic(optional = false)
     @NotNull
@@ -104,10 +125,6 @@ public class Store extends BaseOperateEntity {
     private BigDecimal pcc;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "hot")
-    private int hot;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "idx")
     private int idx;
     @Size(max = 45)
@@ -116,8 +133,6 @@ public class Store extends BaseOperateEntity {
     @Size(max = 45)
     @Column(name = "logo2")
     private String logo2;
-    @Column(name = "itemcount")
-    private int itemcount;
 
     public Store() {
     }
@@ -211,13 +226,6 @@ public class Store extends BaseOperateEntity {
         this.pcc = pcc;
     }
 
-    public int getHot() {
-        return hot;
-    }
-
-    public void setHot(int hot) {
-        this.hot = hot;
-    }
 
     public int getIdx() {
         return idx;
@@ -322,18 +330,53 @@ public class Store extends BaseOperateEntity {
         this.userid = userid;
     }
 
-    /**
-     * @return the itemcount
-     */
-    public int getItemcount() {
+    public Integer getHot() {
+        return hot;
+    }
+
+    public void setHot(Integer hot) {
+        this.hot = hot;
+    }
+
+    public Date getOpentime() {
+        return opentime;
+    }
+
+    public void setOpentime(Date opentime) {
+        this.opentime = opentime;
+    }
+
+    public String getOpenremark() {
+        return openremark;
+    }
+
+    public void setOpenremark(String openremark) {
+        this.openremark = openremark;
+    }
+
+    public Date getClosetime() {
+        return closetime;
+    }
+
+    public void setClosetime(Date closetime) {
+        this.closetime = closetime;
+    }
+
+    public String getCloseremark() {
+        return closeremark;
+    }
+
+    public void setCloseremark(String closeremark) {
+        this.closeremark = closeremark;
+    }
+
+    public Integer getItemcount() {
         return itemcount;
     }
 
-    /**
-     * @param itemcount the itemcount to set
-     */
-    public void setItemcount(int itemcount) {
+    public void setItemcount(Integer itemcount) {
         this.itemcount = itemcount;
     }
+
 
 }
