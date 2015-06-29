@@ -7,6 +7,7 @@ package com.jinshanlife.ejb;
 
 import com.jinshanlife.comm.SuperEJB;
 import com.jinshanlife.entity.Store;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -65,6 +66,8 @@ public class StoreBean extends SuperEJB<Store> {
             } else {
                 job.add("pcc", 0);
             }
+            job.add("freightfree", entity.getFreightfree())
+                    .add("freight", entity.getFreight());
             if (entity.getFeature() != null) {
                 job.add("feature", entity.getFeature());
             } else {

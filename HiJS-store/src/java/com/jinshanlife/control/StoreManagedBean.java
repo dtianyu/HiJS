@@ -34,7 +34,7 @@ import javax.json.JsonObjectBuilder;
 @ManagedBean(name = "storeManagedBean")
 @SessionScoped
 public class StoreManagedBean extends SuperOperateBean<Store> {
-
+    
     @EJB
     private AreaBean areaBean;
     @EJB
@@ -45,7 +45,7 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
     private StoreBean sessionBean;
     @EJB
     private ItemMasterBean itemMasterBean;
-
+    
     private List<Area> areaList;
     private List<StoreKind> storeKindList;
     private List<StoreCategory> storeCategoryList;
@@ -56,7 +56,7 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
     public StoreManagedBean() {
         super(Store.class);
     }
-
+    
     @Override
     protected void buildJsonArray() {
         JsonArrayBuilder jab;
@@ -75,7 +75,7 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
                     
                     kind.setStorecount(entityList.size());
                     storeKindBean.update(kind);
-
+                    
                     setEntityList(entityList.subList(0, getAppTopList() < entityList.size() ? getAppTopList() : entityList.size()));
                     jab = sessionBean.createJsonArrayBuilder(entityList);
                     name = kind.getClassname() + "Top.json";
@@ -84,7 +84,7 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
             }
         }
     }
-
+    
     @Override
     protected void buildJsonObject() {
         if (currentEntity != null) {
@@ -106,7 +106,7 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
             buildJsonFile(job.build(), path, name);
         }
     }
-
+    
     @Override
     protected boolean doBeforePersist() {
         if (newEntity != null && userManagedBean.getCurrentUser() != null) {
@@ -122,7 +122,17 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
             return false;
         }
     }
-
+    
+    @Override
+    public void create() {
+        super.create();
+        if (this.newEntity != null) {
+            newEntity.setPcc(BigDecimal.ZERO);
+            newEntity.setFreightfree(BigDecimal.ZERO);
+            newEntity.setFreight(BigDecimal.ZERO);
+        }
+    }    
+    
     @Override
     public void init() {
         setSuperEJB(sessionBean);
@@ -140,7 +150,7 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
             }
         }
     }
-
+    
     public void onKindChangedNew() {
         if (newEntity != null && newEntity.getKind() != 0) {
             onKindChanged(newEntity.getKind());
@@ -148,7 +158,7 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
             onKindChanged(0);
         }
     }
-
+    
     public void onKindChangedEdit() {
         if (currentEntity != null && currentEntity.getKind() != 0) {
             onKindChanged(currentEntity.getKind());
@@ -156,7 +166,7 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
             onKindChanged(0);
         }
     }
-
+    
     private void onKindChanged(int kind) {
         setStoreCategoryList(storeCategoryBean.findByKind(kind));
     }
@@ -202,5 +212,5 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
     public void setAreaList(List<Area> areaList) {
         this.areaList = areaList;
     }
-
+    
 }

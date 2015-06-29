@@ -5,6 +5,7 @@
  */
 package com.jinshanlife.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -34,13 +35,22 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cart.findByUserId", query = "SELECT c FROM Cart c WHERE c.userid = :userid"),
     @NamedQuery(name = "Cart.findByStatus", query = "SELECT c FROM Cart c WHERE c.status = :status")})
 public class Cart extends BaseOperateEntity {
- 
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "amts")
+    private BigDecimal amts;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "freight")
+    private BigDecimal freight;
+
     @Column(name = "recdate")
     @Temporal(TemporalType.DATE)
     private Date recdate;
     @Column(name = "rectime")
     @Temporal(TemporalType.TIME)
-    private Date rectime;  
+    private Date rectime;
 
     @Basic(optional = false)
     @NotNull
@@ -164,6 +174,34 @@ public class Cart extends BaseOperateEntity {
 
     public void setRectime(Date rectime) {
         this.rectime = rectime;
+    }
+
+    /**
+     * @return the amts
+     */
+    public BigDecimal getAmts() {
+        return amts;
+    }
+
+    /**
+     * @param amts the amts to set
+     */
+    public void setAmts(BigDecimal amts) {
+        this.amts = amts;
+    }
+
+    /**
+     * @return the freight
+     */
+    public BigDecimal getFreight() {
+        return freight;
+    }
+
+    /**
+     * @param freight the freight to set
+     */
+    public void setFreight(BigDecimal freight) {
+        this.freight = freight;
     }
 
 }

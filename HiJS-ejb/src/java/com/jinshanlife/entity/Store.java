@@ -46,7 +46,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Store.findByIdx", query = "SELECT s FROM Store s WHERE s.idx = :idx"),
     @NamedQuery(name = "Store.findByStatus", query = "SELECT s FROM Store s WHERE s.status = :status")})
 public class Store extends BaseOperateEntity {
-  
+
+    @Column(name = "freightfree")
+    private BigDecimal freightfree;
+    @Column(name = "freight")
+    private BigDecimal freight;
+
     @Column(name = "hot")
     private Integer hot;
     @Column(name = "opentime")
@@ -63,7 +68,6 @@ public class Store extends BaseOperateEntity {
     private String closeremark;
     @Column(name = "itemcount")
     private Integer itemcount;
-
 
     @Basic(optional = false)
     @NotNull
@@ -226,7 +230,6 @@ public class Store extends BaseOperateEntity {
         this.pcc = pcc;
     }
 
-
     public int getIdx() {
         return idx;
     }
@@ -378,5 +381,32 @@ public class Store extends BaseOperateEntity {
         this.itemcount = itemcount;
     }
 
+    /**
+     * @return the freightfree
+     */
+    public BigDecimal getFreightfree() {
+        return freightfree;
+    }
+
+    /**
+     * @param freightfree the freightfree to set
+     */
+    public void setFreightfree(BigDecimal freightfree) {
+        this.freightfree = freightfree;
+    }
+
+    /**
+     * @return the freight
+     */
+    public BigDecimal getFreight() {
+        return freight;
+    }
+
+    /**
+     * @param freight the freight to set
+     */
+    public void setFreight(BigDecimal freight) {
+        this.freight = freight;
+    }
 
 }

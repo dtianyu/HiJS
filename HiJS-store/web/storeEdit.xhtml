@@ -67,6 +67,12 @@
                     <p:outputLabel value="人均消费" for="pcc" />
                     <p:inputText id="pcc" value="#{storeManagedBean.currentEntity.pcc}" title="Pcc" />
                     <h:outputText value=""/>
+                    <p:outputLabel value="免送货费" for="freightfree" />
+                    <p:inputText id="freightfree" value="#{storeManagedBean.currentEntity.freightfree}" title="Pcc" />
+                    <h:outputText value="输入免送货费起点金额"/>
+                    <p:outputLabel value="送货费" for="freight" />
+                    <p:inputText id="freight" value="#{storeManagedBean.currentEntity.freight}" title="Pcc" />
+                    <h:outputText value=""/>
                     <p:outputLabel value="开始营业" for="opentime" />
                     <p:inputText id="opentime" value="#{storeManagedBean.currentEntity.opentime}" 
                                  title="OpenTime" required="true">

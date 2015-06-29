@@ -14,7 +14,7 @@
         <h:form id="form_leftmenu">
             <ps:menu id="sm_leftmenu">
                 <p:menuitem id="sm_dashboard" value="首页" outcome="home" icon="icon-home-outline" containerStyleClass="layout-menubar-active"/>
-                <p:submenu id="sm_sys" label="系统管理" icon="icon-th-thumb" rendered="#{userManagedBean.getCurrentUser().superuser}" expanded="true">
+                <p:submenu id="sm_sys" label="应用" icon="icon-th-thumb" rendered="#{userManagedBean.getCurrentUser().superuser}" expanded="true">
                     <p:menuitem id="sm_sys_area" value="地区管理" icon="icon-doc-text-1" outcome="area" />
                     <p:menuitem id="sm_sys_storekind" value="板块管理" icon="icon-doc-text-1" outcome="storekind" />
                     <p:menuitem id="sm_sys_storecategory" value="分类管理" icon="icon-doc-text-1" outcome="storecategory" />
@@ -22,11 +22,15 @@
                     <p:menuitem id="sm_sys_store" value="店铺管理" icon="icon-th-1" outcome="store" />
                 </p:submenu>
                 <p:submenu id="sm_store" label="店铺" icon="icon-th-thumb" expanded="true" rendered="#{userManagedBean.getCurrentUser().ownstore}">
-                    <p:menuitem id="sm_store_item" value="店铺首页" icon="icon-home-1" outcome="storeHome"/>
-                    <p:menuitem id="sm_store_item2" value="添加商品" icon="icon-doc-add" outcome="itemNew"/>
-                    <p:menuitem id="sm_store_item3" value="店铺信息" icon="icon-doc-text-1" outcome="storeEdit"/>
+                    <p:menuitem id="sm_store_home" value="店铺首页" icon="icon-home-1" outcome="storeHome"/>
+                    <p:menuitem id="sm_store_item" value="商品列表" icon="icon-doc-add" outcome="item"/>
+                    <p:menuitem id="sm_store_item_new" value="添加商品" icon="icon-doc-add" outcome="itemNew"/>
+                    <p:menuitem id="sm_store_store" value="店铺信息" icon="icon-doc-text-1" outcome="storeEdit"/>
                 </p:submenu>
-                <p:menuitem id="sm_user" value="账户" icon="icon-vcard" outcome="store" />
+                <p:submenu id="sm_user" label="账户" icon="icon-vcard">
+                    <p:menuitem id="sm_user_edit" value="账户信息" icon="icon-doc-text" outcome="systemuserEdit"/>
+                    <p:menuitem id="sm_user_pwd" value="更改密码" icon="icon-doc-text" outcome="resetPwd"/>
+                </p:submenu>
                 <p:submenu id="sm_doc" label="文档" icon="icon-folder-open-empty" expanded="true">
                     <p:menuitem id="sm_doc_item" value="如何开店" icon="icon-doc-text" outcome="storeHome"/>
                     <p:menuitem id="sm_doc_item2" value="店铺管理" icon="icon-doc-text" outcome="itemNew"/>
