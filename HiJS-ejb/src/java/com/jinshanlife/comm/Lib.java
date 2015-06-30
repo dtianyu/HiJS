@@ -13,6 +13,7 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -59,25 +60,13 @@ public class Lib {
 
     }
 
-    public static String formatDate(String format, Date day) {
-        if (format != null && day != null) {
-            String str = "";
-            for (int i = 0; i < format.toString().length(); i++) {
-                str += String.format("%t" + format.substring(i, i + 1) + "", day);
-            }
-            return str;
+    public static String formatDate(String format, Date date) {
+        if (format != null && date != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+            return dateFormat.format(date);
         } else {
             return "";
         }
-    }
-
-    protected static CCPRestSmsSDK getCCPRestSmsAPI() {
-        //初始化SDK
-        CCPRestSmsSDK restAPI = new CCPRestSmsSDK();
-        restAPI.init("app.cloopen.com", "8883");
-        restAPI.setAccount("aaf98f894d22eb10014d2758e69a0413", "45c42156fa5848baa695270f27adfe6c");
-        restAPI.setAppId("8a48b5514d232afc014d2760881102ec");
-        return restAPI;
     }
 
     public static Date getDate() {
@@ -117,8 +106,11 @@ public class Lib {
     public static void sendShortMessagePassword(String mobile, String value) {
 
         HashMap<String, Object> result = null;
-        CCPRestSmsSDK smsAPI = getCCPRestSmsAPI();
-        result = smsAPI.sendTemplateSMS(mobile, "23845", new String[]{mobile, value});
+        CCPRestSmsSDK restAPI = new CCPRestSmsSDK();
+        restAPI.init("app.cloopen.com", "8883");
+        restAPI.setAccount("aaf98f894d22eb10014d2758e69a0413", "45c42156fa5848baa695270f27adfe6c");
+        restAPI.setAppId("8a48b5514d232afc014d2760881102ec");
+        result = restAPI.sendTemplateSMS(mobile, "23845", new String[]{mobile, value});
 
         if (!"000000".equals(result.get("statusCode"))) {
             //异常返回输出错误码和错误信息
@@ -130,8 +122,11 @@ public class Lib {
     public static void sendShortMessageVerifyCode(String mobile, String value) {
 
         HashMap<String, Object> result = null;
-        CCPRestSmsSDK smsAPI = getCCPRestSmsAPI();
-        result = smsAPI.sendTemplateSMS(mobile, "23844", new String[]{mobile, value, "3"});
+        CCPRestSmsSDK restAPI = new CCPRestSmsSDK();
+        restAPI.init("app.cloopen.com", "8883");
+        restAPI.setAccount("aaf98f894d22eb10014d2758e69a0413", "45c42156fa5848baa695270f27adfe6c");
+        restAPI.setAppId("8a48b5514d232afc014d2760881102ec");
+        result = restAPI.sendTemplateSMS(mobile, "23844", new String[]{mobile, value, "3"});
 
         if (!"000000".equals(result.get("statusCode"))) {
             //异常返回输出错误码和错误信息
@@ -143,8 +138,11 @@ public class Lib {
     public static void sendShortMessageForCustomer(String mobile, String vendor, String content, String money) {
 
         HashMap<String, Object> result = null;
-        CCPRestSmsSDK smsAPI = getCCPRestSmsAPI();
-        result = smsAPI.sendTemplateSMS(mobile, "23846", new String[]{vendor, content, money});
+        CCPRestSmsSDK restAPI = new CCPRestSmsSDK();
+        restAPI.init("app.cloopen.com", "8883");
+        restAPI.setAccount("aaf98f894d22eb10014d2758e69a0413", "45c42156fa5848baa695270f27adfe6c");
+        restAPI.setAppId("8a48b5514d232afc014d2760881102ec");
+        result = restAPI.sendTemplateSMS(mobile, "23846", new String[]{vendor, content, money});
 
         if (!"000000".equals(result.get("statusCode"))) {
             //异常返回输出错误码和错误信息
@@ -156,8 +154,11 @@ public class Lib {
     public static void sendShortMessageForVendor(String mobile, String customer, String content, String money, String address) {
 
         HashMap<String, Object> result = null;
-        CCPRestSmsSDK smsAPI = getCCPRestSmsAPI();
-        result = smsAPI.sendTemplateSMS(mobile, "23847", new String[]{customer, content, money, address});
+        CCPRestSmsSDK restAPI = new CCPRestSmsSDK();
+        restAPI.init("app.cloopen.com", "8883");
+        restAPI.setAccount("aaf98f894d22eb10014d2758e69a0413", "45c42156fa5848baa695270f27adfe6c");
+        restAPI.setAppId("8a48b5514d232afc014d2760881102ec");
+        result = restAPI.sendTemplateSMS(mobile, "23847", new String[]{customer, content, money, address});
 
         if (!"000000".equals(result.get("statusCode"))) {
             //异常返回输出错误码和错误信息

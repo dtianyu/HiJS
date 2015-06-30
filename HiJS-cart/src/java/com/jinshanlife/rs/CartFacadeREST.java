@@ -6,8 +6,10 @@
 package com.jinshanlife.rs;
 
 import com.jinshanlife.comm.Lib;
+import com.jinshanlife.ejb.StoreBean;
 import com.jinshanlife.ejb.SystemUserBean;
 import com.jinshanlife.entity.Cart;
+import com.jinshanlife.entity.Store;
 import com.jinshanlife.entity.SystemUser;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -37,6 +39,9 @@ public class CartFacadeREST extends AbstractFacade<Cart> {
     @EJB
     private SystemUserBean systemUserBean;
     
+    @EJB
+    private StoreBean storeBean;
+    
     @PersistenceContext(unitName = "HiJS-cartPU")
     private EntityManager em;
     
@@ -49,7 +54,7 @@ public class CartFacadeREST extends AbstractFacade<Cart> {
     @Consumes({"application/xml", "application/json"})
     public void create(Cart entity) {
         SystemUser user ;
-        user = systemUserBean.findByUserId(entity.getPhone());
+        user = systemUserBean.findByUserId(entity.getPhone());        
         if (user==null){
             Integer pwd = (int) (Math.random() * 10000);
             try {
@@ -62,15 +67,27 @@ public class CartFacadeREST extends AbstractFacade<Cart> {
                 user.setCredateToNow();
                 systemUserBean.persist(user);
                 user = systemUserBean.findByUserId(entity.getPhone());
+                Lib.sendShortMessagePassword(entity.getPhone(), pwd.toString());
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(CartFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+                      
+        Store store ;
+        store = storeBean.findById(entity.getStoreid());
+        if(store ==null){
+            return ;
+        }
+        
         entity.setUserid(user.getId());
+        entity.setStore(store.getName());
         entity.setStatus("N");
         entity.setCreator("system");
         entity.setCredate(Lib.getDate());
         super.create(entity);
+        
+        Lib.sendShortMessageForCustomer(entity.getPhone(), store.getName(), entity.getCartid(),entity.getAmts().add(entity.getFreight()).toString());
+        
     }
     
     @PUT

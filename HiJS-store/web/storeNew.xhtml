@@ -73,14 +73,12 @@
                     <p:outputLabel value="开始营业" for="opentime" />
                     <p:inputText id="opentime" value="#{storeManagedBean.newEntity.opentime}" 
                                  title="OpenTime" required="true" requiredMessage="请输入营业时间">
-                        <f:validateLength minimum="4" maximum="5"/>
                         <f:convertDateTime pattern="HH:mm" />
                     </p:inputText>
                     <h:outputText value=""/>
                     <p:outputLabel value="结束营业" for="closetime" />
                     <p:inputText id="closetime" value="#{storeManagedBean.newEntity.closetime}" 
                                  title="CloseTime" required="true" requiredMessage="请输入营业时间" >
-                        <f:validateLength minimum="4" maximum="5"/>
                         <f:convertDateTime pattern="HH:mm" />
                     </p:inputText>   
                     <h:outputText value=""/>

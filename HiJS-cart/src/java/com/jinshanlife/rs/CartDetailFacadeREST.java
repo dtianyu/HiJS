@@ -5,8 +5,14 @@
  */
 package com.jinshanlife.rs;
 
+import com.jinshanlife.comm.Lib;
+import com.jinshanlife.ejb.CartBean;
+import com.jinshanlife.ejb.SystemUserBean;
+import com.jinshanlife.entity.Cart;
 import com.jinshanlife.entity.CartDetail;
+import com.jinshanlife.entity.SystemUser;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +33,12 @@ import javax.ws.rs.Produces;
 @Path("cartdetail")
 public class CartDetailFacadeREST extends AbstractFacade<CartDetail> {
 
+    @EJB
+    private SystemUserBean systemUserBean;
+
+    @EJB
+    private CartBean cartBean;
+
     @PersistenceContext(unitName = "HiJS-cartPU")
     private EntityManager em;
 
@@ -37,12 +49,33 @@ public class CartDetailFacadeREST extends AbstractFacade<CartDetail> {
     @POST
     @Consumes({"application/xml", "application/json"})
     public void create(List<CartDetail> entityList) {
+
+        SystemUser user;
+        user = systemUserBean.findById(entityList.get(0).getUserid());
+        if (user == null) {
+            return;
+        }
+        Cart cart;
+        cart = cartBean.findByCartId(entityList.get(0).getCartid());
+        if (cart == null) {
+            return;
+        }
+        StringBuilder sb = new StringBuilder();
+
         for (CartDetail entity : entityList) {
             entity.setStatusToNew();
             entity.setCreatorToSystem();
             entity.setCredateToNow();
             super.create(entity);
+            sb.append(entity.getContent()).append(" ").append("数量").append(entity.getQty());
+            if (entity.getRemark() != null && !"".equals(entity.getRemark())) {
+                sb.append(entity.getRemark()).append(";");
+            } else {
+                sb.append(";");
+            }
         }
+        String str = cart.getAddress() + "预定时间" + Lib.formatDate("yy-MM-dd", cart.getRecdate()) + " " + Lib.formatDate("HH:mm", cart.getRectime());
+        Lib.sendShortMessageForVendor(user.getUserid(), cart.getContacter() + cart.getPhone(), sb.toString(), cart.getAmts().add(cart.getFreight()).toString(),str);
 
     }
 

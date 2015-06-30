@@ -5,9 +5,9 @@
  */
 package com.jinshanlife.ejb;
 
+import com.jinshanlife.comm.Lib;
 import com.jinshanlife.comm.SuperEJB;
 import com.jinshanlife.entity.Store;
-import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -91,8 +91,8 @@ public class StoreBean extends SuperEJB<Store> {
             job.add("hot", entity.getHot())
                     .add("idx", entity.getIdx())
                     .add("itemcount", entity.getItemcount())
-                    .add("opentime", entity.getOpentime().toString())
-                    .add("closetime", entity.getClosetime().toString());
+                    .add("opentime", Lib.formatDate("HH:mm",entity.getOpentime()))
+                    .add("closetime", Lib.formatDate("HH:mm",entity.getClosetime()));
             if (entity.getOpenremark() != null) {
                 job.add("openremark", entity.getOpenremark());
             } else {

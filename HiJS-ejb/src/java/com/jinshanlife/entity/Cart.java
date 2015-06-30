@@ -32,9 +32,20 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cart.findAll", query = "SELECT c FROM Cart c"),
     @NamedQuery(name = "Cart.findById", query = "SELECT c FROM Cart c WHERE c.id = :id"),
     @NamedQuery(name = "Cart.findByCartId", query = "SELECT c FROM Cart c WHERE c.cartid = :cartid"),
+    @NamedQuery(name = "Cart.findByStoreId", query = "SELECT c FROM Cart c WHERE c.storeid = :storeid"),
     @NamedQuery(name = "Cart.findByUserId", query = "SELECT c FROM Cart c WHERE c.userid = :userid"),
     @NamedQuery(name = "Cart.findByStatus", query = "SELECT c FROM Cart c WHERE c.status = :status")})
 public class Cart extends BaseOperateEntity {
+    
+    @Basic(optional =false)
+    @NotNull
+    @Column(name = "storeid")
+    private int storeid;
+    @Basic(optional=false)
+    @NotNull
+    @Size(min = 1, max = 60)
+    @Column(name = "store")
+    private String store;
 
     @Basic(optional = false)
     @NotNull
@@ -202,6 +213,34 @@ public class Cart extends BaseOperateEntity {
      */
     public void setFreight(BigDecimal freight) {
         this.freight = freight;
+    }
+
+    /**
+     * @return the storeid
+     */
+    public int getStoreid() {
+        return storeid;
+    }
+
+    /**
+     * @param storeid the storeid to set
+     */
+    public void setStoreid(int storeid) {
+        this.storeid = storeid;
+    }
+
+    /**
+     * @return the store
+     */
+    public String getStore() {
+        return store;
+    }
+
+    /**
+     * @param store the store to set
+     */
+    public void setStore(String store) {
+        this.store = store;
     }
 
 }
