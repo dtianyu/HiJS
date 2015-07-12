@@ -23,9 +23,13 @@
                 </p:submenu>
                 <p:submenu id="sm_store" label="店铺" icon="icon-th-thumb" expanded="true" rendered="#{userManagedBean.getCurrentUser().ownstore}">
                     <p:menuitem id="sm_store_home" value="店铺首页" icon="icon-home-1" outcome="storeHome"/>
+                    <p:menuitem id="sm_store_order" value="订单列表" icon="icon-doc-add" outcome="storeOrder"/>
                     <p:menuitem id="sm_store_item" value="商品列表" icon="icon-doc-add" outcome="item"/>
                     <p:menuitem id="sm_store_item_new" value="添加商品" icon="icon-doc-add" outcome="itemNew"/>
                     <p:menuitem id="sm_store_store" value="店铺信息" icon="icon-doc-text-1" outcome="storeEdit"/>
+                </p:submenu>
+                <p:submenu id="sm_cart" label="订单" icon="icon-th-thumb">
+                    <p:menuitem id="sm_cart_list" value="我的订单" icon="icon-doc-text" outcome="cart"/>
                 </p:submenu>
                 <p:submenu id="sm_user" label="账户" icon="icon-vcard">
                     <p:menuitem id="sm_user_edit" value="账户信息" icon="icon-doc-text" outcome="systemuserEdit"/>

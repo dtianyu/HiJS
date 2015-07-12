@@ -31,6 +31,11 @@ public class StoreKindBean extends SuperEJB<StoreKind> {
             job.add("id", entity.getId())
                     .add("name", entity.getName())
                     .add("storecount", entity.getStorecount());
+            if (entity.getTitle() != null) {
+                job.add("title", entity.getTitle());
+            } else {
+                job.addNull("title");
+            }
             if (entity.getClassname() != null) {
                 job.add("classname", entity.getClassname());
             } else {

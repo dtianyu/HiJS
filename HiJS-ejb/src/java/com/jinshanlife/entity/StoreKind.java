@@ -27,14 +27,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "StoreKind.findAll", query = "SELECT s FROM StoreKind s"),
     @NamedQuery(name = "StoreKind.findById", query = "SELECT s FROM StoreKind s WHERE s.id = :id"),
     @NamedQuery(name = "StoreKind.findByName", query = "SELECT s FROM StoreKind s WHERE s.name = :name"),
-    @NamedQuery(name = "StoreKind.findByStatus", query = "SELECT s FROM StoreKind s WHERE s.status = :status"),
-    @NamedQuery(name = "StoreKind.findByCreator", query = "SELECT s FROM StoreKind s WHERE s.creator = :creator"),
-    @NamedQuery(name = "StoreKind.findByCredate", query = "SELECT s FROM StoreKind s WHERE s.credate = :credate"),
-    @NamedQuery(name = "StoreKind.findByOptuser", query = "SELECT s FROM StoreKind s WHERE s.optuser = :optuser"),
-    @NamedQuery(name = "StoreKind.findByOptdate", query = "SELECT s FROM StoreKind s WHERE s.optdate = :optdate"),
-    @NamedQuery(name = "StoreKind.findByCfmuser", query = "SELECT s FROM StoreKind s WHERE s.cfmuser = :cfmuser"),
-    @NamedQuery(name = "StoreKind.findByCfmdate", query = "SELECT s FROM StoreKind s WHERE s.cfmdate = :cfmdate")})
+    @NamedQuery(name = "StoreKind.findByStatus", query = "SELECT s FROM StoreKind s WHERE s.status = :status")})
 public class StoreKind extends BaseOperateEntity {
+
+    @Size(max = 20)
+    @Column(name = "title")
+    private String title;
 
     @Basic(optional = false)
     @NotNull
@@ -113,6 +111,20 @@ public class StoreKind extends BaseOperateEntity {
      */
     public void setStorecount(Integer storecount) {
         this.storecount = storecount;
+    }
+
+    /**
+     * @return the title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * @param title the title to set
+     */
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 }

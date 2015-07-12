@@ -35,7 +35,7 @@ public class StoreKindManagedBean extends SuperOperateBean<StoreKind> {
     @Override
     protected void buildJsonArray() {
         JsonArrayBuilder jab;
-        setEntityList(sessionBean.findAll());
+        setEntityList(sessionBean.findByStatus("V"));
         if (!entityList.isEmpty()) {
             jab = sessionBean.createJsonArrayBuilder(entityList);
             buildJsonFile(jab.build(), getAppDataPath(), "storekind.json");

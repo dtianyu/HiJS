@@ -23,6 +23,11 @@
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>login</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
             <redirect/>
@@ -38,13 +43,18 @@
             <redirect/>
         </navigation-case>  
         <navigation-case>
-            <from-outcome>index</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
+            <from-outcome>area</from-outcome>
+            <to-view-id>/area.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>area</from-outcome>
-            <to-view-id>/area.xhtml</to-view-id>
+            <from-outcome>cart</from-outcome>
+            <to-view-id>/cart.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cartDetail</from-outcome>
+            <to-view-id>/cartDetail.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -54,22 +64,22 @@
         </navigation-case>  
         <navigation-case>
             <from-outcome>item</from-outcome>
-            <to-view-id>/item.xhtml</to-view-id>
+            <to-view-id>/store/item.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>itemNew</from-outcome>
-            <to-view-id>/itemNew.xhtml</to-view-id>
+            <to-view-id>/store/itemNew.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>itemEdit</from-outcome>
-            <to-view-id>/itemEdit.xhtml</to-view-id>
+            <to-view-id>/store/itemEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>itemView</from-outcome>
-            <to-view-id>/itemView.xhtml</to-view-id>
+            <to-view-id>/store/itemView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>       
         <navigation-case>
@@ -93,28 +103,58 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>storecategory</from-outcome>
+            <to-view-id>/storecategory.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>storecategoryNew</from-outcome>
+            <to-view-id>/storecategoryNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>storecategoryEdit</from-outcome>
+            <to-view-id>/storecategoryEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>storecategoryView</from-outcome>
+            <to-view-id>/storecategoryView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>store</from-outcome>
-            <to-view-id>/store.xhtml</to-view-id>
+            <to-view-id>/store/store.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>storeHome</from-outcome>
-            <to-view-id>/storeHome.xhtml</to-view-id>
+            <to-view-id>/store/storeHome.xhtml</to-view-id>
             <redirect/>
         </navigation-case> 
         <navigation-case>
             <from-outcome>storeNew</from-outcome>
-            <to-view-id>/storeNew.xhtml</to-view-id>
+            <to-view-id>/store/storeNew.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>storeEdit</from-outcome>
-            <to-view-id>/storeEdit.xhtml</to-view-id>
+            <to-view-id>/store/storeEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>storeView</from-outcome>
-            <to-view-id>/storeView.xhtml</to-view-id>
+            <to-view-id>/store/storeView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+                <navigation-case>
+            <from-outcome>storeOrder</from-outcome>
+            <to-view-id>/store/order.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>storeOrderDetail</from-outcome>
+            <to-view-id>/store/orderDetail.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -161,7 +201,6 @@
             <from-outcome>weblinkView</from-outcome>
             <to-view-id>/weblinkView.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>
-    
+        </navigation-case>    
     </navigation-rule>
 </faces-config>

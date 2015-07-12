@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="formView">
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
+            <p:panel id="panelView" header="订单信息" styleClass="MarBot10">
+                <f:facet name="header">   
+
+                </f:facet> 
+                <p:panelGrid id="plgView" columns="4" columnClasses="Wid10,Wid40,Wid10,Wid40" styleClass="Wid100 Responsive" >
+                    <h:outputText value="联系人"/>
+                    <h:outputText value="#{storeOrderManagedBean.currentEntity.contacter}" title="Contacter"/>
+                    <h:outputText value="电话"/>
+                    <h:outputText value="#{storeOrderManagedBean.currentEntity.phone}" title="Phone"/>
+                    <h:outputText value="金额"/>
+                    <h:outputText value="#{storeOrderManagedBean.currentEntity.amts}" title="Amts"/>
+                    <h:outputText value="送货费"/>
+                    <h:outputText value="#{storeOrderManagedBean.currentEntity.freight}" title="Freight"/>
+                    <h:outputText value="日期"/>
+                    <h:outputText value="#{storeOrderManagedBean.currentEntity.recdate}" title="Recdate">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="时间"/>
+                    <h:outputText value="#{storeOrderManagedBean.currentEntity.rectime}" title="Rectime">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="状态"/>
+                    <h:outputText value="#{storeOrderManagedBean.currentEntity.status}" title="Status"/>
+                    <h:outputText value="地址"/>
+                    <h:outputText value="#{storeOrderManagedBean.currentEntity.address}" title="Address"/>
+                    <f:facet name="footer">   
+                        
+                    </f:facet>              
+                </p:panelGrid>
+            </p:panel>
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="storeOrder" icon="ui-icon-arrowreturn-1-w"  />                          
+                </f:facet>
+            </p:toolbar>
+            <p:dataTable value="#{storeOrderManagedBean.cartDetails}" var="item">
+                <p:column styleClass="Wid20">
+                    <f:facet name="header">
+                        <h:outputText value="商家名称"/>
+                    </f:facet>
+                    <h:outputText value="#{storeOrderManagedBean.currentStore.name}"/>
+                </p:column>
+                <p:column styleClass="Wid40 Responsive">
+                    <f:facet name="header">
+                        <h:outputText value="商品"/>
+                    </f:facet>
+                    <h:outputText value="#{item.content}"/>
+                </p:column>
+                <p:column styleClass="Wid10 TexAlright">
+                    <f:facet name="header">
+                        <h:outputText value="单价"/>
+                    </f:facet>
+                    <h:outputText value="#{item.price}"/>
+                </p:column>
+                <p:column styleClass="Wid10 TexAlright">
+                    <f:facet name="header">
+                        <h:outputText value="数量"/>
+                    </f:facet>
+                    <h:outputText value="#{item.qty}"/>
+                </p:column>
+                <p:column styleClass="Wid10 TexAlright">
+                    <f:facet name="header">
+                        <h:outputText value="金额"/>
+                    </f:facet>
+                    <h:outputText value="#{item.amts}"/>
+                </p:column>
+                <p:column styleClass="Wid10 TexAlcenter">
+                    <f:facet name="header">
+                        <h:outputText value="状态"/>
+                    </f:facet>
+                    <h:outputText value="#{item.status}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

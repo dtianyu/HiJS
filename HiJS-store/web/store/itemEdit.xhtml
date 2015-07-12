@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./WEB-INF/template.xhtml"
+                template=".././WEB-INF/template.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
@@ -57,10 +57,10 @@
                     <p:message for="disc"/>     
                     <p:outputLabel value="Logo1" for="logo1" />
                     <p:inputText id="logo1" value="#{itemMasterManagedBean.currentEntity.logo1}" title="Logo1" />
-                    <h:outputText value=""/>
+                    <h:outputText value="小Logo宽72px高72px"/>
                     <p:outputLabel value="Logo2" for="logo2" />
                     <p:inputText id="logo2" value="#{itemMasterManagedBean.currentEntity.logo2}" title="Logo2" />
-                    <h:outputText value=""/>
+                    <h:outputText value="大Logo宽182px高121px"/>
                     <f:facet name="footer">   
 
                     </f:facet>  

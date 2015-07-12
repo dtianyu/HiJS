@@ -28,20 +28,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cart.getRowCount", query = "SELECT count(c) FROM Cart c"),
+    @NamedQuery(name = "Cart.getRowCountByStoreId", query = "SELECT count(c) FROM Cart c WHERE c.storeid = :storeid"),
     @NamedQuery(name = "Cart.getRowCountByUserId", query = "SELECT count(c) FROM Cart c WHERE c.userid = :userid"),
-    @NamedQuery(name = "Cart.findAll", query = "SELECT c FROM Cart c"),
+    @NamedQuery(name = "Cart.findAll", query = "SELECT c FROM Cart c ORDER BY c.status,c.id DESC"),
     @NamedQuery(name = "Cart.findById", query = "SELECT c FROM Cart c WHERE c.id = :id"),
     @NamedQuery(name = "Cart.findByCartId", query = "SELECT c FROM Cart c WHERE c.cartid = :cartid"),
-    @NamedQuery(name = "Cart.findByStoreId", query = "SELECT c FROM Cart c WHERE c.storeid = :storeid"),
-    @NamedQuery(name = "Cart.findByUserId", query = "SELECT c FROM Cart c WHERE c.userid = :userid"),
+    @NamedQuery(name = "Cart.findByStoreId", query = "SELECT c FROM Cart c WHERE c.storeid = :storeid ORDER BY c.status,c.id DESC"),
+    @NamedQuery(name = "Cart.findByUserId", query = "SELECT c FROM Cart c WHERE c.userid = :userid ORDER BY c.status,c.id DESC"),
     @NamedQuery(name = "Cart.findByStatus", query = "SELECT c FROM Cart c WHERE c.status = :status")})
 public class Cart extends BaseOperateEntity {
-    
-    @Basic(optional =false)
+
+    @Basic(optional = false)
     @NotNull
     @Column(name = "storeid")
     private int storeid;
-    @Basic(optional=false)
+    @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
     @Column(name = "store")

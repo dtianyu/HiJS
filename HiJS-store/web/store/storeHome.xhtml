@@ -3,7 +3,7 @@
                  xmlns:p="http://primefaces.org/ui"
                  xmlns:f="http://xmlns.jcp.org/jsf/core"
                  xmlns:h="http://xmlns.jcp.org/jsf/html"
-                 template="./WEB-INF/template.xhtml">
+                 template=".././WEB-INF/template.xhtml">
 
     <ui:define name="content">
         <!-- SECTION 1 -->       
@@ -24,9 +24,9 @@
                                 <p:separator styleClass="Wid100"></p:separator>
                                 <div class="EmptyBox10"></div>
                                 <div class="Fs16 Fright">
-                                    <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-leaf hardblue"> Goods (#{storeManagedBean.currentEntity.itemcount})</i></a>
-                                    <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-bell-alt hardblue"> Messages (更新中)</i></a>
-                                    <a href="/HiJS-store/storeEdit.xhtml" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-cog-alt hardblue"> Settings</i></a>
+                                    <a href="/HiJS-store/store/item.xhtml" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-leaf hardblue"> 商品数 (#{storeManagedBean.currentEntity.itemcount})</i></a>
+                                    <a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-bell-alt hardblue"> 新消息 (0)</i></a>
+                                    <a href="/HiJS-store/store/order.xhtml" class="DispInlBlock Fleft Fs16 MarRight20"><i class="icon-chart-bar hardblue"> 新订单 <span class="red">(#{storeManagedBean.newOrderCount})</span></i></a>
                                 </div>
                                 <div class="EmptyBox10"></div>
                                 <p:separator styleClass="Wid100"></p:separator>

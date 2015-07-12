@@ -24,6 +24,16 @@ public class CartBean extends SuperEJB<Cart> {
         this.className = "Cart";
     }
 
+    public int getRowCountByStoreId(int storeid) {
+        Query query = em.createNamedQuery(getClassName() + ".getRowCountByStoreId");
+        query.setParameter("storeid", storeid);
+        if (query.getSingleResult() == null) {
+            return 0;
+        } else {
+            return Integer.parseInt(query.getSingleResult().toString());
+        }
+    }
+
     public Cart findByCartId(String cartid) {
         Query query;
         query = em.createNamedQuery("Cart.findByCartId");
@@ -42,4 +52,10 @@ public class CartBean extends SuperEJB<Cart> {
         return query.getResultList();
     }
 
+    public List<Cart> findByStoreId(int storeid, int first, int pageSize) {
+        Query query;
+        query = em.createNamedQuery("Cart.findByStoreId").setFirstResult(first).setMaxResults(pageSize);;
+        query.setParameter("storeid", storeid);
+        return query.getResultList();
+    }
 }

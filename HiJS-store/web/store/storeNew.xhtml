@@ -3,100 +3,97 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
-                template="./WEB-INF/template.xhtml">
+                template=".././WEB-INF/template.xhtml">
 
     <ui:define name="content">
 
-        <h:form id="formEdit">
-            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
+        <h:form id="formNew">
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:button id="btnReturn" value="返回" outcome="home" icon="ui-icon-arrowreturn-1-w"  />                          
+                    <p:button id="btnReturn" value="返回" outcome="home" icon="ui-icon-arrowreturn-1-w"/> 
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnSave" value="保存" action="#{storeManagedBean.save('home')}" icon="ui-icon-disk" update="plgEdit" />                                
+                    <p:commandButton id="btnPersist" value="保存" action="#{storeManagedBean.persist('home')}" icon="ui-icon-disk" update="plgNew"/>
                 </f:facet>
-            </p:toolbar>
-            <p:panel id="panelEdit" header="商家信息－修改">
-                <f:facet name="header">   
-
-                </f:facet> 
-                <h:panelGrid id="plgEdit"  columns="3" columnClasses="Wid20,Wid50,Wid30" styleClass="Wid60 Responsive" >     
+            </p:toolbar>  
+            <p:panel id="panelNew" header="商家信息－新增">
+                <h:panelGrid id="plgNew"  columns="3" columnClasses="Wid20,Wid50,Wid30" styleClass="Wid60 Responsive" >     
                     <p:outputLabel value="板块" for="kind" />
-                    <p:selectOneMenu id="kind" value="#{storeManagedBean.currentEntity.kind}" title="Kind" required="true" requiredMessage="请选择板块.">
-                        <p:ajax listener="#{storeManagedBean.onKindChangedEdit}" update="category" />
+                    <p:selectOneMenu id="kind" value="#{storeManagedBean.newEntity.kind}" title="Kind" required="true"  requiredMessage="请选择板块."  >
+                        <p:ajax listener="#{storeManagedBean.onKindChangedNew}" update="category" />
                         <f:selectItem itemLabel="Select One" itemValue="" />  
                         <f:selectItems value="#{storeManagedBean.storeKindList}"  var="e"  itemLabel="#{e.name}" itemValue="#{e.id}" />
-                    </p:selectOneMenu> 
+                    </p:selectOneMenu>  
                     <p:message for="kind"/>
                     <p:outputLabel value="商家名称" for="name" />
-                    <p:inputText id="name" value="#{storeManagedBean.currentEntity.name}" title="Name" required="true" requiredMessage="请输入名称."/>                       
+                    <p:inputText id="name" value="#{storeManagedBean.newEntity.name}" title="Name" required="true" requiredMessage="请输入名称."/>
                     <p:message for="name"/>
                     <p:outputLabel value="地区" for="town" />
-                    <p:selectOneMenu id="town" value="#{storeManagedBean.currentEntity.town}" title="Town" required="true" requiredMessage="请输入地区.">
+                    <p:selectOneMenu id="town" value="#{storeManagedBean.newEntity.town}" title="Town" required="true" requiredMessage="请输入地区.">
                         <!-- TODO: update below reference to list of available items-->
                         <f:selectItem itemLabel="Select One" itemValue="" />  
                         <f:selectItems value="#{storeManagedBean.areaList}"  var="e"  itemLabel="#{e.area}" itemValue="#{e.area}" />
                     </p:selectOneMenu> 
                     <p:message for="town"/>
                     <p:outputLabel value="地址" for="address" />
-                    <p:inputText id="address" value="#{storeManagedBean.currentEntity.address}" title="Address" required="true" requiredMessage="请输入地址."/>
+                    <p:inputText id="address" value="#{storeManagedBean.newEntity.address}" title="Address" required="true" requiredMessage="请输入地址."/>
                     <p:message for="address"/>
                     <p:outputLabel value="联系人" for="contactor" />
-                    <p:inputText id="contactor" value="#{storeManagedBean.currentEntity.contacter}" title="Contactor" required="true" requiredMessage="请输入联系人."/>
+                    <p:inputText id="contactor" value="#{storeManagedBean.newEntity.contacter}" title="Contactor" required="true" requiredMessage="请输入联系人."/>
                     <p:message for="contactor"/>
-                    <p:outputLabel value="手机" for="mobile" />                   
-                    <p:inputText id="mobile" value="#{storeManagedBean.currentEntity.mobile}" title="Mobile" required="true" requiredMessage="请输入手机."/>
+                    <p:outputLabel value="手机" for="mobile" />
+                    <p:inputText id="mobile" value="#{storeManagedBean.newEntity.mobile}" title="Mobile" required="true" requiredMessage="请输入手机."/>
                     <p:message for="mobile"/>
                     <p:outputLabel value="电话" for="phone" />
-                    <p:inputText id="phone" value="#{storeManagedBean.currentEntity.phone}" title="Phone" />
+                    <p:inputText id="phone" value="#{storeManagedBean.newEntity.phone}" title="Phone" />
                     <h:outputText value=""/>
                     <p:outputLabel value="分类" for="category" />
-                    <p:selectOneMenu id="category" value="#{storeManagedBean.currentEntity.category}" title="Category" required="true" requiredMessage="请输入分类." >
+                    <p:selectOneMenu id="category" value="#{storeManagedBean.newEntity.category}" title="Category" required="true" requiredMessage="请输入分类.">
                         <!-- TODO: update below reference to list of available items-->
                         <f:selectItem itemLabel="Select One" itemValue="" />  
                         <f:selectItems value="#{storeManagedBean.storeCategoryList}"  var="e"  itemLabel="#{e.category}" itemValue="#{e.category}" />
                     </p:selectOneMenu> 
                     <p:message for="category"/>
                     <p:outputLabel value="专长" for="feature" />
-                    <p:inputText id="feature" value="#{storeManagedBean.currentEntity.feature}" title="Feature" />
+                    <p:inputText id="feature" value="#{storeManagedBean.newEntity.feature}" title="Feature" />
                     <h:outputText value=""/>
                     <p:outputLabel value="活动" for="action" />
-                    <p:inputText id="action" value="#{storeManagedBean.currentEntity.action}" title="Action" />
+                    <p:inputText id="action" value="#{storeManagedBean.newEntity.action}" title="Action" />
                     <h:outputText value=""/>
                     <p:outputLabel value="人均消费" for="pcc" />
-                    <p:inputText id="pcc" value="#{storeManagedBean.currentEntity.pcc}" title="Pcc" />
+                    <p:inputText id="pcc" value="#{storeManagedBean.newEntity.pcc}" title="Pcc" />
                     <h:outputText value=""/>
                     <p:outputLabel value="免送货费" for="freightfree" />
-                    <p:inputText id="freightfree" value="#{storeManagedBean.currentEntity.freightfree}" title="Pcc" />
+                    <p:inputText id="freightfree" value="#{storeManagedBean.newEntity.freightfree}" title="Pcc" />
                     <h:outputText value="输入免送货费起点金额"/>
                     <p:outputLabel value="送货费" for="freight" />
-                    <p:inputText id="freight" value="#{storeManagedBean.currentEntity.freight}" title="Pcc" />
+                    <p:inputText id="freight" value="#{storeManagedBean.newEntity.freight}" title="Pcc" />
                     <h:outputText value=""/>
                     <p:outputLabel value="开始营业" for="opentime" />
-                    <p:inputText id="opentime" value="#{storeManagedBean.currentEntity.opentime}" 
-                                 title="OpenTime" required="true">
+                    <p:inputText id="opentime" value="#{storeManagedBean.newEntity.opentime}" 
+                                 title="OpenTime" required="true" requiredMessage="请输入营业时间">
                         <f:convertDateTime pattern="HH:mm" />
                     </p:inputText>
                     <h:outputText value=""/>
                     <p:outputLabel value="结束营业" for="closetime" />
-                    <p:inputText id="closetime" value="#{storeManagedBean.currentEntity.closetime}" 
-                                 title="CloseTime" required="true">
+                    <p:inputText id="closetime" value="#{storeManagedBean.newEntity.closetime}" 
+                                 title="CloseTime" required="true" requiredMessage="请输入营业时间" >
                         <f:convertDateTime pattern="HH:mm" />
-                    </p:inputText>
+                    </p:inputText>   
                     <h:outputText value=""/>
                     <p:outputLabel value="营业备注" for="openremark" />
-                    <p:inputText id="openremark" value="#{storeManagedBean.currentEntity.openremark}" title="OpenRemark" />
+                    <p:inputText id="openremark" value="#{storeManagedBean.newEntity.openremark}" title="OpenRemark" />
                     <h:outputText value=""/>
                     <p:outputLabel value="小Logo" for="logo1" />
-                    <p:inputText id="logo1" value="#{storeManagedBean.currentEntity.logo1}" title="Logo1" />
+                    <p:inputText id="logo1" value="#{storeManagedBean.newEntity.logo1}" title="Logo1" />
                     <h:outputText value="小Logo宽72px高72px"/>
                     <p:outputLabel value="大Logo" for="logo2" />
-                    <p:inputText id="logo2" value="#{storeManagedBean.currentEntity.logo2}" title="Logo2" />                                
+                    <p:inputText id="logo2" value="#{storeManagedBean.newEntity.logo2}" title="Logo2" />
                     <h:outputText value="大Logo宽182px高121px"/>
                     <f:facet name="footer">   
 
-                    </f:facet>  
+                    </f:facet>      
                 </h:panelGrid>
             </p:panel>
         </h:form>
@@ -108,6 +105,7 @@
                 <h:outputText id="fileName"  value="#{storeManagedBean.fileName}"/>
             </p:panelGrid> 
         </h:form>
+
     </ui:define>
 
 </ui:composition>
