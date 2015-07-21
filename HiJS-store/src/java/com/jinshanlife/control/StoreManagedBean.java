@@ -7,11 +7,13 @@ package com.jinshanlife.control;
 
 import com.jinshanlife.ejb.AreaBean;
 import com.jinshanlife.ejb.CartBean;
+import com.jinshanlife.ejb.ItemCategoryBean;
 import com.jinshanlife.ejb.ItemMasterBean;
 import com.jinshanlife.ejb.StoreBean;
 import com.jinshanlife.ejb.StoreCategoryBean;
 import com.jinshanlife.ejb.StoreKindBean;
 import com.jinshanlife.entity.Area;
+import com.jinshanlife.entity.ItemCategory;
 import com.jinshanlife.entity.ItemMaster;
 import com.jinshanlife.entity.Store;
 import com.jinshanlife.entity.StoreCategory;
@@ -37,6 +39,8 @@ import javax.json.JsonObjectBuilder;
 @SessionScoped
 public class StoreManagedBean extends SuperOperateBean<Store> {
 
+    @EJB
+    private ItemCategoryBean itemCategoryBean;
     @EJB
     private AreaBean areaBean;
     @EJB
@@ -107,6 +111,10 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
                 } catch (Exception ex) {
                     Logger.getLogger(StoreManagedBean.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
+            List<ItemCategory> itemCategoryList = itemCategoryBean.findByStoreId(currentEntity.getId());
+            if (!itemMasterList.isEmpty()) {
+                job.add("category", itemCategoryBean.createJsonArrayBuilder(itemCategoryList));
             }
             name = currentEntity.getId().toString() + ".json";
             buildJsonFile(job.build(), path, name);

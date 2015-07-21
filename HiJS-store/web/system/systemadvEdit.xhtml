@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template=".././WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="formNew">
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />          
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="systemadv" icon="ui-icon-arrowreturn-1-w"/> 
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnPersist" value="保存" action="#{systemAdvManagedBean.persist('systemadv')}" icon="ui-icon-disk" />
+                </f:facet>
+            </p:toolbar>  
+            <p:panel id="panelNew" header="首页广告－修改">
+                <f:facet name="header">   
+
+                </f:facet> 
+                <h:panelGrid id="plgNew"  columns="3" columnClasses="Wid20,Wid50,Wid30" styleClass="Wid60 Responsive" >    
+                    <p:outputLabel value="标题" for="title" />
+                    <p:inputText id="title" value="#{systemAdvManagedBean.currentEntity.title}" title="标题"/>
+                    <h:outputText value=""></h:outputText>
+                    <h:outputText value="图片大小"></h:outputText>
+                    <h:outputText value="宽262px高320px"></h:outputText>
+                    <h:outputText value=""></h:outputText>
+                    <p:outputLabel value="图片" for="adv" />
+                    <p:inputText id="adv" value="#{systemAdvManagedBean.currentEntity.adv}" title="图片" required="true" requiredMessage="请输入分类."/>
+                    <p:message for="adv"/>
+                    <f:facet name="footer">   
+
+                    </f:facet>      
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+        <h:form id="formUpload">
+            <p:fileUpload id="fileUpload"  fileUploadListener="#{systemAdvManagedBean.handleFileUpload}" sizeLimit="5000000" styleClass="fileUpload"
+                          update=":formUpload"/>
+            <p:panelGrid id="plgUpload" columns="2" columnClasses="w120,w300">
+                <h:outputLabel value="文件名：" for="fileName" />
+                <h:outputText id="fileName"  value="#{systemAdvManagedBean.fileName}"/>
+            </p:panelGrid> 
+        </h:form>
+    </ui:define>
+
+</ui:composition>

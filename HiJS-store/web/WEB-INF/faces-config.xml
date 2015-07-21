@@ -61,7 +61,27 @@
             <from-outcome>home</from-outcome>
             <to-view-id>/home.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>  
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemcategory</from-outcome>
+            <to-view-id>/store/itemcategory.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemcategoryNew</from-outcome>
+            <to-view-id>/store/itemcategoryNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemcategoryEdit</from-outcome>
+            <to-view-id>/store/itemcategoryEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>itemcategoryView</from-outcome>
+            <to-view-id>/store/itemcategoryView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>       
         <navigation-case>
             <from-outcome>item</from-outcome>
             <to-view-id>/store/item.xhtml</to-view-id>
@@ -84,22 +104,22 @@
         </navigation-case>       
         <navigation-case>
             <from-outcome>setting</from-outcome>
-            <to-view-id>/setting.xhtml</to-view-id>
+            <to-view-id>/system/setting.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>settingNew</from-outcome>
-            <to-view-id>/settingNew.xhtml</to-view-id>
+            <to-view-id>/system/settingNew.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>settingEdit</from-outcome>
-            <to-view-id>/settingEdit.xhtml</to-view-id>
+            <to-view-id>/system/settingEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>settingView</from-outcome>
-            <to-view-id>/settingView.xhtml</to-view-id>
+            <to-view-id>/system/settingView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -147,7 +167,7 @@
             <to-view-id>/store/storeView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-                <navigation-case>
+        <navigation-case>
             <from-outcome>storeOrder</from-outcome>
             <to-view-id>/store/order.xhtml</to-view-id>
             <redirect/>
@@ -160,6 +180,26 @@
         <navigation-case>
             <from-outcome>storekind</from-outcome>
             <to-view-id>/storekind.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>systemadv</from-outcome>
+            <to-view-id>/system/systemadv.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>  
+        <navigation-case>
+            <from-outcome>systemadvNew</from-outcome>
+            <to-view-id>/system/systemadvNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>        
+        <navigation-case>
+            <from-outcome>systemadvEdit</from-outcome>
+            <to-view-id>/system/systemadvEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>systemadvView</from-outcome>
+            <to-view-id>/system/systemadvView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -184,22 +224,22 @@
         </navigation-case>                        
         <navigation-case>
             <from-outcome>weblink</from-outcome>
-            <to-view-id>/weblink.xhtml</to-view-id>
+            <to-view-id>/system/weblink.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>weblinkNew</from-outcome>
-            <to-view-id>/weblinkNew.xhtml</to-view-id>
+            <to-view-id>/system/weblinkNew.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>weblinkEdit</from-outcome>
-            <to-view-id>/weblinkEdit.xhtml</to-view-id>
+            <to-view-id>/system/weblinkEdit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>weblinkView</from-outcome>
-            <to-view-id>/weblinkView.xhtml</to-view-id>
+            <to-view-id>/system/weblinkView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>    
     </navigation-rule>

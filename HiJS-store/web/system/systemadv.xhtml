@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template=".././WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+
+        <h:form id="formList">
+            <p:growl id="growl" autoUpdate="true" showSummary="false" showDetail="true" sticky="true"/>
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{systemAdvManagedBean.init()}"  icon="ui-icon-search" update=":formList"/>
+                    <p:commandButton id="btnPush" value="发布" actionListener="#{systemAdvManagedBean.push()}"  icon="ui-icon-signal-diag" update=":formList"/> 
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnEdit" icon="ui-icon-pencil" value="编辑"  rendered="#{systemAdvManagedBean.currentEntity.status!='V'}" 
+                                     action="#{systemAdvManagedBean.edit('systemadvEdit')}" />                                                     
+                    <p:commandButton id="btnDelete" actionListener="#{systemAdvManagedBean.delete()}" icon="ui-icon-trash" value="删除" 
+                                     rendered="#{systemAdvManagedBean.currentEntity.status!='V' }" update=":formList"/>
+                    <p:commandButton id="btnVerify" actionListener="#{systemAdvManagedBean.verify()}" icon="ui-icon-locked" value="复核" 
+                                     rendered="#{systemAdvManagedBean.currentEntity.status!='V'}"   update=":formList"/>
+                    <p:commandButton id="btnUnverify" actionListener="#{systemAdvManagedBean.unverify()}" icon="ui-icon-unlocked" value="取消" 
+                                     rendered="#{systemAdvManagedBean.currentEntity.status=='V'}"  update=":formList"/>
+                    <p:commandButton id="btnCreate" value="新增" actionListener="#{systemAdvManagedBean.create()}"  icon="ui-icon-plus"  
+                                     action="#{systemAdvManagedBean.create('systemadvNew')}" />
+                </f:facet>
+            </p:toolbar>
+            <p:dataTable value="#{systemAdvManagedBean.model}" var="item" tableStyleClass="tableList"  paginator="true" paginatorPosition="bottom" rows="15"  
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                         rowsPerPageTemplate="15,30,45"  lazy="true"
+                         selectionMode="single" selection="#{systemAdvManagedBean.currentEntity}" rowKey="#{item.id}" >
+                <f:facet name="header">
+                    资料维护
+                </f:facet>
+                <p:ajax event="rowSelect"  update=":formList:toolbar" />
+                <p:ajax event="rowUnselect" update=":formList:toolbar" />
+                <p:column styleClass="Wid50 Responsive">
+                    <f:facet name="header">
+                        <h:outputText value="标题"/>
+                    </f:facet>
+                    <h:outputText value="#{item.title}"/>
+                </p:column>
+                <p:column styleClass="Wid40">
+                    <f:facet name="header">
+                        <h:outputText value="图片"/>
+                    </f:facet>
+                    <h:outputText value="#{item.adv}"/>
+                </p:column>
+                <p:column styleClass="Wid10">
+                    <f:facet name="header">
+                        <h:outputText value="状态"/>
+                    </f:facet>
+                    <h:outputText value="#{item.status}"/>
+                </p:column> 
+                <f:facet name="footer">
+
+                </f:facet>
+            </p:dataTable>
+        </h:form>
+        
+    </ui:define>
+
+</ui:composition>

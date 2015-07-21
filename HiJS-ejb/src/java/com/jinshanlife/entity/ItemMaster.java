@@ -5,11 +5,12 @@
  */
 package com.jinshanlife.entity;
 
-import com.jinshanlife.entity.BaseOperateEntity;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -31,7 +32,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ItemMaster.findById", query = "SELECT i FROM ItemMaster i WHERE i.id = :id"),
     @NamedQuery(name = "ItemMaster.findByStoreId", query = "SELECT i FROM ItemMaster i WHERE i.storeid = :storeid ORDER BY i.idx DESC"),
     @NamedQuery(name = "ItemMaster.findByUserId", query = "SELECT i FROM ItemMaster i WHERE i.userid = :userid ORDER BY i.idx DESC"),
-    @NamedQuery(name = "ItemMaster.findByKind", query = "SELECT i FROM ItemMaster i WHERE i.kind = :kind ORDER BY i.idx DESC "),
     @NamedQuery(name = "ItemMaster.findByItemno", query = "SELECT i FROM ItemMaster i WHERE i.itemno = :itemno"),
     @NamedQuery(name = "ItemMaster.findByItemdesc", query = "SELECT i FROM ItemMaster i WHERE i.itemdesc = :itemdesc"),
     @NamedQuery(name = "ItemMaster.findByItemspec", query = "SELECT i FROM ItemMaster i WHERE i.itemspec = :itemspec"),
@@ -39,6 +39,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ItemMaster.findByStatus", query = "SELECT i FROM ItemMaster i WHERE i.status = :status")})
 public class ItemMaster extends BaseOperateEntity {
 
+    @JoinColumn(name = "categoryid", referencedColumnName = "id")
+    @ManyToOne(optional = true)
+    private ItemCategory itemCategory;
     @Basic(optional = false)
     @NotNull
     @Column(name = "storeid")
@@ -47,8 +50,6 @@ public class ItemMaster extends BaseOperateEntity {
     @NotNull
     @Column(name = "userid")
     private int userid;
-    @Column(name = "kind")
-    private Integer kind;
     @Size(max = 20)
     @Column(name = "itemno")
     private String itemno;
@@ -126,14 +127,6 @@ public class ItemMaster extends BaseOperateEntity {
 
     public void setUserid(int userid) {
         this.userid = userid;
-    }
-
-    public Integer getKind() {
-        return kind;
-    }
-
-    public void setKind(Integer kind) {
-        this.kind = kind;
     }
 
     public String getItemno() {
@@ -289,6 +282,20 @@ public class ItemMaster extends BaseOperateEntity {
      */
     public void setSn(String sn) {
         this.sn = sn;
+    }
+
+    /**
+     * @return the itemCategory
+     */
+    public ItemCategory getItemCategory() {
+        return itemCategory;
+    }
+
+    /**
+     * @param itemCategory the itemCategory to set
+     */
+    public void setItemCategory(ItemCategory itemCategory) {
+        this.itemCategory = itemCategory;
     }
 
 }

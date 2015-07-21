@@ -19,6 +19,14 @@
             </p:toolbar>  
             <p:panel id="panelNew" header="商品信息－新增">
                 <h:panelGrid id="plgNew" columns="3" columnClasses="Wid20,Wid50,Wid30" styleClass="Wid60 Responsive" >
+                    <p:outputLabel value="商品分类" for="category" />
+                    <p:selectOneMenu id="category" value="#{itemMasterManagedBean.newEntity.itemCategory}"  required="false"
+                                     converter="itemCategoryConverter" >
+                        <!-- TODO: update below reference to list of available items-->
+                        <f:selectItem itemLabel="Select One" itemValue="" />  
+                        <f:selectItems value="#{itemMasterManagedBean.itemCategoryList}" var="c" itemLabel="#{c.category}" itemValue="#{c}"/>
+                    </p:selectOneMenu>
+                    <h:outputText value=""/>
                     <p:outputLabel value="商品编码" for="itemno" />
                     <p:inputText id="itemno" value="#{itemMasterManagedBean.newEntity.itemno}" title="Itemno" />
                     <h:outputText value=""/>
