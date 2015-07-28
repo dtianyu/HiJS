@@ -36,6 +36,13 @@ public class ItemMasterBean extends SuperEJB<ItemMaster> {
             job.add("id", entity.getId())
                     .add("storeid", entity.getStoreid())
                     .add("userid", entity.getUserid());
+            if (entity.getItemCategory() != null) {
+                job.add("categoryid", entity.getItemCategory().getId());
+                job.add("category", entity.getItemCategory().getCategory());
+            } else {
+                job.addNull("categoryid");
+                job.addNull("category");
+            }
             if (entity.getItemno() != null) {
                 job.add("itemno", entity.getItemno());
             } else {
@@ -86,7 +93,7 @@ public class ItemMasterBean extends SuperEJB<ItemMaster> {
             } else {
                 job.addNull("logo2");
             }
-            
+
         }
         return job;
     }

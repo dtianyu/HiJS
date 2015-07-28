@@ -50,7 +50,7 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
     @EJB
     private StoreCategoryBean storeCategoryBean;
     @EJB
-    private StoreBean sessionBean;
+    private StoreBean storeBean;
     @EJB
     private ItemMasterBean itemMasterBean;
 
@@ -77,9 +77,9 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
         } else {
             for (StoreKind kind : storeKindList) {
                 setEntityList(null);
-                setEntityList(sessionBean.findByKind(kind.getId()));
+                setEntityList(storeBean.findByKind(kind.getId()));
                 if (!entityList.isEmpty()) {
-                    jab = sessionBean.createJsonArrayBuilder(entityList);
+                    jab = storeBean.createJsonArrayBuilder(entityList);
                     name = kind.getClassname() + ".json";
                     buildJsonFile(jab.build(), path, name);
 
@@ -87,7 +87,7 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
                     storeKindBean.update(kind);
 
                     setEntityList(entityList.subList(0, getAppTopList() < entityList.size() ? getAppTopList() : entityList.size()));
-                    jab = sessionBean.createJsonArrayBuilder(entityList);
+                    jab = storeBean.createJsonArrayBuilder(entityList);
                     name = kind.getClassname() + "Top.json";
                     buildJsonFile(jab.build(), path, name);
                 }
@@ -101,7 +101,7 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
             JsonObjectBuilder job;
             String path = getAppDataPath();
             String name;
-            job = sessionBean.createJsonObjectBuilder(currentEntity);
+            job = storeBean.createJsonObjectBuilder(currentEntity);
             List<ItemMaster> itemMasterList = itemMasterBean.findByStoreId(currentEntity.getId());
             if (!itemMasterList.isEmpty()) {
                 job.add("content", itemMasterBean.createJsonArrayBuilder(itemMasterList));
@@ -113,8 +113,8 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
                 }
             }
             List<ItemCategory> itemCategoryList = itemCategoryBean.findByStoreId(currentEntity.getId());
-            if (!itemMasterList.isEmpty()) {
-                job.add("category", itemCategoryBean.createJsonArrayBuilder(itemCategoryList));
+            if (!itemCategoryList.isEmpty()) {
+                job.add("itemcategory", itemCategoryBean.createJsonArrayBuilder(itemCategoryList));
             }
             name = currentEntity.getId().toString() + ".json";
             buildJsonFile(job.build(), path, name);
@@ -149,16 +149,16 @@ public class StoreManagedBean extends SuperOperateBean<Store> {
 
     @Override
     public void init() {
-        setSuperEJB(sessionBean);
+        setSuperEJB(storeBean);
         setAreaList(areaBean.findAll());
         setStoreKindList(storeKindBean.findAll());
         setStoreCategoryList(storeCategoryBean.findAll());
         if (userManagedBean.getCurrentUser() != null) {
             if (userManagedBean.getCurrentUser().getSuperuser()) {
-                setModel(new StoreModel(sessionBean, userManagedBean));
+                setModel(new StoreModel(storeBean, userManagedBean));
                 setCurrentEntity(newEntity);
             } else if (userManagedBean.getCurrentUser().getOwnstore()) {
-                setCurrentEntity(sessionBean.findByUserId(userManagedBean.getCurrentUser().getId()).get(0));
+                setCurrentEntity(storeBean.findByUserId(userManagedBean.getCurrentUser().getId()).get(0));
                 HashMap filters = new HashMap();
                 filters.put("status", "N");
                 filters.put("storeid", currentEntity.getId());
